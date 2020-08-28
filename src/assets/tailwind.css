@@ -1,0 +1,15 @@
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+#root {
+	@apply min-h-screen;
+	@apply bg-gray-200;
+}
+
+.mode-dark #root {
+	@apply bg-gray-700;
+	@apply text-gray-200 !important;
+}
