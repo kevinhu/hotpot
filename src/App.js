@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
+// Import global components
+import Navbar from "./components/Navbar";
+
 // Import pages
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
@@ -40,7 +43,8 @@ function App() {
   return (
     <Router>
       <WindowDimensionsProvider>
-        <div
+        <Navbar />
+        {/*<div
           className="text-center w-screen pt-8"
           style={{ marginBottom: "-1rem" }}
         >
@@ -50,7 +54,7 @@ function App() {
             size={"3rem"}
             speed={5}
           />
-        </div>
+        </div>*/}
         <Switch>
           {/* Public Routes */}
           <Route exact path="/">

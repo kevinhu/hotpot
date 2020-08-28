@@ -20883,6 +20883,18 @@ video {
   animation: bounce 1s infinite;
 }
 
+@import url("https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap");
+
+.english-serif {
+  font-family: "Source Serif Pro", serif;
+}
+
+.chinese-serif {
+  font-family: "Noto Serif SC", serif;
+}
+
 #root {
   min-height: 100vh;
   --bg-opacity: 1;
