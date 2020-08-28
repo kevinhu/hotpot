@@ -16,9 +16,13 @@
 	font-family: "Noto Serif SC", serif;
 }
 
+.red {
+	color: #e70f07;
+}
+
 #root {
 	@apply min-h-screen;
-	@apply bg-gray-200;
+	@apply bg-gray-100;
 }
 
 .mode-dark #root {

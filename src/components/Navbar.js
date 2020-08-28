@@ -2,9 +2,21 @@ import React from "react";
 
 const Navbar = () => {
 	return (
-		<div className="w-full">
-			<div className="english-serif">huoguo</div>
-			<input type="text"></input>
+		<div
+			className="w-full flex"
+			style={{ borderBottom: "solid 2px black" }}
+		>
+			<div
+				className="english-serif px-6 py-2 red text-2xl"
+				style={{ borderRight: "solid 2px black" }}
+			>
+				huoguo
+			</div>
+			<input
+				className="english-serif px-6 bg-transparent outline-none w-full"
+				type="text"
+				placeholder="Search 189,432 words"
+			></input>
 		</div>
 	);
 };
