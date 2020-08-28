@@ -20901,9 +20901,7 @@ video {
 
 #root {
   min-height: 100vh;
-  --bg-opacity: 1;
-  background-color: #f7fafc;
-  background-color: rgba(247, 250, 252, var(--bg-opacity));
+  background-color: #f8f8f8;
 }
 
 .mode-dark #root {

@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar";
 // Import pages
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
+import Word from "./pages/Word";
 
 // Import dark mode
 import { useDarkMode } from "./components/DarkMode";
@@ -59,6 +60,10 @@ function App() {
           {/* Public Routes */}
           <Route exact path="/">
             {<Home />}
+          </Route>
+
+          <Route exact path="/word">
+            {<Word />}
           </Route>
 
           {/* Catch-all Route */}

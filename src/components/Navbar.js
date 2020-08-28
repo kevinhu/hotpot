@@ -13,7 +13,7 @@ const Navbar = () => {
 				huoguo
 			</div>
 			<input
-				className="english-serif px-6 bg-transparent outline-none w-full"
+				className="chinese-serif px-6 bg-transparent outline-none w-full"
 				type="text"
 				placeholder="Search 189,432 words"
 			></input>

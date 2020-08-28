@@ -22,7 +22,7 @@
 
 #root {
 	@apply min-h-screen;
-	@apply bg-gray-100;
+	background-color: #f8f8f8;
 }
 
 .mode-dark #root {
