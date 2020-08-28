@@ -7,7 +7,7 @@ const Word = () => {
 
 	return (
 		<div className="w-full">
-			<div className="w-full text-center py-12">
+			<div className="w-full text-center py-16">
 				<div className="chinese-serif flex justify-center">
 					<PinyinCharacter
 						character="火"
@@ -26,13 +26,13 @@ const Word = () => {
 				</div>
 			</div>
 			<div
-				className="w-2/3 flex english-serif mx-auto mb-12"
+				className="w-3/4 flex english-serif mx-auto mb-12 bg-white"
 				style={{
 					border: "solid 2px black",
 				}}
 			>
 				<div
-					className="w-3/4"
+					className="w-2/3"
 					style={{ borderRight: "solid 2px rgba(0,0,0,0.2)" }}
 				>
 					<div
@@ -125,9 +125,29 @@ const Word = () => {
 					>
 						<div className={sectionHeaderStyle}>Words</div>
 						<div className="pt-2">
-							<div className="chinese-serif text-xl">
-								<div className="inline">纸</div>
-								<div className="red inline">火锅</div>
+							<div className="chinese-serif text-xl flex">
+								<PinyinCharacter
+									character="纸"
+									pinyin="zhǐ"
+									characterSize="1.5rem"
+									pinyinSize="0.75rem"
+								/>
+								<PinyinCharacter
+									character="火"
+									pinyin="huǒ"
+									characterSize="1.5rem"
+									pinyinSize="0.75rem"
+									pinyinClass="red"
+									characterClass="red"
+								/>
+								<PinyinCharacter
+									character="锅"
+									pinyin="guō"
+									characterSize="1.5rem"
+									pinyinSize="0.75rem"
+									pinyinClass="red"
+									characterClass="red"
+								/>
 							</div>
 							<div className="text-gray-700">
 								paper hot pot (hot pot using a single-use pot
@@ -136,9 +156,29 @@ const Word = () => {
 						</div>
 
 						<div className="pt-2">
-							<div className="chinese-serif text-xl">
-								<div className="inline">盖</div>
-								<div className="red inline">火锅</div>
+							<div className="chinese-serif text-xl flex">
+								<PinyinCharacter
+									character="盖"
+									pinyin="gài"
+									characterSize="1.5rem"
+									pinyinSize="0.75rem"
+								/>
+								<PinyinCharacter
+									character="火"
+									pinyin="huǒ"
+									characterSize="1.5rem"
+									pinyinSize="0.75rem"
+									pinyinClass="red"
+									characterClass="red"
+								/>
+								<PinyinCharacter
+									character="锅"
+									pinyin="guō"
+									characterSize="1.5rem"
+									pinyinSize="0.75rem"
+									pinyinClass="red"
+									characterClass="red"
+								/>
 							</div>
 							<div className="text-gray-700">
 								to block a shot (basketball)
@@ -146,17 +186,69 @@ const Word = () => {
 						</div>
 
 						<div className="pt-2">
-							<div className="chinese-serif text-xl">
-								<div className="inline">奶酪</div>
-								<div className="red inline">火锅</div>
+							<div className="chinese-serif text-xl flex">
+								<PinyinCharacter
+									character="奶"
+									pinyin="gài"
+									characterSize="1.5rem"
+									pinyinSize="0.75rem"
+								/>
+								<PinyinCharacter
+									character="酪"
+									pinyin="lào"
+									characterSize="1.5rem"
+									pinyinSize="0.75rem"
+								/>
+								<PinyinCharacter
+									character="火"
+									pinyin="huǒ"
+									characterSize="1.5rem"
+									pinyinSize="0.75rem"
+									pinyinClass="red"
+									characterClass="red"
+								/>
+								<PinyinCharacter
+									character="锅"
+									pinyin="guō"
+									characterSize="1.5rem"
+									pinyinSize="0.75rem"
+									pinyinClass="red"
+									characterClass="red"
+								/>
 							</div>
 							<div className="text-gray-700">fondue</div>
 						</div>
 
 						<div className="pt-2">
-							<div className="chinese-serif text-xl">
-								<div className="inline">石头</div>
-								<div className="red inline">火锅</div>
+							<div className="chinese-serif text-xl flex">
+								<PinyinCharacter
+									character="石"
+									pinyin="shí"
+									characterSize="1.5rem"
+									pinyinSize="0.75rem"
+								/>
+								<PinyinCharacter
+									character="头"
+									pinyin="tou"
+									characterSize="1.5rem"
+									pinyinSize="0.75rem"
+								/>
+								<PinyinCharacter
+									character="火"
+									pinyin="huǒ"
+									characterSize="1.5rem"
+									pinyinSize="0.75rem"
+									pinyinClass="red"
+									characterClass="red"
+								/>
+								<PinyinCharacter
+									character="锅"
+									pinyin="guō"
+									characterSize="1.5rem"
+									pinyinSize="0.75rem"
+									pinyinClass="red"
+									characterClass="red"
+								/>
 							</div>
 							<div className="text-gray-700">
 								claypot (used in cooking)

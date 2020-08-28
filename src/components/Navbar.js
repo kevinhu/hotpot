@@ -3,8 +3,12 @@ import React from "react";
 const Navbar = () => {
 	return (
 		<div
-			className="w-full flex"
-			style={{ borderBottom: "solid 2px black" }}
+			className="w-3/4 flex mx-auto bg-white"
+			style={{
+				borderBottom: "solid 2px black",
+				borderLeft: "solid 2px black",
+				borderRight: "solid 2px black",
+			}}
 		>
 			<div
 				className="english-serif px-6 py-2 red text-2xl"
