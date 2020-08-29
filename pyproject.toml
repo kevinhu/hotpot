@@ -12,6 +12,7 @@ ipython = "^7.18.0"
 pandas = "^1.1.1"
 ujson = "^3.1.0"
 pyarrow = "^1.0.1"
+jieba = "^0.42.1"
 
 [tool.poetry.dev-dependencies]
 
