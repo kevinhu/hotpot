@@ -8,6 +8,10 @@ authors = ["Kevin Hu <kevinhuwest@gmail.com>"]
 python = "^3.8"
 requests = "^2.24.0"
 tqdm = "^4.48.2"
+ipython = "^7.18.0"
+pandas = "^1.1.1"
+ujson = "^3.1.0"
+pyarrow = "^1.0.1"
 
 [tool.poetry.dev-dependencies]
 
