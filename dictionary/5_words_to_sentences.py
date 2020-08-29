@@ -5,7 +5,7 @@ import pandas as pd
 import ujson
 from tqdm import tqdm
 
-MAX_SENTENCES = 32
+MAX_SENTENCES = 8
 
 tqdm.pandas()
 

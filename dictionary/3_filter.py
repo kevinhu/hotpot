@@ -14,8 +14,8 @@ zh_translations = pd.read_feather("./data/intermediate/zh_translations.feather",
 print("Applying length filter")
 zh_translations["zh_length"] = zh_translations["chinese"].apply(len)
 
-MIN_LENGTH = 16
-MAX_LENGTH = 64
+MIN_LENGTH = 8
+MAX_LENGTH = 24
 
 zh_translations = zh_translations[zh_translations["zh_length"] <= MAX_LENGTH]
 zh_translations = zh_translations[zh_translations["zh_length"] >= MIN_LENGTH]
