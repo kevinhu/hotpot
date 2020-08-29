@@ -40,4 +40,4 @@ with gzip.open(
 with gzip.open(
     "./data/intermediate/traditional_char_to_word.json.zip", "wt", encoding="utf-8"
 ) as f:
-    ujson.dump(simplified_char_to_word, f)
+    ujson.dump(traditional_char_to_word, f)

@@ -15,6 +15,9 @@ cedict = pd.read_csv(
 cedict = cedict["line"].str.split(" ", 2, expand=True)
 cedict.columns = ["simplified", "traditional", "definition"]
 
+cedict["pinyin"] = cedict["definition"].apply(lambda x: x.split("]", 1)[0][1:])
+cedict["definition"] = cedict["definition"].apply(lambda x: x.split("]", 1)[1])
+
 cedict.to_csv(f"./data/intermediate/cedict.txt", sep="\t")
 
 print("ok")
@@ -40,7 +43,7 @@ with open("./data/raw/translation2019zh/translation2019zh_train.json", "r") as f
 
     k = 0
 
-    for line in tqdm(f,total=):
+    for line in tqdm(f):
         line_json = ujson.loads(line)
 
         zh_translation_json.append(line_json)
