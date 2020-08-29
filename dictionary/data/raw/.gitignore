@@ -1,2 +1,3 @@
 *
 !.gitignore
+!prohibited_characters.json

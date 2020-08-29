@@ -48,7 +48,7 @@ with open("./data/raw/translation2019zh/translation2019zh_train.json", "r") as f
 zh_translations = pd.DataFrame(zh_translation_json)
 
 zh_translations.to_feather(
-    f"./data/intermediate/zh_translations.feather",
+    "./data/intermediate/zh_translations.feather",
     compression=config.FEATHER_COMPRESSION,
     compression_level=config.FEATHER_COMPRESSION_LEVEL,
 )
