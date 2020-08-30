@@ -13,7 +13,7 @@ cedict = pd.read_csv(
 )
 
 cedict = cedict["line"].str.split(" ", 2, expand=True)
-cedict.columns = ["simplified", "traditional", "definition"]
+cedict.columns = ["traditional", "simplified", "definition"]
 
 cedict["pinyin"] = cedict["definition"].apply(lambda x: x.split("]", 1)[0][1:])
 cedict["definition"] = cedict["definition"].apply(lambda x: x.split("]", 1)[1])

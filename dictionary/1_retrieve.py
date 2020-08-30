@@ -19,6 +19,12 @@ download_from_url(
     overwrite=True,
 )
 
+download_from_url(
+    "https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.zh.300.bin.gz",
+    "./data/raw/cc.zh.300.bin.gz",
+    overwrite=True,
+)
+
 print("Unzipping cedict_1_0_ts_utf-8_mdbg.zip... ", end="")
 
 with zipfile.ZipFile("./data/raw/cedict_1_0_ts_utf-8_mdbg.zip", "r") as zip_ref:
