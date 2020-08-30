@@ -26,12 +26,12 @@ cjkvi = pd.read_csv(f"./data/intermediate/cjkvi.txt", sep="\t", index_col=0)
 cjkvi = cjkvi.set_index("character", drop=False).to_dict(orient="index")
 
 with gzip.open(
-    "./data/intermediate/simplified_char_to_word.json.zip", "rt", encoding="utf-8"
+    "./data/intermediate/simplified_containing_words.json.zip", "rt", encoding="utf-8"
 ) as f:
     simplified_char_to_word = ujson.loads(f.read())
 
 with gzip.open(
-    "./data/intermediate/traditional_char_to_word.json.zip", "rt", encoding="utf-8"
+    "./data/intermediate/traditional_containing_words.json.zip", "rt", encoding="utf-8"
 ) as f:
     traditional_char_to_word = ujson.loads(f.read())
 
@@ -107,16 +107,13 @@ def unify_word_info(cedict_row):
 
     simplified_words = simplified_char_to_word.get(word_simplified, [])
     traditional_words = traditional_char_to_word.get(word_traditional, [])
-
-    simplified_words = [
-        cedict_simplified.get(x, {"simplified": x}) for x in simplified_words
-    ]
-    traditional_words = [
-        cedict_traditional.get(x, {"traditional": x}) for x in traditional_words
+    traditional_words_simplified = [
+        traditional_to_simplified[x] for x in traditional_words
     ]
 
-    word_info["simplified_words"] = simplified_words
-    word_info["traditional_words"] = traditional_words
+    containing_words = list(set(simplified_words + traditional_words_simplified))
+    containing_words = [cedict_simplified[x] for x in containing_words]
+    word_info["containing_words"] = containing_words
 
     simplified_sentence_ids = simplified_wts.get(word_simplified, [])
     traditional_sentence_ids = traditional_wts.get(word_traditional, [])

@@ -36,11 +36,11 @@ simplified_char_to_word = characters_to_words(simplified_words)
 traditional_char_to_word = characters_to_words(traditional_words)
 
 with gzip.open(
-    "./data/intermediate/simplified_char_to_word.json.zip", "wt", encoding="utf-8"
+    "./data/intermediate/simplified_containing_words.json.zip", "wt", encoding="utf-8"
 ) as f:
     ujson.dump(simplified_char_to_word, f)
 
 with gzip.open(
-    "./data/intermediate/traditional_char_to_word.json.zip", "wt", encoding="utf-8"
+    "./data/intermediate/traditional_containing_words.json.zip", "wt", encoding="utf-8"
 ) as f:
     ujson.dump(traditional_char_to_word, f)
