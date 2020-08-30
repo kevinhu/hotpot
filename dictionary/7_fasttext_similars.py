@@ -17,7 +17,7 @@ embeddings = np.array(list(map(zh_model.get_word_vector, words)))
 
 kdtree = cKDTree(embeddings, leafsize=NUM_NEAREST * 2)
 
-dists, nearest_indices = kdtree.query(embeddings, k=1 + NUM_NEAREST)
+dists, nearest_indices = kdtree.query(embeddings, k=1 + NUM_NEAREST, p=2, n_jobs=6)
 
 embeddings_dists = pd.DataFrame(dists, index=words)
 embeddings_nearest = pd.DataFrame(nearest_indices, index=words)
