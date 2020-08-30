@@ -25,6 +25,27 @@ cedict.to_csv(f"./data/intermediate/cedict.txt", sep="\t")
 
 print("ok")
 
+print("Processing BCC_LEX_Zh... ", end="")
+
+bcc_lex = pd.read_csv(
+    "./data/raw/blogs_wordfreq-release_utf-8.txt",
+    encoding="utf-8",
+    sep="\t",
+    names=["word", "frequency"],
+)
+
+simplified = set(cedict["simplified"])
+bcc_lex = bcc_lex[bcc_lex["word"].isin(simplified)]
+
+bcc_lex["rank"] = list(range(1, len(bcc_lex) + 1))
+bcc_lex["normalized_rank"] = bcc_lex["rank"] / len(bcc_lex)
+bcc_lex["fraction"] = bcc_lex["frequency"] / bcc_lex["frequency"].sum()
+bcc_lex["cumulative_fraction"] = bcc_lex["fraction"].cumsum()
+
+bcc_lex.to_csv(f"./data/intermediate/bcc_lex.txt", sep="\t")
+
+print("ok")
+
 print("Processing CJKVI... ", end="")
 
 cjkvi = pd.read_csv(

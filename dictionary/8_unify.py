@@ -7,7 +7,14 @@ from tqdm import tqdm
 
 tqdm.pandas()
 
+MAX_CONTAINING_WORDS = 16
+
 cedict = pd.read_csv(f"./data/intermediate/cedict.txt", sep="\t", index_col=0)
+
+bcc_lex = pd.read_csv(f"./data/intermediate/bcc_lex.txt", sep="\t", index_col=0)
+bcc_lex = bcc_lex.set_index("word", drop=False)
+cedict = cedict.join(bcc_lex, on="simplified").fillna(-1)
+cedict = cedict.drop("frequency", axis=1)
 
 cedict_simplified = cedict.set_index("simplified", drop=False)
 cedict_simplified = cedict_simplified[~cedict_simplified.index.duplicated(keep="first")]
@@ -113,6 +120,13 @@ def unify_word_info(cedict_row):
 
     containing_words = list(set(simplified_words + traditional_words_simplified))
     containing_words = [cedict_simplified[x] for x in containing_words]
+    containing_words = sorted(
+        containing_words, key=lambda x: x["fraction"], reverse=True
+    )
+    containing_words = containing_words[:MAX_CONTAINING_WORDS]
+    containing_words = [
+        x for x in containing_words if x["simplified"] != word_simplified
+    ]
     word_info["containing_words"] = containing_words
 
     simplified_sentence_ids = simplified_wts.get(word_simplified, [])
@@ -125,6 +139,7 @@ def unify_word_info(cedict_row):
     related = list(embeddings_nearest.loc[word_simplified])
     related = [traditional_to_simplified.get(x, x) for x in related]
     related = [{**cedict_simplified[x], "simplified": x} for x in related]
+    related = [x for x in related if x["simplified"] != word_simplified]
     word_info["related"] = related
 
     with open(f"./data/dictionary-files/word_jsons/{word_simplified}.json", "w",) as f:
