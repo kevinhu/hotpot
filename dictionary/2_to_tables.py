@@ -1,7 +1,10 @@
 import config
+import opencc
 import pandas as pd
 import ujson
 from tqdm import tqdm
+
+tqdm.pandas()
 
 print("Processing CEDICT... ", end="")
 
@@ -49,6 +52,23 @@ with open("./data/raw/translation2019zh/translation2019zh_train.json", "r") as f
         zh_translation_json.append(line_json)
 
 zh_translations = pd.DataFrame(zh_translation_json)
+
+s2t_converter = opencc.OpenCC("s2t.json")
+t2s_converter = opencc.OpenCC("t2s.json")
+
+print("Converting to simplified...")
+
+zh_translations["simplified"] = zh_translations["chinese"].progress_apply(
+    t2s_converter.convert
+)
+
+print("Converting to traditional...")
+
+zh_translations["traditional"] = zh_translations["chinese"].progress_apply(
+    s2t_converter.convert
+)
+
+zh_translations = zh_translations.drop("chinese", axis=1)
 
 zh_translations.to_feather(
     "./data/intermediate/zh_translations.feather",

@@ -153,6 +153,14 @@ version = "1.19.1"
 
 [[package]]
 category = "main"
+description = "Conversion between Traditional and Simplified Chinese"
+name = "opencc"
+optional = false
+python-versions = "*"
+version = "1.1.1"
+
+[[package]]
+category = "main"
 description = "Powerful data structures for data analysis, time series, and statistics"
 name = "pandas"
 optional = false
@@ -370,7 +378,7 @@ python-versions = "*"
 version = "0.2.5"
 
 [metadata]
-content-hash = "516e29b06ac5542ea050a85673e490ec26711c7a0a1bea11669cc9dc43f1b9fd"
+content-hash = "a191a3c73a486613081f0ae3d66242942967cb0f1490f4222ec589cb22dcdd02"
 python-versions = "^3.8"
 
 [metadata.files]
@@ -476,6 +484,11 @@ numpy = [
     {file = "numpy-1.19.1-cp38-cp38-win_amd64.whl", hash = "sha256:92feb989b47f83ebef246adabc7ff3b9a59ac30601c3f6819f8913458610bdcc"},
     {file = "numpy-1.19.1-pp36-pypy36_pp73-manylinux2010_x86_64.whl", hash = "sha256:e1b1dc0372f530f26a03578ac75d5e51b3868b9b76cd2facba4c9ee0eb252ab1"},
     {file = "numpy-1.19.1.zip", hash = "sha256:b8456987b637232602ceb4d663cb34106f7eb780e247d51a260b84760fd8f491"},
+]
+opencc = [
+    {file = "OpenCC-1.1.1-py2.py3-none-macosx_10_9_x86_64.whl", hash = "sha256:223df7ca4125609b2de71c099d2b77aa3c61ea5a33bc85d764caee01f9eb23a8"},
+    {file = "OpenCC-1.1.1-py2.py3-none-manylinux1_x86_64.whl", hash = "sha256:064483fd9994949289b6344195df67bd3aaed96c00f04814c04367bcc1d4d221"},
+    {file = "OpenCC-1.1.1-py2.py3-none-win_amd64.whl", hash = "sha256:f24421d96aead788b2ab400b3595033e7a282bdabf17aaa7a82b7390cfaaa9fc"},
 ]
 pandas = [
     {file = "pandas-1.1.1-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:8c9ec12c480c4d915e23ee9c8a2d8eba8509986f35f307771045c1294a2e5b73"},
