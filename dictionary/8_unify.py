@@ -9,11 +9,11 @@ tqdm.pandas()
 
 cedict = pd.read_csv(f"./data/intermediate/cedict.txt", sep="\t", index_col=0)
 
-cedict_simplified = cedict.set_index("simplified")
+cedict_simplified = cedict.set_index("simplified", drop=False)
 cedict_simplified = cedict_simplified[~cedict_simplified.index.duplicated(keep="first")]
 cedict_simplified = cedict_simplified.to_dict(orient="index")
 
-cedict_traditional = cedict.set_index("traditional")
+cedict_traditional = cedict.set_index("traditional", drop=False)
 cedict_traditional = cedict_traditional[
     ~cedict_traditional.index.duplicated(keep="first")
 ]
@@ -23,7 +23,7 @@ simplified_to_traditional = dict(zip(cedict["simplified"], cedict["traditional"]
 traditional_to_simplified = dict(zip(cedict["traditional"], cedict["simplified"]))
 
 cjkvi = pd.read_csv(f"./data/intermediate/cjkvi.txt", sep="\t", index_col=0)
-cjkvi = cjkvi.set_index("character").to_dict(orient="index")
+cjkvi = cjkvi.set_index("character", drop=False).to_dict(orient="index")
 
 with gzip.open(
     "./data/intermediate/simplified_char_to_word.json.zip", "rt", encoding="utf-8"
@@ -36,15 +36,20 @@ with gzip.open(
     traditional_char_to_word = ujson.loads(f.read())
 
 with gzip.open(
-    "./data/intermediate/words_to_sentences.json.zip", "rt", encoding="utf-8"
+    "./data/intermediate/simplified_wts.json.zip", "rt", encoding="utf-8"
 ) as f:
-    words_to_sentences = ujson.loads(f.read())
+    simplified_wts = ujson.loads(f.read())
+
+with gzip.open(
+    "./data/intermediate/traditional_wts.json.zip", "rt", encoding="utf-8"
+) as f:
+    traditional_wts = ujson.loads(f.read())
 
 zh_translations = pd.read_feather(
     "./data/intermediate/zh_translations_segmented.feather"
 )
 zh_translations = zh_translations.drop(
-    ["zh_length", "uniqueness", "chinese_segmented"], axis=1
+    ["zh_length", "uniqueness", "simplified_segmented", "traditional_segmented"], axis=1
 )
 zh_translations = zh_translations.to_dict(orient="index")
 
@@ -87,32 +92,38 @@ def unify_word_info(cedict_row):
 
         if bool(simplified_components):
             simplified_components["decomposition_definitions"] = [
-                cedict_simplified.get(x, {})
+                cedict_simplified.get(x, {"simplified": x})
                 for x in simplified_components["decomposition"]
             ]
 
         if bool(traditional_components):
             traditional_components["decomposition_definitions"] = [
-                cedict_traditional.get(x, {})
+                cedict_traditional.get(x, {"traditional": x})
                 for x in traditional_components["decomposition"]
             ]
 
         word_info["simplified_components"] = simplified_components
         word_info["traditional_components"] = traditional_components
 
-    word_info["simplified_words"] = simplified_char_to_word.get(word_simplified, [])
-    word_info["traditional_words"] = traditional_char_to_word.get(word_traditional, [])
+    simplified_words = simplified_char_to_word.get(word_simplified, [])
+    traditional_words = traditional_char_to_word.get(word_traditional, [])
 
-    simplified_sentence_ids = words_to_sentences.get(word_simplified, [])
-    traditional_sentence_ids = words_to_sentences.get(word_traditional, [])
+    simplified_words = [
+        cedict_simplified.get(x, {"simplified": x}) for x in simplified_words
+    ]
+    traditional_words = [
+        cedict_traditional.get(x, {"traditional": x}) for x in traditional_words
+    ]
 
-    # TODO: convert simplified/traditional sentences
-    word_info["simplified_sentences"] = [
-        zh_translations[x] for x in simplified_sentence_ids
-    ]
-    word_info["traditional_sentences"] = [
-        zh_translations[x] for x in traditional_sentence_ids
-    ]
+    word_info["simplified_words"] = simplified_words
+    word_info["traditional_words"] = traditional_words
+
+    simplified_sentence_ids = simplified_wts.get(word_simplified, [])
+    traditional_sentence_ids = traditional_wts.get(word_traditional, [])
+
+    sentence_ids = set(simplified_sentence_ids + traditional_sentence_ids)
+
+    word_info["sentences"] = [zh_translations[x] for x in sentence_ids]
 
     related = list(embeddings_nearest.loc[word_simplified])
     related = [traditional_to_simplified.get(x, x) for x in related]
@@ -120,14 +131,16 @@ def unify_word_info(cedict_row):
     word_info["related"] = related
 
     with open(f"./data/dictionary-files/word_jsons/{word_simplified}.json", "w",) as f:
-        ujson.dump(word_info, f)
+        # ujson.dump(word_info, f)
+        f.write(ujson.dumps(word_info, indent=4))
 
     if word_simplified != word_traditional:
 
         with open(
             f"./data/dictionary-files/word_jsons/{word_traditional}.json", "w",
         ) as f:
-            ujson.dump(word_info, f)
+            # ujson.dump(word_info, f)
+            f.write(ujson.dumps(word_info, indent=4))
 
 
 cedict.iloc[25000:25100].progress_apply(unify_word_info, axis=1)

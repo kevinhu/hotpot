@@ -12,7 +12,7 @@ zh_translations = pd.read_feather("./data/intermediate/zh_translations.feather",
 # filter by sentence length
 
 print("Applying length filter")
-zh_translations["zh_length"] = zh_translations["chinese"].apply(len)
+zh_translations["zh_length"] = zh_translations["simplified"].apply(len)
 
 MIN_LENGTH = 8
 MAX_LENGTH = 24
@@ -34,21 +34,25 @@ def zh_filter(sentence):
     return True
 
 
-zh_translations = zh_translations[zh_translations["chinese"].progress_apply(zh_filter)]
+zh_translations = zh_translations[
+    zh_translations["simplified"].progress_apply(zh_filter)
+]
 
 # remove brackets manually due to weird regex bug
 zh_translations = zh_translations[
-    zh_translations["chinese"].apply(lambda x: "[" not in x and "]" not in x)
+    zh_translations["simplified"].apply(lambda x: "[" not in x and "]" not in x)
 ]
 
 # filter for punctuation
 zh_translations = zh_translations[
-    zh_translations["chinese"].apply(lambda x: x.count("。") == 1 or x.count("？") == 1)
+    zh_translations["simplified"].apply(
+        lambda x: x.count("。") == 1 or x.count("？") == 1
+    )
 ]
 
 # filter out repetitive sentences
 print("Applying repetitiveness filter")
-zh_translations["uniqueness"] = zh_translations["chinese"].apply(
+zh_translations["uniqueness"] = zh_translations["simplified"].apply(
     lambda x: len(set(x)) / len(x)
 )
 MIN_UNIQUENESS_CUTOFF = 0.8

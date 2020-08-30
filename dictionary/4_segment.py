@@ -16,9 +16,13 @@ def segment(sentence):
     return " ".join(jieba.cut_for_search(sentence, HMM=True))
 
 
-zh_translations["chinese_segmented"] = zh_translations["chinese"].progress_apply(
+zh_translations["simplified_segmented"] = zh_translations["simplified"].progress_apply(
     segment
 )
+
+zh_translations["traditional_segmented"] = zh_translations[
+    "traditional"
+].progress_apply(segment)
 
 zh_translations.to_feather(
     "./data/intermediate/zh_translations_segmented.feather",
