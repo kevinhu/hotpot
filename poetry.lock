@@ -228,6 +228,14 @@ version = "0.6.0"
 
 [[package]]
 category = "main"
+description = "pyahocorasick is a fast and memory efficient library for exact or approximate multi-pattern string search.  With the ahocorasick.Automaton class, you can find multiple key strings occurrences at once in some input text.  You can use it as a plain dict-like Trie or convert a Trie to an automaton for efficient Aho-Corasick search.  Implemented in C and tested on Python 2.7 and 3.4+.  Works on Linux, Mac and Windows. BSD-3-clause license."
+name = "pyahocorasick"
+optional = false
+python-versions = "*"
+version = "1.4.0"
+
+[[package]]
+category = "main"
 description = "Python library for Apache Arrow"
 name = "pyarrow"
 optional = false
@@ -378,7 +386,7 @@ python-versions = "*"
 version = "0.2.5"
 
 [metadata]
-content-hash = "a191a3c73a486613081f0ae3d66242942967cb0f1490f4222ec589cb22dcdd02"
+content-hash = "cca1711653c35e0c9a329088910b3a04b9db7876a880200f45175d6e123ea6b0"
 python-versions = "^3.8"
 
 [metadata.files]
@@ -527,6 +535,9 @@ prompt-toolkit = [
 ptyprocess = [
     {file = "ptyprocess-0.6.0-py2.py3-none-any.whl", hash = "sha256:d7cc528d76e76342423ca640335bd3633420dc1366f258cb31d05e865ef5ca1f"},
     {file = "ptyprocess-0.6.0.tar.gz", hash = "sha256:923f299cc5ad920c68f2bc0bc98b75b9f838b93b599941a6b63ddbc2476394c0"},
+]
+pyahocorasick = [
+    {file = "pyahocorasick-1.4.0.tar.gz", hash = "sha256:f9431a20e47e893cadd29f367825e882dbc6fc324a3c24c41e3ff9648e5d04b2"},
 ]
 pyarrow = [
     {file = "pyarrow-1.0.1-cp35-cp35m-macosx_10_9_intel.whl", hash = "sha256:d58ef5bbf548ffa0ec61d37bb95b1ebdf4209e5c8579b53213cf1d9bd804bfe9"},

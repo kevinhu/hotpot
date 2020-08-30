@@ -1,5 +1,6 @@
 import gzip
 
+import ahocorasick
 import pandas as pd
 import ujson
 from tqdm import tqdm
@@ -12,19 +13,21 @@ traditional_words = list(cedict["traditional"])
 
 def characters_to_words(words):
 
+    # see https://stackoverflow.com/questions/34816775/python-optimal-search-for-substring-in-list-of-strings
+
     mapping = {}
 
+    auto = ahocorasick.Automaton()
+    for word in words:
+        auto.add_word(word, word)
+    auto.make_automaton()
+
     for word in tqdm(words):
-
-        for character in word:
-
-            if character in mapping:
-
-                mapping[character].append(word)
-
+        for end_ind, found in auto.iter(word):
+            if found in mapping:
+                mapping[found].append(word)
             else:
-
-                mapping[character] = [word]
+                mapping[found] = [word]
 
     return mapping
 
