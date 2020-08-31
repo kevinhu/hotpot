@@ -10,6 +10,9 @@ import { Link } from "react-router-dom";
 var pinyinize = require("pinyinize");
 
 const convert_pinyin = (pinyin) => {
+	if(!pinyin){
+		return ""
+	}
 	pinyin = pinyin.toLowerCase();
 	if (pinyin.substr(-1) === "5") {
 		return pinyin.substring(0, pinyin.length - 1);
@@ -278,7 +281,7 @@ const Word = () => {
 					<div className="p-6">
 						<div className={sectionHeaderStyle}>Statistics</div>
 
-						{wordData["rank"] && (
+						{wordData["rank"] !== -1 && (
 							<div>
 								<div className="font-bold inline">
 									{wordData["rank"]}
@@ -290,7 +293,7 @@ const Word = () => {
 							</div>
 						)}
 
-						{wordData["fraction"] && (
+						{wordData["fraction"] !== -1 && (
 							<div>
 								<div className="font-bold inline">
 									{(wordData["fraction"] * 100).toPrecision(
