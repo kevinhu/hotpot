@@ -42,6 +42,8 @@ const Word = () => {
 		}
 	}
 
+	console.log(wordData);
+
 	return (
 		<div className="w-full">
 			<div className="w-full text-center py-16">
@@ -88,29 +90,31 @@ const Word = () => {
 						}}
 					>
 						<div className={sectionHeaderStyle}>Components</div>
-						<div className="flex items-center">
-							<div className="chinese-serif text-4xl pr-4 py-4">
-								火
-							</div>
-							<div>
-								<div className="text-xl font-semibold">huǒ</div>
-								<div className="text-gray-600">
-									fire/urgent/ammunition/fiery or
-									flaming/internal heat (Chinese medicine)...
-								</div>
-							</div>
-						</div>
-						<div className="flex items-center">
-							<div className="chinese-serif text-4xl pr-4">
-								锅
-							</div>
-							<div>
-								<div className="text-xl font-semibold">guō</div>
-								<div className="text-gray-600">
-									pot/pan/boiler/CL:口[kou3],隻|只[zhi1]
-								</div>
-							</div>
-						</div>
+						{word.length > 1
+							? wordData["simplified_characters"].map(
+									(character, index) => {
+										return (
+											<div className="flex items-center">
+												<div className="chinese-serif text-4xl pr-4 py-4">
+													{character["simplified"]}
+												</div>
+												<div>
+													<div className="text-xl font-semibold">
+														{character["pinyin"]}
+													</div>
+													<div className="text-gray-600">
+														{
+															character[
+																"definition"
+															]
+														}
+													</div>
+												</div>
+											</div>
+										);
+									}
+							  )
+							: "hello!"}
 					</div>
 					<div className="p-6">
 						<div className={sectionHeaderStyle}>Examples</div>
