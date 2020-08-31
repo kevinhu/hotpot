@@ -1,6 +1,8 @@
 import React from "react";
 
 const Navbar = () => {
+	const linkHover = `hover:text-blue-600 dark-hover:text-orange-500`;
+
 	return (
 		<div
 			className="w-3/4 flex mx-auto bg-white"

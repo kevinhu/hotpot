@@ -17,9 +17,11 @@
 }
 
 .red {
-	color: #e70f07;
+	color: #c10000;
 }
 
+html,
+body,
 #root {
 	@apply min-h-screen;
 	background-color: #f8f8f8;

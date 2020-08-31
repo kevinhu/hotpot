@@ -20896,9 +20896,11 @@ video {
 }
 
 .red {
-  color: #e70f07;
+  color: #c10000;
 }
 
+html,
+body,
 #root {
   min-height: 100vh;
   background-color: #f8f8f8;

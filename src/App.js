@@ -38,13 +38,16 @@ function App() {
     return <div />;
   }
 
-  // general link hover style
   const linkHover = `hover:text-blue-600 dark-hover:text-orange-500`;
 
   return (
     <Router>
       <WindowDimensionsProvider>
-        <Navbar />
+        <Route
+          render={({ location }) => {
+            return !["/"].includes(location.pathname) && <Navbar />;
+          }}
+        />
         {/*<div
           className="text-center w-screen pt-8"
           style={{ marginBottom: "-1rem" }}
@@ -71,27 +74,6 @@ function App() {
             <NotFound />
           </Route>
         </Switch>
-        <div className="text-center pb-12 text-gray-800 dark:text-gray-200">
-          Made by{" "}
-          <a
-            className={`underline ${linkHover}`}
-            href="https://kevinhu.io"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Kevin Hu
-          </a>
-          <br />
-          <a
-            className={`underline ${linkHover}`}
-            href="https://github.com/kevinhu/huoguo"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Source
-          </a>{" "}
-          on GitHub
-        </div>
       </WindowDimensionsProvider>
     </Router>
   );
