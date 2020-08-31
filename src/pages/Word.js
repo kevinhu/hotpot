@@ -5,6 +5,8 @@ import PinyinCharacter from "../components/PinyinCharacter.js";
 import { useHistory, useLocation } from "react-router-dom";
 import queryString from "query-string";
 
+var pinyinize = require("pinyinize");
+
 const IDEOGRAPHIC_DESCRIPTIONS = [
 	"⿰",
 	"⿱",
@@ -19,6 +21,21 @@ const IDEOGRAPHIC_DESCRIPTIONS = [
 	"⿺",
 	"⿻",
 ];
+
+const ordinal_suffix_of = (i) => {
+	var j = i % 10,
+		k = i % 100;
+	if (j == 1 && k != 11) {
+		return "st";
+	}
+	if (j == 2 && k != 12) {
+		return "nd";
+	}
+	if (j == 3 && k != 13) {
+		return "rd";
+	}
+	return "th";
+};
 
 const Word = () => {
 	// initialize url params
@@ -65,8 +82,8 @@ const Word = () => {
 				<div className="chinese-serif flex justify-center">
 					{word.length === 1 ? (
 						<PinyinCharacter
-							character="火"
-							pinyin="huǒ"
+							character={wordData["simplified"]}
+							pinyin={pinyinize(wordData["pinyin"])}
 							characterSize="6rem"
 							pinyinSize="2rem"
 							className="px-2"
@@ -77,7 +94,7 @@ const Word = () => {
 								return (
 									<PinyinCharacter
 										character={character["simplified"]}
-										pinyin={character["pinyin"]}
+										pinyin={pinyinize(character["pinyin"])}
 										characterSize="6rem"
 										pinyinSize="2rem"
 										className="px-2"
@@ -124,7 +141,12 @@ const Word = () => {
 												</div>
 												<div>
 													<div className="text-xl font-semibold">
-														{character["pinyin"]}
+														{character["pinyin"] &&
+															pinyinize(
+																character[
+																	"pinyin"
+																]
+															)}
 													</div>
 													<div className="text-gray-600">
 														{
@@ -153,7 +175,12 @@ const Word = () => {
 												</div>
 												<div>
 													<div className="text-xl font-semibold">
-														{character["pinyin"]}
+														{character["pinyin"] &&
+															pinyinize(
+																character[
+																	"pinyin"
+																]
+															)}
 													</div>
 													<div className="text-gray-600">
 														{
@@ -209,7 +236,9 @@ const Word = () => {
 										return (
 											<PinyinCharacter
 												character={character}
-												pinyin={wordPinyin[index]}
+												pinyin={pinyinize(
+													wordPinyin[index]
+												)}
 												characterSize="1.5rem"
 												pinyinSize="0.75rem"
 											/>
@@ -231,16 +260,30 @@ const Word = () => {
 					</div>
 					<div className="p-6">
 						<div className={sectionHeaderStyle}>Statistics</div>
-						<div>
-							<div className="font-bold inline">
-								1613<sup>th</sup>
-							</div>{" "}
-							most frequent word
-						</div>
-						<div>
-							<div className="font-bold inline">0.00039%</div> of
-							all words
-						</div>
+
+						{wordData["rank"] && (
+							<div>
+								<div className="font-bold inline">
+									{wordData["rank"]}
+									<sup>
+										{ordinal_suffix_of(wordData["rank"])}
+									</sup>
+								</div>{" "}
+								most frequent word
+							</div>
+						)}
+
+						{wordData["fraction"] && (
+							<div>
+								<div className="font-bold inline">
+									{(wordData["fraction"] * 100).toPrecision(
+										2
+									)}
+									%
+								</div>{" "}
+								of all words
+							</div>
+						)}
 					</div>
 				</div>
 			</div>
