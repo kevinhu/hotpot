@@ -69,9 +69,7 @@ function App() {
             {<Home />}
           </Route>
 
-          <Route exact path="/word">
-            {<Word />}
-          </Route>
+          <Route path="/word">{<Word />}</Route>
 
           {/* Catch-all Route */}
           <Route path="/">

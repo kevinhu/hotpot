@@ -102,7 +102,7 @@ const Word = () => {
 				onLoaderFinished={() => setProgress(0)}
 			/>
 			<div className="w-full text-center py-16">
-				<div className="chinese-serif flex justify-center">
+				<div className="chinese-serif w-3/4 mx-auto flex justify-center flex-wrap">
 					{wordData["simplified"].length === 1 ? (
 						<PinyinCharacter
 							character={wordData["simplified"]}
@@ -318,7 +318,7 @@ const Word = () => {
 											to={`/word/?word=${contain_word["simplified"]}`}
 											className={linkHover}
 										>
-											<div className="chinese-serif text-xl flex">
+											<div className="chinese-serif text-xl flex flex-wrap">
 												{displayWord}
 											</div>
 										</Link>
@@ -369,7 +369,7 @@ const Word = () => {
 										to={`/word/?word=${related_word["simplified"]}`}
 										className={linkHover}
 									>
-										<div className="chinese-serif text-xl flex">
+										<div className="chinese-serif text-xl flex flex-wrap">
 											{displayWord}
 										</div>
 									</Link>
