@@ -2,6 +2,9 @@ import config
 import pandas as pd
 import ujson
 
+MAX_DESCRIPTION_LENGTH = 32
+MAX_RANK = 50000
+
 cedict = pd.read_csv(f"./data/intermediate/cedict.txt", sep="\t", index_col=0)
 
 bcc_lex = pd.read_csv(f"./data/intermediate/bcc_lex.txt", sep="\t", index_col=0)
@@ -15,7 +18,11 @@ cedict["rank"] = cedict["rank"].astype(int)
 cedict["toneless_pinyin"] = [
     "".join([y[:-1] for y in x.split(" ")]) for x in cedict["pinyin"]
 ]
-cedict["short_definition"] = cedict["definition"].apply(lambda x: x[:32])
+cedict["short_definition"] = cedict["definition"].apply(
+    lambda x: x[:MAX_DESCRIPTION_LENGTH]
+)
+
+cedict = cedict[cedict["rank"] <= MAX_RANK]
 
 search_data = cedict[
     ["toneless_pinyin", "simplified", "traditional", "short_definition", "rank",]
