@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import PinyinCharacter from "../components/PinyinCharacter.js";
 
@@ -36,16 +36,18 @@ const IDEOGRAPHIC_DESCRIPTIONS = [
 	"⿻",
 ];
 
+const MAX_OTHER_DESCRIPTION_LENGTH = 64;
+
 const ordinal_suffix_of = (i) => {
 	var j = i % 10,
 		k = i % 100;
-	if (j == 1 && k != 11) {
+	if (j === 1 && k !== 11) {
 		return "st";
 	}
-	if (j == 2 && k != 12) {
+	if (j === 2 && k !== 12) {
 		return "nd";
 	}
-	if (j == 3 && k != 13) {
+	if (j === 3 && k !== 13) {
 		return "rd";
 	}
 	return "th";
@@ -64,7 +66,7 @@ const Word = () => {
 	const [loading, setLoading] = useState(false);
 
 	if (wordParam) {
-		if (wordParam != word && !loading) {
+		if (wordParam !== word && !loading) {
 			setLoading(true);
 			fetch(
 				`https://raw.githubusercontent.com/kevinhu/dictionary-files/master/word_jsons/${wordParam}.json`
@@ -154,7 +156,9 @@ const Word = () => {
 											<div className="flex items-center">
 												<div className="chinese-serif text-4xl pr-4 py-4">
 													{character["definition"] ? (
-														<Link to={`/word?word=${character["simplified"]}`}>
+														<Link
+															to={`/word?word=${character["simplified"]}`}
+														>
 															{
 																character[
 																	"simplified"
@@ -198,7 +202,9 @@ const Word = () => {
 											<div className="flex items-center">
 												<div className="chinese-serif text-4xl pr-4 py-4">
 													{character["definition"] ? (
-														<Link to={`/word?word=${character["simplified"]}`}>
+														<Link
+															to={`/word?word=${character["simplified"]}`}
+														>
 															{
 																character[
 																	"simplified"
@@ -290,8 +296,16 @@ const Word = () => {
 												{displayWord}
 											</div>
 										</Link>
-										<div className="text-gray-700">
-											{contain_word["definition"]}
+										<div className="text-gray-700 break-words">
+											{contain_word["definition"].length >
+											MAX_OTHER_DESCRIPTION_LENGTH
+												? contain_word[
+														"definition"
+												  ].substring(
+														0,
+														MAX_OTHER_DESCRIPTION_LENGTH
+												  ) + "..."
+												: contain_word["definition"]}
 										</div>
 									</div>
 								);
