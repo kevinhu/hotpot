@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 const Navbar = () => {
 
 	let history = useHistory();
@@ -26,12 +26,13 @@ const Navbar = () => {
 				borderRight: "solid 2px black",
 			}}
 		>
-			<div
+			<Link
+				to="/"
 				className="english-serif px-6 py-2 red text-2xl"
 				style={{ borderRight: "solid 2px black" }}
 			>
 				huoguo
-			</div>
+			</Link>
 			<form
 				onSubmit={handleSubmit}
 				className="chinese-serif px-6 bg-transparent outline-none w-full"
