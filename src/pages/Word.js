@@ -80,7 +80,7 @@ const Word = () => {
 
 	const sectionHeaderStyle = "text-xl text-gray-700 font-semibold";
 
-	if (!wordData) {
+	if (!wordData || loading) {
 		if (!loading) {
 			return <div>word not found</div>;
 		} else {
