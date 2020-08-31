@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory, Link } from "react-router-dom";
 const Navbar = () => {
-
 	let history = useHistory();
 	const linkHover = `hover:text-blue-600 dark-hover:text-orange-500`;
 
@@ -13,7 +12,6 @@ const Navbar = () => {
 	};
 
 	const handleChange = (event) => {
-
 		setSearchWord(event.target.value);
 	};
 
@@ -38,7 +36,7 @@ const Navbar = () => {
 				className="chinese-serif px-6 bg-transparent outline-none w-full"
 			>
 				<input
-				className="chinese-serif px-6 bg-transparent outline-none w-full"
+					className="chinese-serif px-6 bg-transparent outline-none w-full"
 					type="text"
 					placeholder="Search 189,432 words"
 					value={searchWord}

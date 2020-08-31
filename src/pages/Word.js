@@ -10,8 +10,8 @@ import { Link } from "react-router-dom";
 var pinyinize = require("pinyinize");
 
 const convert_pinyin = (pinyin) => {
-	if(!pinyin){
-		return ""
+	if (!pinyin) {
+		return "";
 	}
 	pinyin = pinyin.toLowerCase();
 	if (pinyin.substr(-1) === "5") {
