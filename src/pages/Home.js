@@ -10,6 +10,7 @@ const options = {
 };
 const fuse = new Fuse(words, options);
 var _ = require("lodash");
+const fuzzysort = require("fuzzysort");
 
 const Home = () => {
 	let history = useHistory();
@@ -30,14 +31,24 @@ const Home = () => {
 
 		if (!debouncedFn) {
 			debouncedFn = _.debounce(() => {
-				setResults(fuse.search(searchWord, { limit: 8 }));
-			}, 250);
+				let fuzzyResults = fuzzysort.go(searchWord, words, {
+					keys: ["toneless_pinyin"],
+					allowType: false,
+				});
+				console.log(fuzzyResults.length);
+				fuzzyResults = fuzzyResults.sort((a, b) =>
+					a.obj.rank >= b.obj.rank ? 1 : -1
+				);
+
+				setResults(fuzzyResults.slice(0, 8));
+			}, 100);
 		}
 		debouncedFn();
-		// setResults(fuse.search(searchWord));
 	};
 
-	console.log(results);
+	if (results.length > 0) {
+		console.log(results);
+	}
 
 	// general link hover style
 	const linkHover = `hover:text-blue-600 dark-hover:text-orange-500`;
@@ -73,7 +84,7 @@ const Home = () => {
 								value={searchWord}
 								onChange={handleChange}
 							></input>
-							{results.length > 0 && (
+							{results.length > 0 && searchWord != "" && (
 								<div
 									className="absolute text-left bg-white border-solid border-2 border-black w-full"
 									style={{ marginTop: "-4px" }}
@@ -81,12 +92,12 @@ const Home = () => {
 									{results.map((result, index) => {
 										return (
 											<Link
-												to={`/word?word=${result["item"]["simplified"]}`}
+												to={`/word?word=${result["obj"]["simplified"]}`}
 												className={linkHover}
 											>
 												<div className="p-2">
 													{
-														result["item"][
+														result["obj"][
 															"simplified"
 														]
 													}
