@@ -265,7 +265,7 @@ const Word = () => {
 							borderBottom: "solid 2px rgba(0,0,0,0.2)",
 						}}
 					>
-						<div className={sectionHeaderStyle}>Words</div>
+						<div className={sectionHeaderStyle}>Containing words</div>
 						{wordData["containing_words"].map(
 							(contain_word, index) => {
 								let wordPinyin = contain_word["pinyin"].split(
@@ -306,6 +306,59 @@ const Word = () => {
 														MAX_OTHER_DESCRIPTION_LENGTH
 												  ) + "..."
 												: contain_word["definition"]}
+										</div>
+									</div>
+								);
+							}
+						)}
+					</div>
+					<div
+						className="p-6"
+						style={{
+							borderBottom: "solid 2px rgba(0,0,0,0.2)",
+						}}
+					>
+						<div className={sectionHeaderStyle}>See also</div>
+						{wordData["related"].map(
+							(related_word, index) => {
+								let wordPinyin = related_word["pinyin"].split(
+									" "
+								);
+
+								let displayWord = related_word["simplified"]
+									.split("")
+									.map((character, index) => {
+										return (
+											<PinyinCharacter
+												character={character}
+												pinyin={convert_pinyin(
+													wordPinyin[index]
+												)}
+												characterSize="1.5rem"
+												pinyinSize="0.75rem"
+											/>
+										);
+									});
+
+								return (
+									<div className="pt-2">
+										<Link
+											to={`/word/?word=${related_word["simplified"]}`}
+										>
+											<div className="chinese-serif text-xl flex">
+												{displayWord}
+											</div>
+										</Link>
+										<div className="text-gray-700 break-words">
+											{related_word["definition"].length >
+											MAX_OTHER_DESCRIPTION_LENGTH
+												? related_word[
+														"definition"
+												  ].substring(
+														0,
+														MAX_OTHER_DESCRIPTION_LENGTH
+												  ) + "..."
+												: related_word["definition"]}
 										</div>
 									</div>
 								);
