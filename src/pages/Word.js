@@ -1,9 +1,46 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import PinyinCharacter from "../components/PinyinCharacter.js";
 
+import { useHistory, useLocation } from "react-router-dom";
+import queryString from "query-string";
+
 const Word = () => {
+	// initialize url params
+	let history = useHistory();
+	let location = useLocation();
+	let params = queryString.parse(location.search);
+
+	let wordParam = params["word"];
+
+	const [word, setWord] = useState();
+	const [wordData, setWordData] = useState();
+	const [loading, setLoading] = useState(false);
+
+	if (wordParam) {
+		if (wordParam != word && !loading) {
+			setLoading(true);
+			fetch(
+				`https://raw.githubusercontent.com/kevinhu/dictionary-files/master/word_jsons/${wordParam}.json`
+			)
+				.then((response) => response.json())
+				.then((data) => {
+					setWord(wordParam);
+					setWordData(data);
+					setLoading(false);
+				});
+		}
+	}
+
 	const sectionHeaderStyle = "text-xl text-gray-700 font-semibold";
+
+	if (!wordData) {
+		if (!loading) {
+			return <div>word not found</div>;
+		} else {
+			return <div>loading...</div>;
+		}
+	}
 
 	return (
 		<div className="w-full">
@@ -42,7 +79,7 @@ const Word = () => {
 						}}
 					>
 						<div className={sectionHeaderStyle}>Definition</div>
-						<div>1. hotpot</div>
+						<div>{wordData["definition"]}</div>
 					</div>
 					<div
 						className="p-6"
@@ -77,43 +114,23 @@ const Word = () => {
 					</div>
 					<div className="p-6">
 						<div className={sectionHeaderStyle}>Examples</div>
-						<div className="pt-2">
-							<div className="chinese-serif text-xl">
-								<div className="red font-semibold inline">
-									火锅
+						{wordData["sentences"].map((sentence, index) => {
+							let simplified = sentence["simplified"];
+							let [beforeWord, afterWord] = simplified.split(
+								word
+							);
+
+							return (
+								<div className="pt-2">
+									{beforeWord}
+									{<div className="red inline">{word}</div>}
+									{afterWord}
+									<div className="text-gray-700">
+										{sentence["english"]}
+									</div>
 								</div>
-								里要放些什么比较好吃？
-							</div>
-							<div className="text-gray-700">
-								What tastes good in hotpot?
-							</div>
-						</div>
-						<div className="pt-2">
-							<div className="chinese-serif text-xl">
-								这儿附近有家新开的
-								<div className="red font-semibold inline">
-									火锅
-								</div>
-								店，去那儿吧。
-							</div>
-							<div className="text-gray-700">
-								There's a new hotpot place around here, let's go
-								there.
-							</div>
-						</div>
-						<div className="pt-2">
-							<div className="chinese-serif text-xl">
-								冬天吃
-								<div className="red font-semibold inline">
-									火锅
-								</div>
-								太爽了。
-							</div>
-							<div className="text-gray-700">
-								Eating hotpot during the winter is very
-								invigorating.
-							</div>
-						</div>
+							);
+						})}
 					</div>
 				</div>
 				<div className="w-1/3">
