@@ -36,7 +36,7 @@ const Navbar = () => {
 				className="chinese-serif px-6 bg-transparent outline-none w-full"
 			>
 				<input
-					className="chinese-serif px-6 bg-transparent outline-none w-full"
+					className="chinese-serif bg-transparent outline-none w-full h-full"
 					type="text"
 					placeholder="Search 189,432 words"
 					value={searchWord}
