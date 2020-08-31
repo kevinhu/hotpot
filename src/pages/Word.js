@@ -5,7 +5,18 @@ import PinyinCharacter from "../components/PinyinCharacter.js";
 import { useHistory, useLocation } from "react-router-dom";
 import queryString from "query-string";
 
+import { Link } from "react-router-dom";
+
 var pinyinize = require("pinyinize");
+
+const convert_pinyin = (pinyin) => {
+	pinyin = pinyin.toLowerCase();
+	if (pinyin.substr(-1) === "5") {
+		return pinyin.substring(0, pinyin.length - 1);
+	} else {
+		return pinyinize(pinyin);
+	}
+};
 
 const IDEOGRAPHIC_DESCRIPTIONS = [
 	"⿰",
@@ -83,7 +94,7 @@ const Word = () => {
 					{word.length === 1 ? (
 						<PinyinCharacter
 							character={wordData["simplified"]}
-							pinyin={pinyinize(wordData["pinyin"])}
+							pinyin={convert_pinyin(wordData["pinyin"])}
 							characterSize="6rem"
 							pinyinSize="2rem"
 							className="px-2"
@@ -94,7 +105,9 @@ const Word = () => {
 								return (
 									<PinyinCharacter
 										character={character["simplified"]}
-										pinyin={pinyinize(character["pinyin"])}
+										pinyin={convert_pinyin(
+											character["pinyin"]
+										)}
 										characterSize="6rem"
 										pinyinSize="2rem"
 										className="px-2"
@@ -142,7 +155,7 @@ const Word = () => {
 												<div>
 													<div className="text-xl font-semibold">
 														{character["pinyin"] &&
-															pinyinize(
+															convert_pinyin(
 																character[
 																	"pinyin"
 																]
@@ -176,7 +189,7 @@ const Word = () => {
 												<div>
 													<div className="text-xl font-semibold">
 														{character["pinyin"] &&
-															pinyinize(
+															convert_pinyin(
 																character[
 																	"pinyin"
 																]
@@ -236,7 +249,7 @@ const Word = () => {
 										return (
 											<PinyinCharacter
 												character={character}
-												pinyin={pinyinize(
+												pinyin={convert_pinyin(
 													wordPinyin[index]
 												)}
 												characterSize="1.5rem"
@@ -247,9 +260,13 @@ const Word = () => {
 
 								return (
 									<div className="pt-2">
-										<div className="chinese-serif text-xl flex">
-											{displayWord}
-										</div>
+										<Link
+											to={`/word/?word=${contain_word["simplified"]}`}
+										>
+											<div className="chinese-serif text-xl flex">
+												{displayWord}
+											</div>
+										</Link>
 										<div className="text-gray-700">
 											{contain_word["definition"]}
 										</div>
