@@ -19,7 +19,7 @@ cedict = cedict["line"].str.split(" ", 2, expand=True)
 cedict.columns = ["traditional", "simplified", "definition"]
 
 cedict["pinyin"] = cedict["definition"].apply(lambda x: x.split("]", 1)[0][1:])
-cedict["definition"] = cedict["definition"].apply(lambda x: x.split("]", 1)[1])
+cedict["definition"] = cedict["definition"].apply(lambda x: x.split("]", 1)[1][2:-1])
 
 cedict.to_csv(f"./data/intermediate/cedict.txt", sep="\t")
 
