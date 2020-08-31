@@ -13,7 +13,7 @@ const Navbar = () => {
 	const handleChange = (event) => {
 		setSearchWord(event.target.value);
 	};
-	const linkHover = `hover:text-blue-600 dark-hover:text-orange-500`;
+	const linkHover = `hover:red`;
 
 	return (
 		<div
