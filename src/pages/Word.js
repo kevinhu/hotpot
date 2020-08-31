@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import PinyinCharacter from "../components/PinyinCharacter.js";
 
@@ -60,6 +60,12 @@ const Word = () => {
 	let history = useHistory();
 	let location = useLocation();
 	let params = queryString.parse(location.search);
+
+	const { pathname } = useLocation();
+
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, [pathname]);
 
 	let wordParam = params["word"];
 

@@ -9,6 +9,9 @@ import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import Word from "./pages/Word";
 
+// Import reset scroll component
+import ScrollToTop from "./components/ScrollToTop";
+
 // Import dark mode
 import { useDarkMode } from "./components/DarkMode";
 import DarkModeToggle from "react-dark-mode-toggle";
@@ -42,6 +45,7 @@ function App() {
 
   return (
     <Router>
+      <ScrollToTop />
       <WindowDimensionsProvider>
         <Route
           render={({ location }) => {
