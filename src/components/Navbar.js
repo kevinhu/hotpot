@@ -1,7 +1,21 @@
-import React from "react";
-
+import React, { useState } from "react";
+import { useHistory } from 'react-router-dom';
 const Navbar = () => {
+
+	let history = useHistory();
 	const linkHover = `hover:text-blue-600 dark-hover:text-orange-500`;
+
+	var [searchWord, setSearchWord] = useState("");
+
+	const handleSubmit = (event) => {
+		event.preventDefault();
+		history.push(`/word?word=${searchWord}`);
+	};
+
+	const handleChange = (event) => {
+
+		setSearchWord(event.target.value);
+	};
 
 	return (
 		<div
@@ -18,11 +32,18 @@ const Navbar = () => {
 			>
 				huoguo
 			</div>
-			<input
+			<form
+				onSubmit={handleSubmit}
 				className="chinese-serif px-6 bg-transparent outline-none w-full"
-				type="text"
-				placeholder="Search 189,432 words"
-			></input>
+			>
+				<input
+				className="chinese-serif px-6 bg-transparent outline-none w-full"
+					type="text"
+					placeholder="Search 189,432 words"
+					value={searchWord}
+					onChange={handleChange}
+				></input>
+			</form>
 		</div>
 	);
 };
