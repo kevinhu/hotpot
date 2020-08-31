@@ -32,10 +32,15 @@ const Home = () => {
 		if (!debouncedFn) {
 			debouncedFn = _.debounce(() => {
 				let fuzzyResults = fuzzysort.go(searchWord, words, {
-					keys: ["toneless_pinyin"],
-					allowType: false,
+					keys: [
+						"toneless_pinyin",
+						"short_definition",
+						"simplified",
+						"traditional",
+					],
+					allowTypo: false,
+					threshold: -100,
 				});
-				console.log(fuzzyResults.length);
 				fuzzyResults = fuzzyResults.sort((a, b) =>
 					a.obj.rank >= b.obj.rank ? 1 : -1
 				);
@@ -45,10 +50,6 @@ const Home = () => {
 		}
 		debouncedFn();
 	};
-
-	if (results.length > 0) {
-		console.log(results);
-	}
 
 	// general link hover style
 	const linkHover = `hover:text-blue-600 dark-hover:text-orange-500`;
@@ -90,6 +91,7 @@ const Home = () => {
 									style={{ marginTop: "-4px" }}
 								>
 									{results.map((result, index) => {
+										console.log(result);
 										return (
 											<Link
 												to={`/word?word=${result["obj"]["simplified"]}`}
