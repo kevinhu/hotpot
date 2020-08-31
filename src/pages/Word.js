@@ -5,6 +5,21 @@ import PinyinCharacter from "../components/PinyinCharacter.js";
 import { useHistory, useLocation } from "react-router-dom";
 import queryString from "query-string";
 
+const IDEOGRAPHIC_DESCRIPTIONS = [
+	"⿰",
+	"⿱",
+	"⿲",
+	"⿳",
+	"⿴",
+	"⿵",
+	"⿶",
+	"⿷",
+	"⿸",
+	"⿹",
+	"⿺",
+	"⿻",
+];
+
 const Word = () => {
 	// initialize url params
 	let history = useHistory();
@@ -114,7 +129,35 @@ const Word = () => {
 										);
 									}
 							  )
-							: "hello!"}
+							: wordData["simplified_components"][
+									"decomposition_definitions"
+							  ].map((character, index) => {
+									if (
+										!IDEOGRAPHIC_DESCRIPTIONS.includes(
+											character["simplified"]
+										)
+									) {
+										return (
+											<div className="flex items-center">
+												<div className="chinese-serif text-4xl pr-4 py-4">
+													{character["simplified"]}
+												</div>
+												<div>
+													<div className="text-xl font-semibold">
+														{character["pinyin"]}
+													</div>
+													<div className="text-gray-600">
+														{
+															character[
+																"definition"
+															]
+														}
+													</div>
+												</div>
+											</div>
+										);
+									}
+							  })}
 					</div>
 					<div className="p-6">
 						<div className={sectionHeaderStyle}>Examples</div>
