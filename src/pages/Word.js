@@ -8,20 +8,7 @@ import queryString from "query-string";
 import { Link } from "react-router-dom";
 import LoadingBar from "react-top-loading-bar";
 
-var pinyinize = require("pinyinize");
-
-const convert_pinyin = (pinyin) => {
-	if (!pinyin) {
-		return "";
-	}
-	pinyin = pinyin.toLowerCase();
-	if (pinyin.substr(-1) === "5") {
-		return pinyin.substring(0, pinyin.length - 1);
-	} else {
-		return pinyinize(pinyin);
-	}
-};
-
+import { convert_pinyin } from "../utilities";
 const IDEOGRAPHIC_DESCRIPTIONS = [
 	"⿰",
 	"⿱",
@@ -277,9 +264,15 @@ const Word = () => {
 
 							return (
 								<div className="pt-2">
-									{beforeWord}
-									{<div className="red inline">{word}</div>}
-									{afterWord}
+									<div className="chinese-serif">
+										{beforeWord}
+										{
+											<div className="red inline">
+												{word}
+											</div>
+										}
+										{afterWord}
+									</div>
 									<div className="text-gray-700">
 										{sentence["english"]}
 									</div>

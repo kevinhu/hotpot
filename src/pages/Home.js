@@ -3,6 +3,7 @@ import { useHistory, Link } from "react-router-dom";
 
 import Fuse from "fuse.js";
 import words from "../assets/search_data.json";
+import { convert_pinyin } from "../utilities";
 
 const options = {
 	includeScore: true,
@@ -37,6 +38,7 @@ const Home = () => {
 						"short_definition",
 						"simplified",
 						"traditional",
+						"pinyin",
 					],
 					allowTypo: false,
 					threshold: -100,
@@ -52,11 +54,11 @@ const Home = () => {
 	};
 
 	// general link hover style
-	const linkHover = `hover:text-blue-600 dark-hover:text-orange-500`;
+	const linkHover = "transition duration-300 ease-in-out hover:text-red-700";
 	return (
 		<div>
 			<div
-				className="w-1/3 absolute mx-auto text-center border-solid border-2 border-black p-12 bg-white"
+				className="w-2/3 absolute mx-auto text-center border-solid border-2 border-black p-12 bg-white"
 				style={{
 					top: "40%",
 					left: "50%",
@@ -81,7 +83,7 @@ const Home = () => {
 							<input
 								className="text-lg chinese-serif p-2 bg-transparent outline-none w-full mx-auto border-solid border-2 border-black"
 								type="text"
-								placeholder="Search 189,432 words"
+								placeholder={`Search ${words.length} words`}
 								value={searchWord}
 								onChange={handleChange}
 							></input>
@@ -91,18 +93,35 @@ const Home = () => {
 									style={{ marginTop: "-4px" }}
 								>
 									{results.map((result, index) => {
-										console.log(result);
 										return (
 											<Link
 												to={`/word?word=${result["obj"]["simplified"]}`}
 												className={linkHover}
 											>
-												<div className="p-2">
-													{
-														result["obj"][
-															"simplified"
-														]
-													}
+												<div className="flex items-center">
+													<div className="p-2 text-xl font-semibold">
+														{
+															result["obj"][
+																"simplified"
+															]
+														}
+													</div>
+													<div>
+														<div className="font-semibold">
+															{convert_pinyin(
+																result["obj"][
+																	"pinyin"
+																]
+															)}
+														</div>
+														<div className="text-gray-700">
+															{
+																result["obj"][
+																	"short_definition"
+																]
+															}
+														</div>
+													</div>
 												</div>
 											</Link>
 										);
