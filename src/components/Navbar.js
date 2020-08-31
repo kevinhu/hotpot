@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 const Navbar = () => {
 	let history = useHistory();
-	const linkHover = `hover:text-blue-600 dark-hover:text-orange-500`;
 
 	var [searchWord, setSearchWord] = useState("");
 
@@ -14,6 +13,7 @@ const Navbar = () => {
 	const handleChange = (event) => {
 		setSearchWord(event.target.value);
 	};
+	const linkHover = `hover:text-blue-600 dark-hover:text-orange-500`;
 
 	return (
 		<div

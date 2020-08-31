@@ -153,7 +153,17 @@ const Word = () => {
 										return (
 											<div className="flex items-center">
 												<div className="chinese-serif text-4xl pr-4 py-4">
-													{character["simplified"]}
+													{character["definition"] ? (
+														<Link to={`/word?word=${character["simplified"]}`}>
+															{
+																character[
+																	"simplified"
+																]
+															}
+														</Link>
+													) : (
+														character["simplified"]
+													)}
 												</div>
 												<div>
 													<div className="text-xl font-semibold">
@@ -187,7 +197,17 @@ const Word = () => {
 										return (
 											<div className="flex items-center">
 												<div className="chinese-serif text-4xl pr-4 py-4">
-													{character["simplified"]}
+													{character["definition"] ? (
+														<Link to={`/word?word=${character["simplified"]}`}>
+															{
+																character[
+																	"simplified"
+																]
+															}
+														</Link>
+													) : (
+														character["simplified"]
+													)}
 												</div>
 												<div>
 													<div className="text-xl font-semibold">
