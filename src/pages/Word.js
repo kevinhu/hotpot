@@ -6,6 +6,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import queryString from "query-string";
 
 import { Link } from "react-router-dom";
+import LoadingBar from "react-top-loading-bar";
 
 var pinyinize = require("pinyinize");
 
@@ -54,6 +55,7 @@ const ordinal_suffix_of = (i) => {
 };
 
 const Word = () => {
+	const [progress, setProgress] = useState(0);
 	// initialize url params
 	let history = useHistory();
 	let location = useLocation();
@@ -68,11 +70,16 @@ const Word = () => {
 	if (wordParam) {
 		if (wordParam !== word && !loading) {
 			setLoading(true);
+			setProgress(0);
 			fetch(
 				`https://raw.githubusercontent.com/kevinhu/dictionary-files/master/word_jsons/${wordParam}.json`
 			)
-				.then((response) => response.json())
+				.then((response) => {
+					setProgress(50);
+					return response.json();
+				})
 				.then((data) => {
+					setProgress(100);
 					setWord(wordParam);
 					setWordData(data);
 					setLoading(false);
@@ -82,7 +89,7 @@ const Word = () => {
 
 	const sectionHeaderStyle = "text-xl text-gray-700 font-semibold";
 
-	if (!wordData || loading) {
+	if (!wordData) {
 		if (!loading) {
 			return <div>word not found</div>;
 		} else {
@@ -96,9 +103,14 @@ const Word = () => {
 
 	return (
 		<div className="w-full">
+			<LoadingBar
+				color="#f11946"
+				progress={progress}
+				onLoaderFinished={() => setProgress(0)}
+			/>
 			<div className="w-full text-center py-16">
 				<div className="chinese-serif flex justify-center">
-					{word.length === 1 ? (
+					{wordData["simplified"].length === 1 ? (
 						<PinyinCharacter
 							character={wordData["simplified"]}
 							pinyin={convert_pinyin(wordData["pinyin"])}
@@ -142,7 +154,7 @@ const Word = () => {
 						}}
 					>
 						<div className={sectionHeaderStyle}>Definition</div>
-						<div>{wordData["definition"]}</div>
+						<div>{wordData["definition"].replace("/", "; ")}</div>
 					</div>
 					<div
 						className="p-6"
@@ -150,8 +162,12 @@ const Word = () => {
 							borderBottom: "solid 2px rgba(0,0,0,0.2)",
 						}}
 					>
-						<div className={sectionHeaderStyle}>{word.length > 1 ? "Characters" : "Components"}</div>
-						{word.length > 1
+						<div className={sectionHeaderStyle}>
+							{wordData["simplified"].length > 1
+								? "Characters"
+								: "Components"}
+						</div>
+						{wordData["simplified"].length > 1
 							? wordData["simplified_characters"].map(
 									(character, index) => {
 										return (
@@ -160,7 +176,9 @@ const Word = () => {
 													{character["definition"] ? (
 														<Link
 															to={`/word?word=${character["simplified"]}`}
-															className={linkHover}
+															className={
+																linkHover
+															}
 														>
 															{
 																character[
@@ -207,7 +225,9 @@ const Word = () => {
 													{character["definition"] ? (
 														<Link
 															to={`/word?word=${character["simplified"]}`}
-															className={linkHover}
+															className={
+																linkHover
+															}
 														>
 															{
 																character[
@@ -269,7 +289,9 @@ const Word = () => {
 							borderBottom: "solid 2px rgba(0,0,0,0.2)",
 						}}
 					>
-						<div className={sectionHeaderStyle}>Containing words</div>
+						<div className={sectionHeaderStyle}>
+							Containing words
+						</div>
 						{wordData["containing_words"].map(
 							(contain_word, index) => {
 								let wordPinyin = contain_word["pinyin"].split(
@@ -324,52 +346,48 @@ const Word = () => {
 						}}
 					>
 						<div className={sectionHeaderStyle}>See also</div>
-						{wordData["related"].map(
-							(related_word, index) => {
-								let wordPinyin = related_word["pinyin"].split(
-									" "
-								);
+						{wordData["related"].map((related_word, index) => {
+							let wordPinyin = related_word["pinyin"].split(" ");
 
-								let displayWord = related_word["simplified"]
-									.split("")
-									.map((character, index) => {
-										return (
-											<PinyinCharacter
-												character={character}
-												pinyin={convert_pinyin(
-													wordPinyin[index]
-												)}
-												characterSize="1.5rem"
-												pinyinSize="0.75rem"
-											/>
-										);
-									});
+							let displayWord = related_word["simplified"]
+								.split("")
+								.map((character, index) => {
+									return (
+										<PinyinCharacter
+											character={character}
+											pinyin={convert_pinyin(
+												wordPinyin[index]
+											)}
+											characterSize="1.5rem"
+											pinyinSize="0.75rem"
+										/>
+									);
+								});
 
-								return (
-									<div className="pt-2">
-										<Link
-											to={`/word/?word=${related_word["simplified"]}`}
-											className={linkHover}
-										>
-											<div className="chinese-serif text-xl flex">
-												{displayWord}
-											</div>
-										</Link>
-										<div className="text-gray-700 break-words">
-											{related_word["definition"].length >
-											MAX_OTHER_DESCRIPTION_LENGTH
-												? related_word[
-														"definition"
-												  ].substring(
-														0,
-														MAX_OTHER_DESCRIPTION_LENGTH
-												  ) + "..."
-												: related_word["definition"]}
+							return (
+								<div className="pt-2">
+									<Link
+										to={`/word/?word=${related_word["simplified"]}`}
+										className={linkHover}
+									>
+										<div className="chinese-serif text-xl flex">
+											{displayWord}
 										</div>
+									</Link>
+									<div className="text-gray-700 break-words">
+										{related_word["definition"].length >
+										MAX_OTHER_DESCRIPTION_LENGTH
+											? related_word[
+													"definition"
+											  ].substring(
+													0,
+													MAX_OTHER_DESCRIPTION_LENGTH
+											  ) + "..."
+											: related_word["definition"]}
 									</div>
-								);
-							}
-						)}
+								</div>
+							);
+						})}
 					</div>
 					<div className="p-6">
 						<div className={sectionHeaderStyle}>Statistics</div>
