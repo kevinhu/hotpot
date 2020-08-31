@@ -63,20 +63,29 @@ const Word = () => {
 		<div className="w-full">
 			<div className="w-full text-center py-16">
 				<div className="chinese-serif flex justify-center">
-					<PinyinCharacter
-						character="火"
-						pinyin="huǒ"
-						characterSize="6rem"
-						pinyinSize="2rem"
-						className="px-2"
-					/>
-					<PinyinCharacter
-						character="锅"
-						pinyin="guō"
-						characterSize="6rem"
-						pinyinSize="2rem"
-						className="px-2"
-					/>
+					{word.length === 1 ? (
+						<PinyinCharacter
+							character="火"
+							pinyin="huǒ"
+							characterSize="6rem"
+							pinyinSize="2rem"
+							className="px-2"
+						/>
+					) : (
+						wordData["simplified_characters"].map(
+							(character, index) => {
+								return (
+									<PinyinCharacter
+										character={character["simplified"]}
+										pinyin={character["pinyin"]}
+										characterSize="6rem"
+										pinyinSize="2rem"
+										className="px-2"
+									/>
+								);
+							}
+						)
+					)}
 				</div>
 			</div>
 			<div
