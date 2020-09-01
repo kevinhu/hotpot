@@ -131,13 +131,13 @@ const Word = () => {
 				</div>
 			</div>
 			<div
-				className="w-3/4 flex english-serif mx-auto mb-12 bg-white"
+				className="w-full md:w-3/4 flex flex-wrap english-serif mx-auto mb-12 bg-white"
 				style={{
 					border: "solid 2px black",
 				}}
 			>
 				<div
-					className="w-2/3"
+					className="w-full md:w-2/3"
 					style={{ borderRight: "solid 2px rgba(0,0,0,0.2)" }}
 				>
 					<div
@@ -279,7 +279,7 @@ const Word = () => {
 						})}
 					</div>
 				</div>
-				<div className="w-1/3">
+				<div className="w-full md:w-1/3">
 					<div
 						className="p-6"
 						style={{

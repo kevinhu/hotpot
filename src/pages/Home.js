@@ -55,10 +55,17 @@ const Home = () => {
 
 	// general link hover style
 	const linkHover = "transition duration-300 ease-in-out hover:text-red-700";
+
+	// search box style
+	const searchBoxSizing =
+		"w-full md:w-2/3 xl:w-1/2 absolute mx-auto text-center p-12";
+	const searchBoxAesthetics = "border-solid border-2 border-black bg-white";
+	const searchBoxStyle = `${searchBoxSizing} ${searchBoxAesthetics}`;
+
 	return (
 		<div>
 			<div
-				className="w-2/3 absolute mx-auto text-center border-solid border-2 border-black p-12 bg-white"
+				className={searchBoxStyle}
 				style={{
 					top: "40%",
 					left: "50%",

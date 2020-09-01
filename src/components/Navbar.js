@@ -17,7 +17,7 @@ const Navbar = () => {
 
 	return (
 		<div
-			className="w-3/4 flex mx-auto bg-white"
+			className="w-full md:w-3/4 flex mx-auto bg-white"
 			style={{
 				borderBottom: "solid 2px black",
 				borderLeft: "solid 2px black",
