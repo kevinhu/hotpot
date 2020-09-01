@@ -17,19 +17,14 @@ const Navbar = () => {
 
 	return (
 		<div
-			className="w-full md:w-3/4 flex mx-auto bg-white"
+			className="w-full md:w-3/4 flex mx-auto bg-white dark:bg-gray-800 border-2 border-black dark:border-gray-600"
 			style={{
-				borderBottom: "solid 2px black",
-				borderLeft: "solid 2px black",
-				borderRight: "solid 2px black",
-				borderTop: "solid 2px black",
 				marginTop: "-2px",
 			}}
 		>
 			<Link
 				to="/"
-				className="english-serif px-6 py-2 red text-2xl"
-				style={{ borderRight: "solid 2px black" }}
+				className="english-serif px-6 py-2 red text-2xl border-r-2 border-black dark:border-gray-600"
 			>
 				huoguo
 			</Link>
