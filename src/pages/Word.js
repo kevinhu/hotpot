@@ -8,6 +8,8 @@ import queryString from "query-string";
 import { Link } from "react-router-dom";
 import LoadingBar from "react-top-loading-bar";
 
+import NotFound from "../assets/not_found.svg";
+
 import { convert_pinyin } from "../utilities";
 const IDEOGRAPHIC_DESCRIPTIONS = [
 	"⿰",
@@ -69,6 +71,13 @@ const Word = () => {
 			)
 				.then((response) => {
 					setProgress(50);
+					if (response.status === 404) {
+						setProgress(100);
+						setWord(wordParam);
+						setWordData(undefined);
+						setLoading(false);
+						return;
+					}
 					return response.json();
 				})
 				.then((data) => {
@@ -84,7 +93,18 @@ const Word = () => {
 
 	if (!wordData) {
 		if (!loading) {
-			return <div>word not found</div>;
+			return (
+				<div className="text-center w-full h-full p-12">
+					<img
+						alt="No repos found."
+						className="py-12 w-1/2 md:w-1/3 m-auto select-none"
+						src={NotFound}
+					></img>
+					<div className="text-lg select-none mb-6">
+						Word not found.
+					</div>
+				</div>
+			);
 		} else {
 			return <div>loading...</div>;
 		}
