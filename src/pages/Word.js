@@ -275,7 +275,9 @@ const Word = () => {
 							  })}
 					</div>
 					<div className="p-6">
-						<div className={sectionHeaderStyle}>Examples</div>
+						<div className={sectionHeaderStyle}>
+							Example sentences
+						</div>
 						{wordData["sentences"].map((sentence, index) => {
 							let simplified = sentence["simplified"];
 							let [beforeWord, afterWord] = simplified.split(
@@ -284,7 +286,7 @@ const Word = () => {
 
 							return (
 								<div className="pt-2">
-									<div className="chinese-serif">
+									<div className="chinese-serif text-xl">
 										{beforeWord}
 										{
 											<div className="red inline">

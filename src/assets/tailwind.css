@@ -28,7 +28,7 @@ body,
 }
 
 .mode-dark #root {
-	@apply bg-gray-700;
+	@apply bg-gray-900;
 	@apply text-gray-200 !important;
 }
 

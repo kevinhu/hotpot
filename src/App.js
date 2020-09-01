@@ -47,6 +47,12 @@ function App() {
     <HashRouter basename="/">
       <ScrollToTop />
       <WindowDimensionsProvider>
+        <DarkModeToggle
+          onChange={toggleTheme}
+          checked={theme === "dark"}
+          size={"3rem"}
+          speed={5}
+        />
         <Route
           render={({ location }) => {
             return !["/"].includes(location.pathname) && <Navbar />;

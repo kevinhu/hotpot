@@ -59,8 +59,10 @@ const Home = () => {
 	// search box style
 	const searchBoxSizing =
 		"w-full md:w-2/3 xl:w-1/2 absolute mx-auto text-center p-12";
-	const searchBoxAesthetics = "border-solid border-2 border-black bg-white";
-	const searchBoxStyle = `${searchBoxSizing} ${searchBoxAesthetics}`;
+	const searchBoxAesthetics = "border-2 border-black bg-white";
+	const searchBoxAestheticsDark =
+		"dark:border-2 dark:border-gray-700 dark:bg-gray-800";
+	const searchBoxStyle = `${searchBoxSizing} ${searchBoxAesthetics} ${searchBoxAestheticsDark}`;
 
 	return (
 		<div>
@@ -88,7 +90,7 @@ const Home = () => {
 					>
 						<div className="w-full relative">
 							<input
-								className="text-lg chinese-serif p-2 bg-transparent outline-none w-full mx-auto border-solid border-2 border-black"
+								className="text-lg chinese-serif p-2 bg-transparent outline-none w-full mx-auto border-solid border-2 border-black dark:border-gray-600"
 								type="text"
 								placeholder={`Search ${words.length} words`}
 								value={searchWord}

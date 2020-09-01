@@ -6,8 +6,8 @@
 	stroke-linejoin: round;
 	stroke-dasharray: 100 10;
 	stroke-dashoffset: 0;
-	-webkit-animation: stroke 4s infinite linear;
-	animation: stroke 4s infinite linear;
+	-webkit-animation: stroke 2s infinite linear;
+	animation: stroke 2s infinite linear;
 }
 :global .loading-text:nth-child(2n + 1) {
 	stroke: black;

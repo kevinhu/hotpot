@@ -22,6 +22,8 @@ const Navbar = () => {
 				borderBottom: "solid 2px black",
 				borderLeft: "solid 2px black",
 				borderRight: "solid 2px black",
+				borderTop: "solid 2px black",
+				marginTop: "-2px",
 			}}
 		>
 			<Link
