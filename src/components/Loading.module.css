@@ -1,0 +1,26 @@
+/* Main styles */
+:global .loading-text {
+	font-family: sans-serif;
+	fill: none;
+	stroke-width: 1;
+	stroke-linejoin: round;
+	stroke-dasharray: 100 10;
+	stroke-dashoffset: 0;
+	-webkit-animation: stroke 4s infinite linear;
+	animation: stroke 4s infinite linear;
+}
+:global .loading-text:nth-child(2n + 1) {
+	stroke: black;
+	-webkit-animation-delay: -1;
+	animation-delay: -1;
+}
+:global @-webkit-keyframes stroke {
+	100% {
+		stroke-dashoffset: -110;
+	}
+}
+:global @keyframes stroke {
+	100% {
+		stroke-dashoffset: -110;
+	}
+}

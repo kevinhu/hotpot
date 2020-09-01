@@ -8,6 +8,8 @@ import queryString from "query-string";
 import { Link } from "react-router-dom";
 import LoadingBar from "react-top-loading-bar";
 
+import Loading from "../components/Loading";
+
 import NotFound from "../assets/not_found.svg";
 
 import { convert_pinyin } from "../utilities";
@@ -106,7 +108,7 @@ const Word = () => {
 				</div>
 			);
 		} else {
-			return <div>loading...</div>;
+			return <Loading />;
 		}
 	}
 
