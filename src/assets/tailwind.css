@@ -31,6 +31,8 @@ body,
 	background-color: #f8f8f8;
 }
 
+html.mode-dark,
+.mode-dark body,
 .mode-dark #root {
 	@apply bg-gray-900;
 	@apply text-gray-200 !important;

@@ -22030,6 +22030,8 @@ body,
   background-color: #f8f8f8;
 }
 
+html.mode-dark,
+.mode-dark body,
 .mode-dark #root {
   --bg-opacity: 1;
   background-color: #1a202c;

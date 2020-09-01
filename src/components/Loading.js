@@ -5,7 +5,10 @@ import Styles from "./Loading.module.css";
 function Loading() {
 	return (
 		<div>
-			<svg viewBox="0 0 600 300" className="loading-svg text-4xl">
+			<svg
+				viewBox="0 0 600 300"
+				className="loading-svg text-4xl text-black stroke-current dark:text-white"
+			>
 				<text
 					className="loading-text"
 					text-anchor="middle"

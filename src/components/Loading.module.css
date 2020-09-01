@@ -10,7 +10,7 @@
 	animation: stroke 2s infinite linear;
 }
 :global .loading-text:nth-child(2n + 1) {
-	stroke: black;
+	/*stroke: black;*/
 	-webkit-animation-delay: -1;
 	animation-delay: -1;
 }

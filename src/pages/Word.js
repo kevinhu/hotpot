@@ -91,7 +91,8 @@ const Word = () => {
 		}
 	}
 
-	const sectionHeaderStyle = "text-xl text-gray-700 font-semibold";
+	const sectionHeaderStyle =
+		"text-xl text-gray-700 dark:text-gray-500 font-semibold";
 
 	if (!wordData) {
 		if (!loading) {
@@ -207,7 +208,7 @@ const Word = () => {
 																	]
 																)}
 														</div>
-														<div className="text-gray-600">
+														<div className="text-gray-700 dark:text-gray-500">
 															{
 																character[
 																	"definition"
@@ -255,7 +256,7 @@ const Word = () => {
 																	]
 																)}
 														</div>
-														<div className="text-gray-600">
+														<div className="text-gray-700 dark:text-gray-500">
 															{
 																character[
 																	"definition"
@@ -290,7 +291,7 @@ const Word = () => {
 										}
 										{afterWord}
 									</div>
-									<div className="text-gray-700">
+									<div className="text-gray-700 dark:text-gray-500">
 										{sentence["english"]}
 									</div>
 								</div>
@@ -339,7 +340,7 @@ const Word = () => {
 												{displayWord}
 											</div>
 										</Link>
-										<div className="text-gray-700 break-words">
+										<div className="text-gray-700 dark:text-gray-500 break-words">
 											{contain_word["definition"].length >
 											MAX_OTHER_DESCRIPTION_LENGTH
 												? contain_word[
@@ -390,7 +391,7 @@ const Word = () => {
 											{displayWord}
 										</div>
 									</Link>
-									<div className="text-gray-700 break-words">
+									<div className="text-gray-700 dark:text-gray-500 break-words">
 										{related_word["definition"].length >
 										MAX_OTHER_DESCRIPTION_LENGTH
 											? related_word[

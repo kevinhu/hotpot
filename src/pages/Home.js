@@ -3,7 +3,7 @@ import { useHistory, Link } from "react-router-dom";
 
 import Fuse from "fuse.js";
 import words from "../assets/search_data.json";
-import { convert_pinyin } from "../utilities";
+import { convert_pinyin, numberWithCommas } from "../utilities";
 
 const options = {
 	includeScore: true,
@@ -92,7 +92,9 @@ const Home = () => {
 							<input
 								className="text-lg chinese-serif p-2 bg-transparent outline-none w-full mx-auto border-solid border-2 border-black dark:border-gray-600"
 								type="text"
-								placeholder={`Search ${words.length} words`}
+								placeholder={`Search ${numberWithCommas(
+									words.length
+								)} words`}
 								value={searchWord}
 								onChange={handleChange}
 							></input>
