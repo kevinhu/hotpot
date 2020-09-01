@@ -22019,6 +22019,10 @@ video {
   color: #c10000;
 }
 
+.mode-dark .red {
+  color: #e84a5f;
+}
+
 html,
 body,
 #root {

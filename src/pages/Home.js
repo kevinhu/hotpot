@@ -98,7 +98,7 @@ const Home = () => {
 							></input>
 							{results.length > 0 && searchWord != "" && (
 								<div
-									className="absolute text-left bg-white border-solid border-2 border-black w-full"
+									className="absolute text-left bg-white border-solid border-2 border-black w-full dark:border-gray-600 dark:bg-gray-800"
 									style={{ marginTop: "-4px" }}
 								>
 									{results.map((result, index) => {
@@ -123,7 +123,7 @@ const Home = () => {
 																]
 															)}
 														</div>
-														<div className="text-gray-700">
+														<div className="text-gray-700 dark:text-gray-300">
 															{
 																result["obj"][
 																	"short_definition"

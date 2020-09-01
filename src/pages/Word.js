@@ -152,12 +152,7 @@ const Word = () => {
 					)}
 				</div>
 			</div>
-			<div
-				className="w-full md:w-3/4 flex flex-wrap english-serif mx-auto mb-12 bg-white"
-				style={{
-					border: "solid 2px black",
-				}}
-			>
+			<div className="w-full md:w-3/4 flex flex-wrap english-serif mx-auto mb-12 bg-white border-solid border-2 border-black dark:border-gray-600 dark:bg-gray-800">
 				<div
 					className="w-full md:w-2/3"
 					style={{ borderRight: "solid 2px rgba(0,0,0,0.2)" }}
