@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { HashRouter, Switch, Route } from "react-router-dom";
 
 // Import global components
 import Navbar from "./components/Navbar";
@@ -44,7 +44,7 @@ function App() {
   const linkHover = `hover:text-blue-600 dark-hover:text-orange-500`;
 
   return (
-    <Router>
+    <HashRouter basename="/">
       <ScrollToTop />
       <WindowDimensionsProvider>
         <Route
@@ -77,7 +77,7 @@ function App() {
           </Route>
         </Switch>
       </WindowDimensionsProvider>
-    </Router>
+    </HashRouter>
   );
 }
 
