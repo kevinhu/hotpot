@@ -164,43 +164,42 @@ const Word = () => {
 							? wordData["simplified_characters"].map(
 									(character, index) => {
 										return (
-											<div className="flex items-center">
-												<div className="chinese-serif text-4xl pr-4 py-4">
-													{character["definition"] ? (
-														<Link
-															to={`/word?word=${character["simplified"]}`}
-															className={
-																linkHover
-															}
-														>
-															{
-																character[
-																	"simplified"
-																]
-															}
-														</Link>
-													) : (
-														character["simplified"]
-													)}
-												</div>
-												<div>
-													<div className="text-xl font-semibold">
-														{character["pinyin"] &&
-															convert_pinyin(
-																character[
-																	"pinyin"
-																]
-															)}
-													</div>
-													<div className="text-gray-600">
+											<Link
+												to={`/word?word=${character["simplified"]}`}
+												className={`${linkHover} ${
+													!character["definition"] &&
+													"disabled-link"
+												}`}
+											>
+												<div className="flex items-center">
+													<div className="chinese-serif text-4xl pr-4 py-4">
 														{
 															character[
-																"definition"
+																"simplified"
 															]
 														}
 													</div>
+													<div>
+														<div className="text-xl font-semibold">
+															{character[
+																"pinyin"
+															] &&
+																convert_pinyin(
+																	character[
+																		"pinyin"
+																	]
+																)}
+														</div>
+														<div className="text-gray-600">
+															{
+																character[
+																	"definition"
+																]
+															}
+														</div>
+													</div>
 												</div>
-											</div>
+											</Link>
 										);
 									}
 							  )
@@ -213,43 +212,42 @@ const Word = () => {
 										)
 									) {
 										return (
-											<div className="flex items-center">
-												<div className="chinese-serif text-4xl pr-4 py-4">
-													{character["definition"] ? (
-														<Link
-															to={`/word?word=${character["simplified"]}`}
-															className={
-																linkHover
-															}
-														>
-															{
-																character[
-																	"simplified"
-																]
-															}
-														</Link>
-													) : (
-														character["simplified"]
-													)}
-												</div>
-												<div>
-													<div className="text-xl font-semibold">
-														{character["pinyin"] &&
-															convert_pinyin(
-																character[
-																	"pinyin"
-																]
-															)}
-													</div>
-													<div className="text-gray-600">
+											<Link
+												to={`/word?word=${character["simplified"]}`}
+												className={`${linkHover} ${
+													!character["definition"] &&
+													"disabled-link"
+												}`}
+											>
+												<div className="flex items-center">
+													<div className="chinese-serif text-4xl pr-4 py-4">
 														{
 															character[
-																"definition"
+																"simplified"
 															]
 														}
 													</div>
+													<div>
+														<div className="text-xl font-semibold">
+															{character[
+																"pinyin"
+															] &&
+																convert_pinyin(
+																	character[
+																		"pinyin"
+																	]
+																)}
+														</div>
+														<div className="text-gray-600">
+															{
+																character[
+																	"definition"
+																]
+															}
+														</div>
+													</div>
 												</div>
-											</div>
+											</Link>
 										);
 									}
 							  })}

@@ -20915,6 +20915,10 @@ body,
   color: rgba(237, 242, 247, var(--text-opacity)) !important;
 }
 
+.disabled-link {
+  pointer-events: none;
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;
