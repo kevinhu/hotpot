@@ -11,6 +11,9 @@ tqdm.pandas()
 # Convert raw files to tables
 # ===========================
 
+# ------
+# CEDICT
+# ------
 print("Processing CEDICT... ", end="")
 
 cedict = pd.read_csv(
@@ -20,9 +23,11 @@ cedict = pd.read_csv(
     names=["line"],
 )
 
+# split space-delimited definitions into parts
 cedict = cedict["line"].str.split(" ", 2, expand=True)
 cedict.columns = ["traditional", "simplified", "definition"]
 
+# trim bracket separators
 cedict["pinyin"] = cedict["definition"].apply(lambda x: x.split("]", 1)[0][1:])
 cedict["definition"] = cedict["definition"].apply(lambda x: x.split("]", 1)[1][2:-1])
 
@@ -30,6 +35,9 @@ cedict.to_csv(f"./data/intermediate/cedict.txt", sep="\t")
 
 print("ok")
 
+# -------
+# BCC_LEX
+# -------
 print("Processing BCC_LEX_Zh... ", end="")
 
 bcc_lex = pd.read_csv(
@@ -39,9 +47,11 @@ bcc_lex = pd.read_csv(
     names=["word", "frequency"],
 )
 
+# normalize to simplified words only
 simplified = set(cedict["simplified"])
 bcc_lex = bcc_lex[bcc_lex["word"].isin(simplified)]
 
+# compute frequency statistics
 bcc_lex["rank"] = list(range(1, len(bcc_lex) + 1))
 bcc_lex["normalized_rank"] = bcc_lex["rank"] / len(bcc_lex)
 bcc_lex["fraction"] = bcc_lex["frequency"] / bcc_lex["frequency"].sum()
@@ -51,6 +61,9 @@ bcc_lex.to_csv(f"./data/intermediate/bcc_lex.txt", sep="\t")
 
 print("ok")
 
+# -----
+# CJKVI
+# -----
 print("Processing CJKVI... ", end="")
 
 cjkvi = pd.read_csv(
@@ -60,6 +73,7 @@ cjkvi = pd.read_csv(
     names=["unicode", "character", "decomposition"],
 )
 
+# keep first decomposition for characters with multiple
 cjkvi["decomposition"] = cjkvi["decomposition"].str.split("]").str[0]
 
 INVALID_CHARACTERS = [
@@ -131,10 +145,14 @@ cjkvi.to_csv(f"./data/intermediate/cjkvi.txt", sep="\t")
 
 print("ok")
 
+# -----------------
+# Translated corpus
+# -----------------
 print("Processing translated corpus... ")
 
 zh_translation_json = []
 
+# read line-delimited JSON
 with open("./data/raw/translation2019zh/translation2019zh_train.json", "r") as f:
 
     k = 0
@@ -146,21 +164,21 @@ with open("./data/raw/translation2019zh/translation2019zh_train.json", "r") as f
 
 zh_translations = pd.DataFrame(zh_translation_json)
 
+# normalize to simplified and traditional versions
 s2t_converter = opencc.OpenCC("s2t.json")
 t2s_converter = opencc.OpenCC("t2s.json")
 
 print("Converting to simplified...")
-
 zh_translations["simplified"] = zh_translations["chinese"].progress_apply(
     t2s_converter.convert
 )
 
 print("Converting to traditional...")
-
 zh_translations["traditional"] = zh_translations["chinese"].progress_apply(
     s2t_converter.convert
 )
 
+# remove original mixed chinese
 zh_translations = zh_translations.drop("chinese", axis=1)
 
 zh_translations.to_feather(
