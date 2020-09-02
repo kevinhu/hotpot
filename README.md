@@ -1,68 +1,52 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# [huoguo](https://huoguo.kevinhu.io)
 
-## Available Scripts
+A static Chinese-English dictionary entirely hosted on GitHub Pages. See it live at [https://huoguo.kevinhu.io](https://huoguo.kevinhu.io/).
 
-In the project directory, you can run:
+## Overview
 
-### `yarn start`
+Chinese-English dictionaries are essential tools for learning the language. This project constructs a dictionary with the essential function of providing English definitions for Chinese words plus three powerful extensions:
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. Word frequency statistics
+2. Word/character decomposition and etymology
+3. Recommendations for related words
+4. Examples of word usage in sentences along with translations
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## How it works
 
-### `yarn test`
+1. Retrieval of source data (performed by `/dictionary/1_retrieve.py`):
+   - Word definitions from (CEDICT)[https://www.mdbg.net/chinese/dictionary?page=cedict]
+   - Word frequencies from (BCC_LEX)[https://challenges.hackingchinese.com/resources/stories/451-blcu-balanced-corpus-frequency-lists]
+   - Word decompositions from [CJK (Chinese-Japanese-Korean) ideographic description sequences](https://github.com/cjkvi/cjkvi-ids)
+   - Chinese word embeddings from [FastText](https://fasttext.cc/docs/en/crawl-vectors.html) on Common Crawl and Wikipedia
+   - Sentence segmentation index for the [jieba library](https://github.com/fxsjy/jieba)
+   - Open Chinese-English translated sentences from [kaggle](https://www.kaggle.com/terrychanorg/translation2019zh)
+2. Conversion of source data to Pandas-processable tables (`/dictionary/2_to_tables.py`)
+3. Filtering of translated sentences (`/dictionary/3_filter_examples.py`)
+4. Segmentation of filtered translated sentences using `jieba` (`/dictionary/4_segment_examples.py`)
+5. Extraction of segmented words from sentences to create a word -> example sentences mapping (`/dictionary/5_words_to_sentences.py`)
+6. Computation of words-containing-words through Aho-Corasick on CEDICT (`/dictionary/6_containing_words.py`)
+7. Computation of related words by using nearest-neighbor search on FastText vectors (`/dictionary/7_fasttext_similars.py`)
+8. Unification of previous outputs into single JSON files for each word ready for the frontend, split by simplified and traditional (`/dictionary/8_unify.py`)
+9. Construction of a reduced dictionary for client-side search (`/dictionary/9_client_search.py`)
+10. The web client (a standard create-react-app) takes the JSON files hosted on GitHub to render the entries
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Considerations:
 
-### `yarn build`
+- Due to the size of the output of step 8, the outputs are hosted in a submodule ([kevinhu/dictionary-files](https://github.com/kevinhu/dictionary-files)) rather than in huoguo itself.
+- The Chinese-English translated sentences are not included in `/dictionary/1_retrieve.py` because a Kaggle login is required for download.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Getting started
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+### Dictionary construction
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Install Python dependencies with `poetry install`
+2. Activate virtual environment with `poetry shell`
 
-### `yarn eject`
+### Frontend
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+1. Install JavaScript dependencies with `yarn install`
+2. Start the client with `yarn start`
+3. Deploy to GitHub Pages with `yarn deploy` (make sure `package.json` URL and CNAME record are configured correctly)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Note that the scraper and frontend are more or less independent with the exception of the final `.json` output.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
