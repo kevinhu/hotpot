@@ -191,7 +191,16 @@ def unify_word_info(word, cedict_entry, cedict_reference, kind):
     elif kind == "traditional":
         sentence_ids = traditional_wts.get(word, [])
 
-    word_info["sentences"] = [zh_translations[x] for x in sentence_ids]
+    sentences = [zh_translations[x] for x in sentence_ids]
+
+    if kind == "simplified":
+        word_info["sentences"] = [
+            {"english": x["english"], "chinese": x["simplified"]} for x in sentences
+        ]
+    elif kind == "traditional":
+        word_info["sentences"] = [
+            {"english": x["english"], "chinese": x["traditional"]} for x in sentences
+        ]
 
     # get embedding-based related words
     related = list(embeddings_nearest.loc[word])
@@ -217,8 +226,14 @@ def unify_word_info(word, cedict_entry, cedict_reference, kind):
         ujson.dump(word_info, f)
 
 
-for word, entry in tqdm(cedict_simplified.items()):
-    unify_word_info(word, entry, cedict_simplified, "simplified")
+try:
+    for word, entry in tqdm(cedict_simplified.items()):
+        unify_word_info(word, entry, cedict_simplified, "simplified")
+except Exception as e:
+    print(e)
 
-for word, entry in tqdm(cedict_traditional.items()):
-    unify_word_info(word, entry, cedict_traditional, "traditional")
+try:
+    for word, entry in tqdm(cedict_traditional.items()):
+        unify_word_info(word, entry, cedict_traditional, "traditional")
+except Exception as e:
+    print(e)
