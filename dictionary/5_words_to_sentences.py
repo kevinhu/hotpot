@@ -12,7 +12,8 @@ tqdm.pandas()
 # Match segmented example sentences to CEDICT words
 # =================================================
 
-MAX_SENTENCES = 8
+# maximum number of sentences per word
+MAX_SENTENCES = 16
 
 zh_translations = pd.read_feather(
     "./data/intermediate/zh_translations_segmented.feather"
@@ -21,7 +22,7 @@ zh_translations = pd.read_feather(
 simplified_wts = {}
 traditional_wts = {}
 
-
+# iterator for constructing word-to-sentence dictionary
 def append_sentence(row):
 
     sentence_id = row.name
