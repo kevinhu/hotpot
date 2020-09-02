@@ -5,15 +5,15 @@ import Fuse from "fuse.js";
 import words from "../assets/search_data.json";
 import { convert_pinyin, numberWithCommas } from "../utilities";
 
-const options = {
-	includeScore: true,
-	keys: ["simplified", "short_definition", "toneless_pinyin"],
-};
-const fuse = new Fuse(words, options);
+// Import dark mode
+import { useDarkMode } from "../components/DarkMode";
+import DarkModeToggle from "react-dark-mode-toggle";
+
 var _ = require("lodash");
 const fuzzysort = require("fuzzysort");
 
 const Home = () => {
+	const [theme, toggleTheme, componentMounted] = useDarkMode();
 	let history = useHistory();
 
 	let [searchWord, setSearchWord] = useState("");
@@ -74,6 +74,12 @@ const Home = () => {
 					transform: "translate(-50%, -50%)",
 				}}
 			>
+				<DarkModeToggle
+					onChange={toggleTheme}
+					checked={theme === "dark"}
+					size={"3rem"}
+					speed={5}
+				/>
 				<div
 					className="english-serif red font-semibold"
 					style={{ fontSize: "4rem", lineHeight: "4rem" }}

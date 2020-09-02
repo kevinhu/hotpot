@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
-export const useDarkMode = () => {
+const DarkModeCtx = createContext(null);
+
+const DarkModeProvider = ({ children }) => {
   const [theme, setTheme] = useState("light");
   const [componentMounted, setComponentMounted] = useState(false);
   const setMode = (mode) => {
@@ -28,5 +30,15 @@ export const useDarkMode = () => {
     setComponentMounted(true);
   }, []);
 
-  return [theme, toggleTheme, componentMounted];
+  // return [theme, toggleTheme, componentMounted];
+  return (
+    <DarkModeCtx.Provider value={[theme, toggleTheme, componentMounted]}>
+      <div className={`app-container ${theme === "dark" ? "mode-dark" : ""}`}>
+        {children}
+      </div>
+    </DarkModeCtx.Provider>
+  );
 };
+
+export default DarkModeProvider;
+export const useDarkMode = () => useContext(DarkModeCtx);

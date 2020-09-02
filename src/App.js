@@ -13,7 +13,7 @@ import Word from "./pages/Word";
 import ScrollToTop from "./components/ScrollToTop";
 
 // Import dark mode
-import { useDarkMode } from "./components/DarkMode";
+import DarkModeProvider, { useDarkMode } from "./components/DarkMode";
 import DarkModeToggle from "react-dark-mode-toggle";
 
 // Global CSS
@@ -23,23 +23,21 @@ import "./App.css";
 import WindowDimensionsProvider from "./components/WindowDimensionsProvider";
 
 function App() {
-  const [theme, toggleTheme, componentMounted] = useDarkMode();
+  // if (theme === "dark") {
+  //   document.documentElement.classList.add("mode-dark");
+  // } else {
+  //   document.documentElement.classList.remove("mode-dark");
+  // }
 
-  if (theme === "dark") {
-    document.documentElement.classList.add("mode-dark");
-  } else {
-    document.documentElement.classList.remove("mode-dark");
-  }
+  // const [loading, setLoading] = useState(true);
 
-  const [loading, setLoading] = useState(true);
+  // useEffect(() => {
+  //   setLoading(false);
+  // }, [setLoading]);
 
-  useEffect(() => {
-    setLoading(false);
-  }, [setLoading]);
-
-  if (loading || !componentMounted) {
-    return <div />;
-  }
+  // if (loading || !componentMounted) {
+  //   return <div />;
+  // }
 
   const linkHover = `hover:text-blue-600 dark-hover:text-orange-500`;
 
@@ -47,18 +45,19 @@ function App() {
     <HashRouter basename="/">
       <ScrollToTop />
       <WindowDimensionsProvider>
-        <DarkModeToggle
+        <DarkModeProvider>
+          {/*<DarkModeToggle
           onChange={toggleTheme}
           checked={theme === "dark"}
           size={"3rem"}
           speed={5}
-        />
-        <Route
-          render={({ location }) => {
-            return !["/"].includes(location.pathname) && <Navbar />;
-          }}
-        />
-        {/*<div
+        />*/}
+          <Route
+            render={({ location }) => {
+              return !["/"].includes(location.pathname) && <Navbar />;
+            }}
+          />
+          {/*<div
           className="text-center w-screen pt-8"
           style={{ marginBottom: "-1rem" }}
         >
@@ -69,19 +68,20 @@ function App() {
             speed={5}
           />
         </div>*/}
-        <Switch>
-          {/* Public Routes */}
-          <Route exact path="/">
-            {<Home />}
-          </Route>
+          <Switch>
+            {/* Public Routes */}
+            <Route exact path="/">
+              {<Home />}
+            </Route>
 
-          <Route path="/word">{<Word />}</Route>
+            <Route path="/word">{<Word />}</Route>
 
-          {/* Catch-all Route */}
-          <Route path="/">
-            <NotFound />
-          </Route>
-        </Switch>
+            {/* Catch-all Route */}
+            <Route path="/">
+              <NotFound />
+            </Route>
+          </Switch>
+        </DarkModeProvider>
       </WindowDimensionsProvider>
     </HashRouter>
   );
