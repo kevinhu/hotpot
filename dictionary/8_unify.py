@@ -25,21 +25,42 @@ bcc_lex = pd.read_csv(f"./data/intermediate/bcc_lex.txt", sep="\t", index_col=0)
 bcc_lex = bcc_lex.set_index("word", drop=False)
 cedict = cedict.join(bcc_lex, on="simplified").fillna(-1)
 cedict = cedict.drop("frequency", axis=1)
+cedict = cedict.sort_values("rank", ascending=True)
 
-# separate CEDICT into simplified and traditional
-cedict_simplified = cedict.set_index("simplified", drop=False)
-cedict_simplified = cedict_simplified[~cedict_simplified.index.duplicated(keep="first")]
-cedict_simplified = cedict_simplified.to_dict(orient="index")
-
-cedict_traditional = cedict.set_index("traditional", drop=False)
-cedict_traditional = cedict_traditional[
-    ~cedict_traditional.index.duplicated(keep="first")
-]
-cedict_traditional = cedict_traditional.to_dict(orient="index")
-
-# create simplified-traditional converters
 simplified_to_traditional = dict(zip(cedict["simplified"], cedict["traditional"]))
 traditional_to_simplified = dict(zip(cedict["traditional"], cedict["simplified"]))
+
+cedict_simplified_unique = cedict.drop_duplicates("simplified", keep="first").set_index(
+    "simplified"
+)
+cedict_traditional_unique = cedict.drop_duplicates(
+    "traditional", keep="first"
+).set_index("traditional")
+
+frequency_cols = ["rank", "normalized_rank", "fraction", "cumulative_fraction"]
+
+# separate CEDICT into simplified and traditional
+# group multi-definition words
+cedict_simplified = cedict.groupby("simplified")[
+    ["definition", "pinyin", "traditional"]
+].agg(list)
+cedict_simplified = cedict_simplified.join(
+    cedict_simplified_unique[frequency_cols], on="simplified"
+)
+cedict_simplified.index.name = "word"
+cedict_simplified["word"] = cedict_simplified.index
+cedict_simplified = cedict_simplified.to_dict(orient="index")
+
+cedict_traditional = cedict.groupby("traditional")[
+    ["definition", "pinyin", "simplified"]
+].agg(lambda x: sorted(list(set(x))))
+cedict_traditional = cedict_traditional.join(
+    cedict_traditional_unique[frequency_cols], on="traditional"
+)
+cedict_traditional.index.name = "word"
+cedict_traditional["word"] = cedict_traditional.index
+cedict_traditional = cedict_traditional.to_dict(orient="index")
+
 
 # load CJKVI decompositions
 cjkvi = pd.read_csv(f"./data/intermediate/cjkvi.txt", sep="\t", index_col=0)
@@ -96,114 +117,67 @@ embeddings_nearest = pd.read_hdf(
 )
 
 # iterator for each CEDICT row
-def unify_word_info(cedict_row):
+def unify_word_info(word, cedict_entry, cedict_reference, kind):
 
-    word_info = {}
-
-    word_simplified = cedict_row["simplified"]
-    word_traditional = cedict_row["traditional"]
-
-    # CEDICT info
-    word_info["simplified"] = word_simplified
-    word_info["traditional"] = word_traditional
-    word_info["definition"] = cedict_row["definition"]
-    word_info["pinyin"] = cedict_row["pinyin"]
-
-    # frequency statistics
-    word_info["rank"] = cedict_row["rank"]
-    word_info["normalized_rank"] = cedict_row["normalized_rank"]
-    word_info["fraction"] = cedict_row["fraction"]
-    word_info["cumulative_fraction"] = cedict_row["cumulative_fraction"]
+    word_info = cedict_entry
 
     # if multiple characters, get definitions for each
-    if len(word_simplified) > 1:
-        simplified_characters = [
-            cedict_simplified.get(x, {"simplified": x}) for x in word_simplified
-        ]
-
-        traditional_characters = [
-            cedict_traditional.get(x, {"traditional": x}) for x in word_traditional
-        ]
+    if len(word) > 1:
+        characters = [cedict_reference.get(x, {"word": x}) for x in word]
 
         # fields to retain
-        characters_fields = ["traditional", "simplified", "definition", "pinyin"]
+        characters_fields = ["word", "definition", "pinyin"]
 
         # filter out other fields
-        simplified_characters = [
+        characters = [
             {key: value for key, value in x.items() if key in characters_fields}
-            for x in simplified_characters
-        ]
-        traditional_characters = [
-            {key: value for key, value in x.items() if key in characters_fields}
-            for x in traditional_characters
+            for x in characters
         ]
 
-        word_info["simplified_characters"] = simplified_characters
-        word_info["traditional_characters"] = traditional_characters
+        word_info["characters"] = characters
 
     # if single character, fetch components and definitions
-    elif len(word_simplified) == 1:
-        simplified_components = cjkvi.get(word_simplified, {})
-        traditional_components = cjkvi.get(word_traditional, {})
+    elif len(word) == 1:
+        components = cjkvi.get(word, {})
 
         # fields to retain
-        component_fields = ["traditional", "simplified", "definition", "pinyin"]
+        component_fields = ["word", "definition", "pinyin"]
 
-        if bool(simplified_components):
+        if bool(components):
 
             # get definitions for decomposition characters
-            simplified_components["decomposition_definitions"] = [
-                cedict_simplified.get(x, {"simplified": x})
-                for x in simplified_components["decomposition"]
+            components["decomposition_definitions"] = [
+                cedict_reference.get(x, {"word": x})
+                for x in components["decomposition"]
             ]
 
             # filter out other fields
-            simplified_components["decomposition_definitions"] = [
+            components["decomposition_definitions"] = [
                 {key: value for key, value in x.items() if key in component_fields}
-                for x in simplified_components["decomposition_definitions"]
+                for x in components["decomposition_definitions"]
             ]
 
-        if bool(traditional_components):
-
-            # get definitions for decomposition characters
-            traditional_components["decomposition_definitions"] = [
-                cedict_traditional.get(x, {"traditional": x})
-                for x in traditional_components["decomposition"]
-            ]
-
-            # filter out other fields
-            traditional_components["decomposition_definitions"] = [
-                {key: value for key, value in x.items() if key in component_fields}
-                for x in traditional_components["decomposition_definitions"]
-            ]
-
-        word_info["simplified_components"] = simplified_components
-        word_info["traditional_components"] = traditional_components
+        word_info["components"] = components
 
     # get containing words
-    simplified_words = simplified_containing_words.get(word_simplified, [])
-    traditional_words = traditional_containing_words.get(word_traditional, [])
-
-    # normalize simplified-traditional containing words
-    traditional_words_simplified = [
-        traditional_to_simplified[x] for x in traditional_words
-    ]
+    containing_words = []
+    if kind == "simplified":
+        containing_words = simplified_containing_words.get(word, [])
+    elif kind == "traditional":
+        containing_words = traditional_containing_words.get(word, [])
 
     # sort containing words by frequency
-    containing_words = list(set(simplified_words + traditional_words_simplified))
-    containing_words = [cedict_simplified[x] for x in containing_words]
+    containing_words = [cedict_reference[x] for x in containing_words]
     containing_words = sorted(
         containing_words, key=lambda x: x["fraction"], reverse=True
     )
 
     # keep top containing words
     containing_words = containing_words[:MAX_CONTAINING_WORDS]
-    containing_words = [
-        x for x in containing_words if x["simplified"] != word_simplified
-    ]
+    containing_words = [x for x in containing_words if x["word"] != word]
 
     # keep only fields of interest
-    containing_words_fields = ["traditional", "simplified", "definition", "pinyin"]
+    containing_words_fields = ["word", "definition", "pinyin"]
     containing_words = [
         {key: value for key, value in x.items() if key in containing_words_fields}
         for x in containing_words
@@ -211,37 +185,40 @@ def unify_word_info(cedict_row):
     word_info["containing_words"] = containing_words
 
     # get IDs of sentences containing word
-    simplified_sentence_ids = simplified_wts.get(word_simplified, [])
-    traditional_sentence_ids = traditional_wts.get(word_traditional, [])
+    sentence_ids = []
+    if kind == "simplified":
+        sentence_ids = simplified_wts.get(word, [])
+    elif kind == "traditional":
+        sentence_ids = traditional_wts.get(word, [])
 
-    sentence_ids = set(simplified_sentence_ids + traditional_sentence_ids)
     word_info["sentences"] = [zh_translations[x] for x in sentence_ids]
 
     # get embedding-based related words
-    related = list(embeddings_nearest.loc[word_simplified])
-    related = [traditional_to_simplified.get(x, x) for x in related]
+    related = list(embeddings_nearest.loc[word])
+
+    if kind == "simplified":
+        related = [traditional_to_simplified.get(x, x) for x in related]
+    elif kind == "traditional":
+        related = [simplified_to_traditional.get(x, x) for x in related]
 
     # get definitions of related words
-    related = [{**cedict_simplified[x], "simplified": x} for x in related]
-    related = [x for x in related if x["simplified"] != word_simplified]
+    related = [{**cedict_reference[x], "word": x} for x in related]
+    related = [x for x in related if x["word"] != word]
 
     # keep only fields of interest
-    related_fields = ["traditional", "simplified", "definition", "pinyin"]
+    related_fields = ["word", "definition", "pinyin"]
     related = [
         {key: value for key, value in x.items() if key in related_fields}
         for x in related
     ]
     word_info["related"] = related
 
-    with open(f"./data/dictionary-files/word_jsons/{word_simplified}.json", "w",) as f:
+    with open(f"./data/dictionary-files/{kind}/{word}.json", "w",) as f:
         ujson.dump(word_info, f)
 
-    if word_simplified != word_traditional:
 
-        with open(
-            f"./data/dictionary-files/word_jsons/{word_traditional}.json", "w",
-        ) as f:
-            ujson.dump(word_info, f)
+for word, entry in tqdm(cedict_simplified.items()):
+    unify_word_info(word, entry, cedict_simplified, "simplified")
 
-
-cedict.progress_apply(unify_word_info, axis=1)
+for word, entry in tqdm(cedict_traditional.items()):
+    unify_word_info(word, entry, cedict_traditional, "traditional")
