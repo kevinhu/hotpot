@@ -181,6 +181,7 @@ zh_translations["traditional"] = zh_translations["chinese"].progress_apply(
 # remove original mixed chinese
 zh_translations = zh_translations.drop("chinese", axis=1)
 
+# save to efficient feather format
 zh_translations.to_feather(
     "./data/intermediate/zh_translations.feather",
     compression=config.FEATHER_COMPRESSION,

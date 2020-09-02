@@ -12,15 +12,19 @@ tqdm.pandas()
 # Filter translated examples
 # ==========================
 
+ALLOWED_ENDINGS = ["。", "？", "！"]
+MIN_LENGTH = 8
+MAX_LENGTH = 24
+MIN_UNIQUENESS = 0.8
+
 zh_translations = pd.read_feather("./data/intermediate/zh_translations.feather",)
 
-# filter by sentence length
-
+# -------------------------
+# Filter by sentence length
+# -------------------------
 print("Applying length filter")
 zh_translations["zh_length"] = zh_translations["simplified"].apply(len)
 
-MIN_LENGTH = 8
-MAX_LENGTH = 24
 
 zh_translations = zh_translations[zh_translations["zh_length"] <= MAX_LENGTH]
 zh_translations = zh_translations[zh_translations["zh_length"] >= MIN_LENGTH]
@@ -29,10 +33,13 @@ zh_translations = zh_translations[zh_translations["zh_length"] >= MIN_LENGTH]
 with open("./data/raw/prohibited_characters.json", "r") as f:
     PROHIBITED_CHARACTERS = ujson.load(f)
 
+# ----------------------------------------
+# Filter out sentences with bad characters
+# ----------------------------------------
 print("Applying character filter")
 
 
-def zh_filter(sentence):
+def character_filter(sentence):
 
     if re.search(r"|".join(PROHIBITED_CHARACTERS), sentence):
         return False
@@ -40,7 +47,7 @@ def zh_filter(sentence):
 
 
 zh_translations = zh_translations[
-    zh_translations["simplified"].progress_apply(zh_filter)
+    zh_translations["simplified"].progress_apply(character_filter)
 ]
 
 # remove brackets manually due to weird regex bug
@@ -48,23 +55,28 @@ zh_translations = zh_translations[
     zh_translations["simplified"].apply(lambda x: "[" not in x and "]" not in x)
 ]
 
-# filter for punctuation
+# -----------------------------------------
+# Filter out sentences with bad punctuation
+# -----------------------------------------
+
+
 zh_translations = zh_translations[
-    zh_translations["simplified"].apply(
-        lambda x: x.count("。") == 1 or x.count("？") == 1
-    )
+    zh_translations["simplified"].apply(lambda x: x[-1] in ALLOWED_ENDINGS)
 ]
 
-# filter out repetitive sentences
+# -------------------------------
+# Filter out repetitive sentences
+# -------------------------------
 print("Applying repetitiveness filter")
 zh_translations["uniqueness"] = zh_translations["simplified"].apply(
     lambda x: len(set(x)) / len(x)
 )
-MIN_UNIQUENESS_CUTOFF = 0.8
-zh_translations = zh_translations[
-    zh_translations["uniqueness"] >= MIN_UNIQUENESS_CUTOFF
-]
 
+zh_translations = zh_translations[zh_translations["uniqueness"] >= MIN_UNIQUENESS]
+
+# ---------------------------
+# Export to intermediate file
+# ---------------------------
 zh_translations = zh_translations.reset_index()
 
 zh_translations.to_feather(
