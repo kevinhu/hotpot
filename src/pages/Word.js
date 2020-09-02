@@ -190,7 +190,7 @@ const Word = () => {
 										>
 											<div className="flex items-center">
 												<div className="chinese-serif text-4xl pr-4 py-4">
-													{character["simplified"]}
+													{character["word"]}
 												</div>
 												<div>
 													<div className="text-xl font-semibold">
@@ -263,7 +263,7 @@ const Word = () => {
 							Example sentences
 						</div>
 						{wordData["sentences"].map((sentence, index) => {
-							let sentenceWord = sentence["simplified"];
+							let sentenceWord = sentence["chinese"];
 							let [beforeWord, afterWord] = sentenceWord.split(
 								word
 							);
