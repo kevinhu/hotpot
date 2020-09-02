@@ -11,6 +11,7 @@ from tqdm import tqdm
 # ============================================
 
 
+# speed up text search by using the Aho-Corasick algorithm
 def characters_to_words(words):
 
     # see https://stackoverflow.com/questions/34816775/python-optimal-search-for-substring-in-list-of-strings
@@ -36,7 +37,6 @@ cedict = pd.read_csv(f"./data/intermediate/cedict.txt", sep="\t", index_col=0)
 
 simplified_words = list(cedict["simplified"])
 traditional_words = list(cedict["traditional"])
-
 
 simplified_char_to_word = characters_to_words(simplified_words)
 traditional_char_to_word = characters_to_words(traditional_words)

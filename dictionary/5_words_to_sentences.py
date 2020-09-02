@@ -25,6 +25,8 @@ traditional_wts = {}
 # iterator for constructing word-to-sentence dictionary
 def append_sentence(row):
 
+    # store sentence row IDs rather than sentences themselves
+    # to save space
     sentence_id = row.name
     simplified_words = row["simplified_segmented"].split(" ")
     traditional_words = row["traditional_segmented"].split(" ")
