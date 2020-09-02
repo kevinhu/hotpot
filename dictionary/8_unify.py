@@ -7,6 +7,11 @@ from tqdm import tqdm
 
 tqdm.pandas()
 
+# =================================================
+# Script purpose:
+# Unify previous outputs into single JSONs per word
+# =================================================
+
 MAX_CONTAINING_WORDS = 16
 
 cedict = pd.read_csv(f"./data/intermediate/cedict.txt", sep="\t", index_col=0)

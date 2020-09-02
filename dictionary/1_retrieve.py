@@ -2,6 +2,11 @@ import zipfile
 
 from utils import download_from_url
 
+# =================================
+# Script purpose:
+# Download and unzip all raw files
+# =================================
+
 download_from_url(
     "https://www.plecoforums.com/download/blogs_wordfreq-release_utf-8-txt.2602/",
     "./data/raw/blogs_wordfreq-release_utf-8.txt",

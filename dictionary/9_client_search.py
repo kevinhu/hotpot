@@ -2,6 +2,11 @@ import config
 import pandas as pd
 import ujson
 
+# =================================================
+# Script purpose:
+# Prepare a small dictionary for client-side search
+# =================================================
+
 MAX_DESCRIPTION_LENGTH = 64
 
 cedict = pd.read_csv(f"./data/intermediate/cedict.txt", sep="\t", index_col=0)

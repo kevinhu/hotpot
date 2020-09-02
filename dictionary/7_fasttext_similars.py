@@ -4,6 +4,11 @@ import numpy as np
 import pandas as pd
 from scipy.spatial import cKDTree
 
+# ============================================================
+# Script function:
+# Use nearest-neighbor word embeddings to find suggested words
+# ============================================================
+
 NUM_NEAREST = 16
 
 # python reduce_model.py ./data/raw/cc.zh.300.bin 100

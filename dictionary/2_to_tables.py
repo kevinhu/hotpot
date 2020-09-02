@@ -6,6 +6,11 @@ from tqdm import tqdm
 
 tqdm.pandas()
 
+# ===========================
+# Script purpose:
+# Convert raw files to tables
+# ===========================
+
 print("Processing CEDICT... ", end="")
 
 cedict = pd.read_csv(

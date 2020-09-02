@@ -5,10 +5,10 @@ import pandas as pd
 import ujson
 from tqdm import tqdm
 
-cedict = pd.read_csv(f"./data/intermediate/cedict.txt", sep="\t", index_col=0)
-
-simplified_words = list(cedict["simplified"])
-traditional_words = list(cedict["traditional"])
+# ============================================
+# Script purpose:
+# Find words that contain a word within CEDICT
+# ============================================
 
 
 def characters_to_words(words):
@@ -30,6 +30,12 @@ def characters_to_words(words):
                 mapping[found] = [word]
 
     return mapping
+
+
+cedict = pd.read_csv(f"./data/intermediate/cedict.txt", sep="\t", index_col=0)
+
+simplified_words = list(cedict["simplified"])
+traditional_words = list(cedict["traditional"])
 
 
 simplified_char_to_word = characters_to_words(simplified_words)

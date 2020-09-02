@@ -5,9 +5,14 @@ import pandas as pd
 import ujson
 from tqdm import tqdm
 
-MAX_SENTENCES = 8
-
 tqdm.pandas()
+
+# =================================================
+# Script purpose:
+# Match segmented example sentences to CEDICT words
+# =================================================
+
+MAX_SENTENCES = 8
 
 zh_translations = pd.read_feather(
     "./data/intermediate/zh_translations_segmented.feather"

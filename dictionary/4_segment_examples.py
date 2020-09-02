@@ -5,6 +5,11 @@ from tqdm import tqdm
 
 tqdm.pandas()
 
+# ===========================
+# Script purpose:
+# Segment translated examples
+# ===========================
+
 jieba.set_dictionary("./data/raw/dict.txt.big.txt")
 
 zh_translations = pd.read_feather(

@@ -7,6 +7,11 @@ from tqdm import tqdm
 
 tqdm.pandas()
 
+# ==========================
+# Script purpose:
+# Filter translated examples
+# ==========================
+
 zh_translations = pd.read_feather("./data/intermediate/zh_translations.feather",)
 
 # filter by sentence length
