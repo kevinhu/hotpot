@@ -69,7 +69,7 @@ const Word = () => {
 			setLoading(true);
 			setProgress(0);
 			fetch(
-				`https://raw.githubusercontent.com/kevinhu/dictionary-files/master/word_jsons/${wordParam}.json`
+				`https://raw.githubusercontent.com/kevinhu/dictionary-files/master/simplified/${wordParam}.json`
 			)
 				.then((response) => {
 					setProgress(50);
@@ -126,30 +126,28 @@ const Word = () => {
 			/>
 			<div className="w-full text-center py-16">
 				<div className="chinese-serif w-3/4 mx-auto flex justify-center flex-wrap">
-					{wordData["simplified"].length === 1 ? (
+					{wordData["word"].length === 1 ? (
 						<PinyinCharacter
-							character={wordData["simplified"]}
-							pinyin={convert_pinyin(wordData["pinyin"])}
+							character={wordData["word"]}
+							pinyin={convert_pinyin(wordData["pinyin"][0])}
 							characterSize="6rem"
 							pinyinSize="2rem"
 							className="px-2"
 						/>
 					) : (
-						wordData["simplified_characters"].map(
-							(character, index) => {
-								return (
-									<PinyinCharacter
-										character={character["simplified"]}
-										pinyin={convert_pinyin(
-											character["pinyin"]
-										)}
-										characterSize="6rem"
-										pinyinSize="2rem"
-										className="px-2"
-									/>
-								);
-							}
-						)
+						wordData["characters"].map((character, index) => {
+							return (
+								<PinyinCharacter
+									character={character["word"]}
+									pinyin={convert_pinyin(
+										character["pinyin"][0]
+									)}
+									characterSize="6rem"
+									pinyinSize="2rem"
+									className="px-2"
+								/>
+							);
+						})
 					)}
 				</div>
 			</div>
@@ -165,7 +163,9 @@ const Word = () => {
 						}}
 					>
 						<div className={sectionHeaderStyle}>Definition</div>
-						<div>{wordData["definition"].replace("/", "; ")}</div>
+						<div>
+							{wordData["definition"][0].replace("/", "; ")}
+						</div>
 					</div>
 					<div
 						className="p-6"
@@ -174,64 +174,56 @@ const Word = () => {
 						}}
 					>
 						<div className={sectionHeaderStyle}>
-							{wordData["simplified"].length > 1
+							{wordData["word"].length > 1
 								? "Characters"
 								: "Components"}
 						</div>
-						{wordData["simplified"].length > 1
-							? wordData["simplified_characters"].map(
-									(character, index) => {
-										return (
-											<Link
-												to={`/word?word=${character["simplified"]}`}
-												className={`${linkHover} ${
-													!character["definition"] &&
-													"disabled-link"
-												}`}
-											>
-												<div className="flex items-center">
-													<div className="chinese-serif text-4xl pr-4 py-4">
+						{wordData["word"].length > 1
+							? wordData["characters"].map((character, index) => {
+									return (
+										<Link
+											to={`/word?word=${character["word"]}`}
+											className={`${linkHover} ${
+												!character["definition"] &&
+												"disabled-link"
+											}`}
+										>
+											<div className="flex items-center">
+												<div className="chinese-serif text-4xl pr-4 py-4">
+													{character["simplified"]}
+												</div>
+												<div>
+													<div className="text-xl font-semibold">
+														{character["pinyin"] &&
+															convert_pinyin(
+																character[
+																	"pinyin"
+																][0]
+															)}
+													</div>
+													<div className="text-gray-700 dark:text-gray-500">
 														{
 															character[
-																"simplified"
+																"definition"
 															]
 														}
 													</div>
-													<div>
-														<div className="text-xl font-semibold">
-															{character[
-																"pinyin"
-															] &&
-																convert_pinyin(
-																	character[
-																		"pinyin"
-																	]
-																)}
-														</div>
-														<div className="text-gray-700 dark:text-gray-500">
-															{
-																character[
-																	"definition"
-																]
-															}
-														</div>
-													</div>
 												</div>
-											</Link>
-										);
-									}
-							  )
-							: wordData["simplified_components"][
+											</div>
+										</Link>
+									);
+							  })
+							: wordData["components"][
 									"decomposition_definitions"
 							  ].map((character, index) => {
 									if (
 										!IDEOGRAPHIC_DESCRIPTIONS.includes(
-											character["simplified"]
+											character["word"]
 										)
 									) {
 										return (
 											<Link
-												to={`/word?word=${character["simplified"]}`}
+												to={`/word?word=${character["word"]}`}
 												className={`${linkHover} ${
 													!character["definition"] &&
 													"disabled-link"
@@ -239,11 +231,7 @@ const Word = () => {
 											>
 												<div className="flex items-center">
 													<div className="chinese-serif text-4xl pr-4 py-4">
-														{
-															character[
-																"simplified"
-															]
-														}
+														{character["word"]}
 													</div>
 													<div>
 														<div className="text-xl font-semibold">
@@ -253,7 +241,7 @@ const Word = () => {
 																convert_pinyin(
 																	character[
 																		"pinyin"
-																	]
+																	][0]
 																)}
 														</div>
 														<div className="text-gray-700 dark:text-gray-500">
@@ -275,8 +263,8 @@ const Word = () => {
 							Example sentences
 						</div>
 						{wordData["sentences"].map((sentence, index) => {
-							let simplified = sentence["simplified"];
-							let [beforeWord, afterWord] = simplified.split(
+							let sentenceWord = sentence["simplified"];
+							let [beforeWord, afterWord] = sentenceWord.split(
 								word
 							);
 
@@ -311,11 +299,11 @@ const Word = () => {
 						</div>
 						{wordData["containing_words"].map(
 							(contain_word, index) => {
-								let wordPinyin = contain_word["pinyin"].split(
-									" "
-								);
+								let wordPinyin = contain_word[
+									"pinyin"
+								][0].split(" ");
 
-								let displayWord = contain_word["simplified"]
+								let displayWord = contain_word["word"]
 									.split("")
 									.map((character, index) => {
 										return (
@@ -333,7 +321,7 @@ const Word = () => {
 								return (
 									<div className="pt-2">
 										<Link
-											to={`/word/?word=${contain_word["simplified"]}`}
+											to={`/word/?word=${contain_word["word"]}`}
 											className={linkHover}
 										>
 											<div className="chinese-serif text-xl flex flex-wrap">
@@ -364,9 +352,11 @@ const Word = () => {
 					>
 						<div className={sectionHeaderStyle}>See also</div>
 						{wordData["related"].map((related_word, index) => {
-							let wordPinyin = related_word["pinyin"].split(" ");
+							let wordPinyin = related_word["pinyin"][0].split(
+								" "
+							);
 
-							let displayWord = related_word["simplified"]
+							let displayWord = related_word["word"]
 								.split("")
 								.map((character, index) => {
 									return (
@@ -384,7 +374,7 @@ const Word = () => {
 							return (
 								<div className="pt-2">
 									<Link
-										to={`/word/?word=${related_word["simplified"]}`}
+										to={`/word/?word=${related_word["word"]}`}
 										className={linkHover}
 									>
 										<div className="chinese-serif text-xl flex flex-wrap">
