@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 
 import words from "../assets/search_data.json";
-import { convert_pinyin, numberWithCommas } from "../utilities";
+import { convertPinyin, numberWithCommas } from "../utilities";
 
 // Import dark mode
 import { useDarkMode } from "../components/DarkMode";
-import DarkModeToggle from "react-dark-mode-toggle";
 
 var _ = require("lodash");
 const fuzzysort = require("fuzzysort");
@@ -106,7 +105,7 @@ const Home = () => {
 								value={searchWord}
 								onChange={handleChange}
 							></input>
-							{results.length > 0 && searchWord != "" && (
+							{results.length > 0 && searchWord !== "" && (
 								<div
 									className="absolute text-left bg-white border-solid border-2 border-black w-full dark:border-gray-600 dark:bg-gray-800"
 									style={{ marginTop: "-4px" }}
@@ -127,7 +126,7 @@ const Home = () => {
 													</div>
 													<div>
 														<div className="font-semibold">
-															{convert_pinyin(
+															{convertPinyin(
 																result["obj"][
 																	"pinyin"
 																]

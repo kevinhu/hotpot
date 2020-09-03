@@ -3,7 +3,6 @@ import { useHistory, Link } from "react-router-dom";
 
 // Import dark mode
 import { useDarkMode } from "../components/DarkMode";
-import DarkModeToggle from "react-dark-mode-toggle";
 
 const Navbar = () => {
 	const [theme, toggleTheme, componentMounted] = useDarkMode();

@@ -1,6 +1,6 @@
 var pinyinize = require("pinyinize");
 
-export const convert_pinyin = (pinyin) => {
+export const convertPinyin = (pinyin) => {
   if (!pinyin) {
     return "";
   }
@@ -10,6 +10,13 @@ export const convert_pinyin = (pinyin) => {
   } else {
     return pinyinize(pinyin);
   }
+};
+
+export const convertMultiplePinyin = (pinyin) => {
+  return pinyin
+    .split(" ")
+    .map((x) => convertPinyin(x))
+    .join(" ");
 };
 
 export const numberWithCommas = (x) => {

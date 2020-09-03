@@ -12,7 +12,11 @@ import Loading from "../components/Loading";
 
 import NotFound from "../assets/not_found.svg";
 
-import { convert_pinyin, removeDuplicates } from "../utilities";
+import {
+	convertPinyin,
+	convertMultiplePinyin,
+	removeDuplicates,
+} from "../utilities";
 const IDEOGRAPHIC_DESCRIPTIONS = [
 	"⿰",
 	"⿱",
@@ -118,6 +122,7 @@ const Word = () => {
 	console.log(wordData);
 
 	const wordType = wordData["traditional"] ? "simplified" : "traditional";
+	const singlePinyin = removeDuplicates(wordData["pinyin"]).length === 1;
 
 	return (
 		<div className="w-full">
@@ -131,7 +136,11 @@ const Word = () => {
 					{wordData["word"].length === 1 ? (
 						<PinyinCharacter
 							character={wordData["word"]}
-							pinyin={convert_pinyin(wordData["pinyin"][0])}
+							pinyin={
+								singlePinyin
+									? convertPinyin(wordData["pinyin"][0])
+									: ""
+							}
 							characterSize="6rem"
 							pinyinSize="2rem"
 							className="px-2"
@@ -141,9 +150,13 @@ const Word = () => {
 							return (
 								<PinyinCharacter
 									character={character["word"]}
-									pinyin={convert_pinyin(
-										character["pinyin"][0]
-									)}
+									pinyin={
+										singlePinyin
+											? convertPinyin(
+													character["pinyin"][0]
+											  )
+											: ""
+									}
 									characterSize="6rem"
 									pinyinSize="2rem"
 									className="px-2"
@@ -153,13 +166,13 @@ const Word = () => {
 					)}
 				</div>
 
-				<div className="mx-auto py-2" style={{ width: "max-content" }}>
-					<div className="border-b-2 border-black">
-						{wordType == "simplified"
+				<div className="mx-auto pb-2" style={{ width: "max-content" }}>
+					<div className="border-b border-gray-500 dark:border-gray-400">
+						{wordType === "simplified"
 							? "Traditional"
 							: "Simplified"}
 					</div>
-					{wordType == "simplified" &&
+					{wordType === "simplified" &&
 						removeDuplicates(
 							wordData["traditional"]
 						).map((traditional) => (
@@ -167,7 +180,7 @@ const Word = () => {
 								{traditional}
 							</div>
 						))}
-					{wordType == "traditional" &&
+					{wordType === "traditional" &&
 						removeDuplicates(
 							wordData["simplified"]
 						).map((traditional) => (
@@ -189,6 +202,13 @@ const Word = () => {
 							<div className="py-1">
 								<div className="inline font-bold">
 									{index + 1}.{" "}
+								</div>
+								<div className="inline font-semibold">
+									(
+									{convertMultiplePinyin(
+										wordData["pinyin"][index]
+									)}
+									){" "}
 								</div>
 								{definition.replace("/", "; ")}
 							</div>
@@ -217,7 +237,7 @@ const Word = () => {
 												<div>
 													<div className="text-xl font-semibold">
 														{character["pinyin"] &&
-															convert_pinyin(
+															convertPinyin(
 																character[
 																	"pinyin"
 																][0]
@@ -260,7 +280,7 @@ const Word = () => {
 															{character[
 																"pinyin"
 															] &&
-																convert_pinyin(
+																convertPinyin(
 																	character[
 																		"pinyin"
 																	][0]
@@ -277,6 +297,8 @@ const Word = () => {
 												</div>
 											</Link>
 										);
+									} else {
+										return;
 									}
 							  })}
 					</div>
@@ -353,7 +375,7 @@ const Word = () => {
 										return (
 											<PinyinCharacter
 												character={character}
-												pinyin={convert_pinyin(
+												pinyin={convertPinyin(
 													wordPinyin[index]
 												)}
 												characterSize="1.5rem"
@@ -401,7 +423,7 @@ const Word = () => {
 									return (
 										<PinyinCharacter
 											character={character}
-											pinyin={convert_pinyin(
+											pinyin={convertPinyin(
 												wordPinyin[index]
 											)}
 											characterSize="1.5rem"
