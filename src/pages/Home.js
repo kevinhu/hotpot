@@ -7,6 +7,8 @@ import { pinyinify, numberWithCommas } from "../utilities";
 // Import dark mode
 import { useDarkMode } from "../components/DarkMode";
 
+import { linkHover } from "../themes";
+
 var _ = require("lodash");
 const fuzzysort = require("fuzzysort");
 
@@ -48,9 +50,6 @@ const Home = () => {
 
 		executeSearch(event.target.value);
 	};
-
-	// general link hover style
-	const linkHover = "transition duration-300 ease-in-out hover:text-red-700";
 
 	// search box style
 	const searchBoxSizing =

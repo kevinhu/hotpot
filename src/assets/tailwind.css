@@ -20,7 +20,15 @@
 	color: #c10000;
 }
 
+.hover-red:hover {
+	color: #c10000;
+}
+
 .mode-dark .red {
+	color: #e84a5f;
+}
+
+.mode-dark .hover-red:hover {
 	color: #e84a5f;
 }
 

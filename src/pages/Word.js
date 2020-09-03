@@ -12,6 +12,8 @@ import Loading from "../components/Loading";
 
 import NotFound from "../assets/not_found.svg";
 
+import { linkHover } from "../themes";
+
 import { pinyinify, removeDuplicates } from "../utilities";
 const IDEOGRAPHIC_DESCRIPTIONS = [
 	"⿰",
@@ -85,7 +87,6 @@ const Word = () => {
 			if (wordParam !== word || modeParam !== wordMode) {
 				setLoading(true);
 				setProgress(0);
-				console.log("LOADING!");
 				fetch(
 					`https://raw.githubusercontent.com/kevinhu/dictionary-files/master/${modeParam}/${wordParam}.json`
 				)
@@ -107,6 +108,8 @@ const Word = () => {
 						setWordMode(modeParam);
 						setWordData(data);
 						setLoading(false);
+
+						console.log(wordData);
 					});
 			}
 		}
@@ -133,10 +136,6 @@ const Word = () => {
 			return <Loading />;
 		}
 	}
-
-	const linkHover = "transition duration-300 ease-in-out hover:text-red-700";
-
-	console.log(wordData);
 
 	const wordType = wordData["traditional"] ? "simplified" : "traditional";
 	const singlePinyin =
