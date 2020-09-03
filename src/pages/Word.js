@@ -51,14 +51,28 @@ const Word = () => {
 	let history = useHistory();
 	let location = useLocation();
 	let params = useParams();
+	let queryParams = queryString.parse(location.search);
+	let modeParam = queryParams["mode"];
+	let wordParam = params["word"];
+
+	if (modeParam !== "simplified" && modeParam !== "traditional") {
+		modeParam = "simplified";
+		history.push(`/word/${wordParam}/?mode=${modeParam}`);
+	}
+
+	let otherMode;
+
+	if (modeParam === "simplified") {
+		otherMode = "traditional";
+	} else {
+		otherMode = "simplified";
+	}
 
 	const { pathname } = useLocation();
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
 	}, [pathname]);
-
-	let wordParam = params["word"];
 
 	const [word, setWord] = useState();
 	const [wordData, setWordData] = useState();
@@ -69,7 +83,7 @@ const Word = () => {
 			setLoading(true);
 			setProgress(0);
 			fetch(
-				`https://raw.githubusercontent.com/kevinhu/dictionary-files/master/simplified/${wordParam}.json`
+				`https://raw.githubusercontent.com/kevinhu/dictionary-files/master/${modeParam}/${wordParam}.json`
 			)
 				.then((response) => {
 					setProgress(50);
@@ -176,23 +190,37 @@ const Word = () => {
 					{wordType === "simplified" &&
 						removeDuplicates(wordData["traditional"]).map(
 							(traditional, index) => (
-								<div
-									className="inline px-2 text-2xl chinese-serif"
+								<Link
+									to={`/word/${traditional}/?mode=${otherMode}`}
+									className={`${linkHover} 
+											}`}
 									key={index}
 								>
-									{traditional}
-								</div>
+									<div
+										className="inline px-2 text-2xl chinese-serif"
+										key={index}
+									>
+										{traditional}
+									</div>
+								</Link>
 							)
 						)}
 					{wordType === "traditional" &&
 						removeDuplicates(wordData["simplified"]).map(
-							(traditional, index) => (
-								<div
-									className="inline px-2 text-2xl chinese-serif"
+							(simplified, index) => (
+								<Link
+									to={`/word/${simplified}/?mode=${otherMode}`}
+									className={`${linkHover} 
+											}`}
 									key={index}
 								>
-									{traditional}
-								</div>
+									<div
+										className="inline px-2 text-2xl chinese-serif"
+										key={index}
+									>
+										{simplified}
+									</div>
+								</Link>
 							)
 						)}
 				</div>
