@@ -160,6 +160,7 @@ const Word = () => {
 									characterSize="6rem"
 									pinyinSize="2rem"
 									className="px-2"
+									key={index}
 								/>
 							);
 						})
@@ -173,21 +174,27 @@ const Word = () => {
 							: "Simplified"}
 					</div>
 					{wordType === "simplified" &&
-						removeDuplicates(
-							wordData["traditional"]
-						).map((traditional) => (
-							<div className="inline px-2 text-2xl chinese-serif">
-								{traditional}
-							</div>
-						))}
+						removeDuplicates(wordData["traditional"]).map(
+							(traditional, index) => (
+								<div
+									className="inline px-2 text-2xl chinese-serif"
+									key={index}
+								>
+									{traditional}
+								</div>
+							)
+						)}
 					{wordType === "traditional" &&
-						removeDuplicates(
-							wordData["simplified"]
-						).map((traditional) => (
-							<div className="inline px-2 text-2xl chinese-serif">
-								{traditional}
-							</div>
-						))}
+						removeDuplicates(wordData["simplified"]).map(
+							(traditional, index) => (
+								<div
+									className="inline px-2 text-2xl chinese-serif"
+									key={index}
+								>
+									{traditional}
+								</div>
+							)
+						)}
 				</div>
 			</div>
 			<div className="w-full md:w-3/4 flex flex-wrap english-serif mx-auto mb-12 bg-white border-solid border-2 border-black dark:border-gray-600 dark:bg-gray-800">
@@ -199,7 +206,7 @@ const Word = () => {
 								: "Definition"}
 						</div>
 						{wordData["definition"].map((definition, index) => (
-							<div className="py-1">
+							<div className="py-1" key={index}>
 								<div className="inline font-bold">
 									{index + 1}.{" "}
 								</div>
@@ -225,6 +232,7 @@ const Word = () => {
 												!character["definition"] &&
 												"disabled-link"
 											}`}
+											key={index}
 										>
 											<div className="flex items-center">
 												<div className="chinese-serif text-4xl pr-4 py-4">
@@ -248,7 +256,10 @@ const Word = () => {
 													<div className="text-gray-700 dark:text-gray-500">
 														{character[
 															"definition"
-														].join(" | ")}
+														] &&
+															character[
+																"definition"
+															].join(" | ")}
 													</div>
 												</div>
 											</div>
@@ -270,6 +281,7 @@ const Word = () => {
 													!character["definition"] &&
 													"disabled-link"
 												}`}
+												key={index}
 											>
 												<div className="flex items-center">
 													<div className="chinese-serif text-4xl pr-4 py-4">
@@ -322,7 +334,7 @@ const Word = () => {
 							);
 
 							return (
-								<div className="pt-2">
+								<div className="pt-2" key={index}>
 									<div className="chinese-serif text-xl">
 										{beforeWord}
 										{
@@ -389,12 +401,13 @@ const Word = () => {
 												)}
 												characterSize="1.5rem"
 												pinyinSize="0.75rem"
+												key={index}
 											/>
 										);
 									});
 
 								return (
-									<div className="pt-2">
+									<div className="pt-2" key={index}>
 										<Link
 											to={`/word/?word=${contain_word["word"]}`}
 											className={linkHover}
@@ -437,12 +450,13 @@ const Word = () => {
 											)}
 											characterSize="1.5rem"
 											pinyinSize="0.75rem"
+											key={index}
 										/>
 									);
 								});
 
 							return (
-								<div className="pt-2">
+								<div className="pt-2" key={index}>
 									<Link
 										to={`/word/?word=${related_word["word"]}`}
 										className={linkHover}

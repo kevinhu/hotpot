@@ -112,6 +112,7 @@ const Home = () => {
 											<Link
 												to={`/word?word=${result["obj"]["simplified"]}`}
 												className={linkHover}
+												key={index}
 											>
 												<div className="flex items-center">
 													<div className="p-2 text-xl font-semibold">

@@ -11,7 +11,7 @@ function Loading() {
 			>
 				<text
 					className={Styles.loading_text}
-					text-anchor="middle"
+					textAnchor="middle"
 					x="50%"
 					y="50%"
 					dy=".35em"
@@ -20,7 +20,7 @@ function Loading() {
 				</text>
 				<text
 					className={Styles.loading_text}
-					text-anchor="middle"
+					textAnchor="middle"
 					x="50%"
 					y="50%"
 					dy=".35em"
