@@ -22,34 +22,56 @@ const Home = () => {
 		history.push(`/word?word=${searchWord}`);
 	};
 
+	const executeSearch = _.debounce(() => {
+		let fuzzyResults = fuzzysort.go(searchWord, words, {
+			keys: [
+				"toneless_pinyin",
+				"short_definition",
+				"simplified",
+				"traditional",
+				"pinyin",
+			],
+			allowTypo: false,
+			limit: 8,
+			threshold: -100,
+		});
+		fuzzyResults = fuzzyResults.sort((a, b) =>
+			a.obj.rank >= b.obj.rank ? 1 : -1
+		);
+
+		setResults(fuzzyResults);
+	}, 50);
+
 	const handleChange = (event) => {
 		event.persist();
 		setSearchWord(event.target.value);
 
-		let debouncedFn;
+		// let debouncedFn;
 
-		if (!debouncedFn) {
-			debouncedFn = _.debounce(() => {
-				let fuzzyResults = fuzzysort.go(searchWord, words, {
-					keys: [
-						"toneless_pinyin",
-						"short_definition",
-						"simplified",
-						"traditional",
-						"pinyin",
-					],
-					allowTypo: false,
-					limit: 8,
-					threshold: -100,
-				});
-				fuzzyResults = fuzzyResults.sort((a, b) =>
-					a.obj.rank >= b.obj.rank ? 1 : -1
-				);
+		// if (!debouncedFn) {
+		// 	debouncedFn = _.debounce(() => {
+		// 		let fuzzyResults = fuzzysort.go(searchWord, words, {
+		// 			keys: [
+		// 				"toneless_pinyin",
+		// 				"short_definition",
+		// 				"simplified",
+		// 				"traditional",
+		// 				"pinyin",
+		// 			],
+		// 			allowTypo: false,
+		// 			limit: 8,
+		// 			threshold: -100,
+		// 		});
+		// 		fuzzyResults = fuzzyResults.sort((a, b) =>
+		// 			a.obj.rank >= b.obj.rank ? 1 : -1
+		// 		);
 
-				setResults(fuzzyResults);
-			}, 50);
-		}
-		debouncedFn();
+		// 		setResults(fuzzyResults);
+		// 	}, 50);
+		// }
+		// debouncedFn();
+
+		executeSearch();
 	};
 
 	// general link hover style
