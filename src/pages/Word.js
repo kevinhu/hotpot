@@ -239,10 +239,16 @@ const Word = () => {
 												<div>
 													<div className="text-xl font-semibold">
 														{character["pinyin"] &&
-															convertPinyin(
-																character[
-																	"pinyin"
-																][0]
+															convertMultiplePinyin(
+																removeDuplicates(
+																	character[
+																		"pinyin"
+																	].map((x) =>
+																		x.toLowerCase()
+																	)
+																)
+																	.sort()
+																	.join(" / ")
 															)}
 													</div>
 													<div className="text-gray-700 dark:text-gray-500">
@@ -280,10 +286,21 @@ const Word = () => {
 															{character[
 																"pinyin"
 															] &&
-																convertPinyin(
-																	character[
-																		"pinyin"
-																	][0]
+																convertMultiplePinyin(
+																	removeDuplicates(
+																		character[
+																			"pinyin"
+																		].map(
+																			(
+																				x
+																			) =>
+																				x.toLowerCase()
+																		)
+																	)
+																		.sort()
+																		.join(
+																			" / "
+																		)
 																)}
 														</div>
 														<div className="text-gray-700 dark:text-gray-500">
