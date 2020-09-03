@@ -1,5 +1,5 @@
 /* Main styles */
-:global .loading-text {
+.loading_text {
 	font-family: sans-serif;
 	fill: none;
 	stroke-width: 1;
@@ -9,7 +9,7 @@
 	-webkit-animation: stroke 2s infinite linear;
 	animation: stroke 2s infinite linear;
 }
-:global .loading-text:nth-child(2n + 1) {
+.loading_text:nth-child(2n + 1) {
 	/*stroke: black;*/
 	-webkit-animation-delay: -1;
 	animation-delay: -1;

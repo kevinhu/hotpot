@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 
 import words from "../assets/search_data.json";
-import { convertPinyin, numberWithCommas } from "../utilities";
+import { pinyinify, numberWithCommas } from "../utilities";
 
 // Import dark mode
 import { useDarkMode } from "../components/DarkMode";
@@ -45,31 +45,6 @@ const Home = () => {
 	const handleChange = (event) => {
 		event.persist();
 		setSearchWord(event.target.value);
-
-		// let debouncedFn;
-
-		// if (!debouncedFn) {
-		// 	debouncedFn = _.debounce(() => {
-		// 		let fuzzyResults = fuzzysort.go(searchWord, words, {
-		// 			keys: [
-		// 				"toneless_pinyin",
-		// 				"short_definition",
-		// 				"simplified",
-		// 				"traditional",
-		// 				"pinyin",
-		// 			],
-		// 			allowTypo: false,
-		// 			limit: 8,
-		// 			threshold: -100,
-		// 		});
-		// 		fuzzyResults = fuzzyResults.sort((a, b) =>
-		// 			a.obj.rank >= b.obj.rank ? 1 : -1
-		// 		);
-
-		// 		setResults(fuzzyResults);
-		// 	}, 50);
-		// }
-		// debouncedFn();
 
 		executeSearch();
 	};
@@ -148,7 +123,7 @@ const Home = () => {
 													</div>
 													<div>
 														<div className="font-semibold">
-															{convertPinyin(
+															{pinyinify(
 																result["obj"][
 																	"pinyin"
 																]

@@ -10,7 +10,7 @@ function Loading() {
 				className="loading-svg text-4xl text-black stroke-current dark:text-white"
 			>
 				<text
-					className="loading-text"
+					className={Styles.loading_text}
 					text-anchor="middle"
 					x="50%"
 					y="50%"
@@ -19,7 +19,7 @@ function Loading() {
 					正在加载...
 				</text>
 				<text
-					className="loading-text"
+					className={Styles.loading_text}
 					text-anchor="middle"
 					x="50%"
 					y="50%"

@@ -18,7 +18,6 @@ const Navbar = () => {
 	const handleChange = (event) => {
 		setSearchWord(event.target.value);
 	};
-	const linkHover = `hover:red`;
 
 	return (
 		<div

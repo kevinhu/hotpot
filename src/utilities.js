@@ -24,15 +24,8 @@ var toneMarks = {
 /**
  * @return {Boolean} whether this string is a single alphabetical letter.
  */
-String.prototype.isAlpha = function () {
-  return /^[A-Za-z]$/.test(this);
-};
-
-/**
- * @return {Boolean} is this string a valid pinyin vowel
- */
-String.prototype.isPinyinVowel = function () {
-  return /^[aeiouv\u00fc]$/.test(this);
+const isAlpha = (str) => {
+  return /^[A-Za-z]$/.test(str);
 };
 
 /**
@@ -42,10 +35,10 @@ String.prototype.isPinyinVowel = function () {
  * @param  {RegExp} the pattern to match
  * @return {Number} the last match in this string
  */
-String.prototype.lastIndexOfRegex = function (regExp) {
+const lastIndexOfRegex = (str, regExp) => {
   var lastIndex = -1;
-  for (var i = 0; i < this.length; i++) {
-    if (regExp.test(this.charAt(i))) {
+  for (var i = 0; i < str.length; i++) {
+    if (regExp.test(str.charAt(i))) {
       lastIndex = i;
     }
   }
@@ -58,11 +51,11 @@ String.prototype.lastIndexOfRegex = function (regExp) {
  * @param  {String} replacement The string to insert at the index
  * @return {String} this String, with the specified replacement
  */
-String.prototype.replaceAt = function (index, replacement) {
-  if (index >= 0 && index < this.length && typeof replacement === "string") {
-    return this.substring(0, index) + replacement + this.substring(index + 1);
+const replaceAt = (str, index, replacement) => {
+  if (index >= 0 && index < str.length && typeof replacement === "string") {
+    return str.substring(0, index) + replacement + str.substring(index + 1);
   } else {
-    return this;
+    return str;
   }
 };
 
@@ -73,9 +66,9 @@ String.prototype.replaceAt = function (index, replacement) {
  * @return {String} this String, with the tone number removed
  *                       and tone mark inserted.
  */
-String.prototype.convertPinyin = function () {
+const convertPinyin = (str) => {
   // convert to lowercase
-  var str = this.toLocaleLowerCase();
+  str = str.toLocaleLowerCase();
   // get index of the tone number
   var toneNumIndex = str.search(/[1-5]/);
   // get index of the first pinyin vowel
@@ -89,28 +82,30 @@ String.prototype.convertPinyin = function () {
     // this string is either too long to be pinyin, does not contain a \
     // correctly placed tone number, or has no pinyin vowels
     console.log(
-      "String.prototype.convertPinyin:" + this + " is not a valid pinyin word."
+      "String.prototype.convertPinyin:" + str + " is not a valid pinyin word."
     );
-    return this;
+    return str;
   }
+
+  var index;
   /** @type {Number} from 1 to 5 */
   var toneNum = parseInt(str[toneNumIndex]);
   if (/[ae]/.test(str)) {
     // str contains an 'a' or an 'e', both of which take precedence
-    var index = str.search(/[ae]/);
-    str = str.replaceAt(index, toneMarks[str.charAt(index)][toneNum]);
+    index = str.search(/[ae]/);
+    str = replaceAt(str, index, toneMarks[str.charAt(index)][toneNum]);
   } else if (/ou/.test(str)) {
     // str contains 'ou'. The tone always goes on the 'o'
-    var index = str.search(/ou/);
-    str = str.replaceAt(index, toneMarks[str.charAt(index)][toneNum]);
+    index = str.search(/ou/);
+    str = replaceAt(str, index, toneMarks[str.charAt(index)][toneNum]);
   } else {
     // place the tone on the last vowel
-    var index = str.lastIndexOfRegex(/[aeiouv\u00fc]/);
+    index = lastIndexOfRegex(str, /[aeiouv\u00fc]/);
     var vowel = str.charAt(index);
-    if (vowel == "\u00fc") {
+    if (vowel === "\u00fc") {
       vowel = "v";
     }
-    str = str.replaceAt(index, toneMarks[vowel][toneNum]);
+    str = replaceAt(str, index, toneMarks[vowel][toneNum]);
   }
   // strip the tone number
   str = str.substring(0, str.length - 1);
@@ -121,17 +116,23 @@ String.prototype.convertPinyin = function () {
  * @param  {String} the string to convert
  * @return {String} the converted string
  */
-const pinyinify = (str) => {
+export const pinyinify = (str) => {
   if (typeof str !== "string") {
     return str;
   }
+
+  if (!str) {
+    return "";
+  }
+  str = str.toLowerCase();
+  str = str.replace("u:", "ü");
 
   var res = "";
   var i = 0;
   // parse str character by character
   while (str.length > 0) {
     var char = str.charAt(i);
-    if (char.isAlpha()) {
+    if (isAlpha(char)) {
       // a letter has been found
       if (i !== 0) {
         // remove non-letters found up to now, add to res
@@ -151,7 +152,7 @@ const pinyinify = (str) => {
       ) {
         // there is a tone number within 6 characters from now, and no \
         // whitespaces between this character and the tone number
-        res += str.substring(0, toneNumIndex + 1).convertPinyin();
+        res += convertPinyin(str.substring(0, toneNumIndex + 1));
         str = str.substring(toneNumIndex + 1);
       } else if (whitespaceIndex < 0) {
         // no valid tone numbers nor whitespace, add rest of string to res
@@ -174,26 +175,6 @@ const pinyinify = (str) => {
   }
 
   return res;
-};
-
-export const convertPinyin = (pinyin) => {
-  if (!pinyin) {
-    return "";
-  }
-  pinyin = pinyin.toLowerCase();
-  pinyin = pinyin.replace("u:", "ü");
-  if (pinyin.substr(-1) === "5") {
-    return pinyin.substring(0, pinyin.length - 1);
-  } else {
-    return pinyinify(pinyin);
-  }
-};
-
-export const convertMultiplePinyin = (pinyin) => {
-  return pinyin
-    .split(" ")
-    .map((x) => convertPinyin(x))
-    .join(" ");
 };
 
 export const numberWithCommas = (x) => {

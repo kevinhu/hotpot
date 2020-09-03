@@ -12,11 +12,7 @@ import Loading from "../components/Loading";
 
 import NotFound from "../assets/not_found.svg";
 
-import {
-	convertPinyin,
-	convertMultiplePinyin,
-	removeDuplicates,
-} from "../utilities";
+import { pinyinify, removeDuplicates } from "../utilities";
 const IDEOGRAPHIC_DESCRIPTIONS = [
 	"⿰",
 	"⿱",
@@ -140,7 +136,7 @@ const Word = () => {
 							character={wordData["word"]}
 							pinyin={
 								singlePinyin
-									? convertPinyin(wordData["pinyin"][0])
+									? pinyinify(wordData["pinyin"][0])
 									: ""
 							}
 							characterSize="6rem"
@@ -154,9 +150,7 @@ const Word = () => {
 									character={character["word"]}
 									pinyin={
 										singlePinyin
-											? convertPinyin(
-													character["pinyin"][0]
-											  )
+											? pinyinify(character["pinyin"][0])
 											: ""
 									}
 									characterSize="6rem"
@@ -206,11 +200,7 @@ const Word = () => {
 									{index + 1}.{" "}
 								</div>
 								<div className="inline font-semibold">
-									(
-									{convertMultiplePinyin(
-										wordData["pinyin"][index]
-									)}
-									){" "}
+									({pinyinify(wordData["pinyin"][index])}){" "}
 								</div>
 								{definition.replace("/", "; ")}
 							</div>
@@ -239,7 +229,7 @@ const Word = () => {
 												<div>
 													<div className="text-xl font-semibold">
 														{character["pinyin"] &&
-															convertMultiplePinyin(
+															pinyinify(
 																removeDuplicates(
 																	character[
 																		"pinyin"
@@ -286,7 +276,7 @@ const Word = () => {
 															{character[
 																"pinyin"
 															] &&
-																convertMultiplePinyin(
+																pinyinify(
 																	removeDuplicates(
 																		character[
 																			"pinyin"
@@ -313,7 +303,7 @@ const Word = () => {
 											</Link>
 										);
 									} else {
-										return;
+										return "";
 									}
 							  })}
 					</div>
@@ -390,7 +380,7 @@ const Word = () => {
 										return (
 											<PinyinCharacter
 												character={character}
-												pinyin={convertPinyin(
+												pinyin={pinyinify(
 													wordPinyin[index]
 												)}
 												characterSize="1.5rem"
@@ -438,7 +428,7 @@ const Word = () => {
 									return (
 										<PinyinCharacter
 											character={character}
-											pinyin={convertPinyin(
+											pinyin={pinyinify(
 												wordPinyin[index]
 											)}
 											characterSize="1.5rem"
