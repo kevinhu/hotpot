@@ -122,7 +122,9 @@ const Word = () => {
 	console.log(wordData);
 
 	const wordType = wordData["traditional"] ? "simplified" : "traditional";
-	const singlePinyin = removeDuplicates(wordData["pinyin"]).length === 1;
+	const singlePinyin =
+		removeDuplicates(wordData["pinyin"].map((x) => x.toLowerCase()))
+			.length === 1;
 
 	return (
 		<div className="w-full">
@@ -244,11 +246,9 @@ const Word = () => {
 															)}
 													</div>
 													<div className="text-gray-700 dark:text-gray-500">
-														{
-															character[
-																"definition"
-															]
-														}
+														{character[
+															"definition"
+														].join(" | ")}
 													</div>
 												</div>
 											</div>
@@ -287,11 +287,9 @@ const Word = () => {
 																)}
 														</div>
 														<div className="text-gray-700 dark:text-gray-500">
-															{
-																character[
-																	"definition"
-																]
-															}
+															{character[
+																"definition"
+															].join(" | ")}
 														</div>
 													</div>
 												</div>
