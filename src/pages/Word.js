@@ -152,27 +152,14 @@ const Word = () => {
 				</div>
 			</div>
 			<div className="w-full md:w-3/4 flex flex-wrap english-serif mx-auto mb-12 bg-white border-solid border-2 border-black dark:border-gray-600 dark:bg-gray-800">
-				<div
-					className="w-full md:w-2/3"
-					style={{ borderRight: "solid 2px rgba(0,0,0,0.2)" }}
-				>
-					<div
-						className="p-6"
-						style={{
-							borderBottom: "solid 2px rgba(0,0,0,0.2)",
-						}}
-					>
+				<div className="w-full md:w-2/3 border-r-2 border-gray-400">
+					<div className="p-6 border-b-2 border-gray-400">
 						<div className={sectionHeaderStyle}>Definition</div>
 						<div>
 							{wordData["definition"][0].replace("/", "; ")}
 						</div>
 					</div>
-					<div
-						className="p-6"
-						style={{
-							borderBottom: "solid 2px rgba(0,0,0,0.2)",
-						}}
-					>
+					<div className="p-6 border-b-2 border-gray-400">
 						<div className={sectionHeaderStyle}>
 							{wordData["word"].length > 1
 								? "Characters"
@@ -288,12 +275,34 @@ const Word = () => {
 					</div>
 				</div>
 				<div className="w-full md:w-1/3">
-					<div
-						className="p-6"
-						style={{
-							borderBottom: "solid 2px rgba(0,0,0,0.2)",
-						}}
-					>
+					<div className="p-6 border-b-2 border-gray-400">
+						<div className={sectionHeaderStyle}>Statistics</div>
+
+						{wordData["rank"] !== -1 && (
+							<div>
+								<div className="font-bold inline">
+									{wordData["rank"]}
+									<sup>
+										{ordinal_suffix_of(wordData["rank"])}
+									</sup>
+								</div>{" "}
+								most frequent word
+							</div>
+						)}
+
+						{wordData["fraction"] !== -1 && (
+							<div>
+								<div className="font-bold inline">
+									{(wordData["fraction"] * 100).toPrecision(
+										2
+									)}
+									%
+								</div>{" "}
+								of all words
+							</div>
+						)}
+					</div>
+					<div className="p-6 border-b-2 border-gray-400">
 						<div className={sectionHeaderStyle}>
 							Containing words
 						</div>
@@ -344,12 +353,7 @@ const Word = () => {
 							}
 						)}
 					</div>
-					<div
-						className="p-6"
-						style={{
-							borderBottom: "solid 2px rgba(0,0,0,0.2)",
-						}}
-					>
+					<div className="p-6">
 						<div className={sectionHeaderStyle}>See also</div>
 						{wordData["related"].map((related_word, index) => {
 							let wordPinyin = related_word["pinyin"][0].split(
@@ -395,33 +399,6 @@ const Word = () => {
 								</div>
 							);
 						})}
-					</div>
-					<div className="p-6">
-						<div className={sectionHeaderStyle}>Statistics</div>
-
-						{wordData["rank"] !== -1 && (
-							<div>
-								<div className="font-bold inline">
-									{wordData["rank"]}
-									<sup>
-										{ordinal_suffix_of(wordData["rank"])}
-									</sup>
-								</div>{" "}
-								most frequent word
-							</div>
-						)}
-
-						{wordData["fraction"] !== -1 && (
-							<div>
-								<div className="font-bold inline">
-									{(wordData["fraction"] * 100).toPrecision(
-										2
-									)}
-									%
-								</div>{" "}
-								of all words
-							</div>
-						)}
 					</div>
 				</div>
 			</div>
