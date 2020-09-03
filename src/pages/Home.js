@@ -58,7 +58,7 @@ const Home = () => {
 
 	// search box style
 	const searchBoxSizing =
-		"w-full md:w-2/3 xl:w-1/2 absolute mx-auto text-center p-12";
+		"w-full md:w-2/3 xl:w-1/2 absolute mx-auto text-center py-12";
 	const searchBoxAesthetics = "border-2 border-black bg-white";
 	const searchBoxAestheticsDark =
 		"dark:border-2 dark:border-gray-700 dark:bg-gray-800";
@@ -67,6 +67,14 @@ const Home = () => {
 	return (
 		<div>
 			<div
+				onClick={toggleTheme}
+				checked={theme === "dark"}
+				className="chinese-serif py-2 text-2xl px-4 mx-auto cursor-pointer select-none border-2 border-black bg-white dark:border-2 dark:border-gray-700 dark:bg-gray-800"
+				style={{ width: "max-content", marginTop: "-2px" }}
+			>
+				{theme === "dark" ? "暗" : "光"}
+			</div>
+			<div
 				className={searchBoxStyle}
 				style={{
 					top: "40%",
@@ -74,12 +82,6 @@ const Home = () => {
 					transform: "translate(-50%, -50%)",
 				}}
 			>
-				<DarkModeToggle
-					onChange={toggleTheme}
-					checked={theme === "dark"}
-					size={"3rem"}
-					speed={5}
-				/>
 				<div
 					className="english-serif red font-semibold"
 					style={{ fontSize: "4rem", lineHeight: "4rem" }}

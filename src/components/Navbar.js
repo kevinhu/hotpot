@@ -49,7 +49,7 @@ const Navbar = () => {
 			<div
 				onClick={toggleTheme}
 				checked={theme === "dark"}
-				className="py-2 text-2xl px-2 cursor-pointer select-none border-l-2 border-black dark:border-gray-600"
+				className="chinese-serif py-2 text-2xl px-2 cursor-pointer select-none border-l-2 border-black dark:border-gray-600"
 			>
 				{theme === "dark" ? "暗" : "光"}
 			</div>
