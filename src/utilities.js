@@ -15,3 +15,11 @@ export const convert_pinyin = (pinyin) => {
 export const numberWithCommas = (x) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
+
+export const removeDuplicates = (arr) => {
+  let unique = arr.reduce(function (a, b) {
+    if (a.indexOf(b) < 0) a.push(b);
+    return a;
+  }, []);
+  return unique;
+};

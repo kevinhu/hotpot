@@ -12,7 +12,7 @@ import Loading from "../components/Loading";
 
 import NotFound from "../assets/not_found.svg";
 
-import { convert_pinyin } from "../utilities";
+import { convert_pinyin, removeDuplicates } from "../utilities";
 const IDEOGRAPHIC_DESCRIPTIONS = [
 	"⿰",
 	"⿱",
@@ -117,6 +117,8 @@ const Word = () => {
 
 	console.log(wordData);
 
+	const wordType = wordData["traditional"] ? "simplified" : "traditional";
+
 	return (
 		<div className="w-full">
 			<LoadingBar
@@ -124,8 +126,8 @@ const Word = () => {
 				progress={progress}
 				onLoaderFinished={() => setProgress(0)}
 			/>
-			<div className="w-full text-center py-16">
-				<div className="chinese-serif w-3/4 mx-auto flex justify-center flex-wrap">
+			<div className="w-full text-center pt-16">
+				<div className="chinese-serif w-3/4 mx-auto flex justify-center flex-wrap pb-8">
 					{wordData["word"].length === 1 ? (
 						<PinyinCharacter
 							character={wordData["word"]}
@@ -149,6 +151,30 @@ const Word = () => {
 							);
 						})
 					)}
+				</div>
+
+				<div className="mx-auto py-2" style={{ width: "max-content" }}>
+					<div className="border-b-2 border-black">
+						{wordType == "simplified"
+							? "Traditional"
+							: "Simplified"}
+					</div>
+					{wordType == "simplified" &&
+						removeDuplicates(
+							wordData["traditional"]
+						).map((traditional) => (
+							<div className="inline px-2 text-2xl chinese-serif">
+								{traditional}
+							</div>
+						))}
+					{wordType == "traditional" &&
+						removeDuplicates(
+							wordData["simplified"]
+						).map((traditional) => (
+							<div className="inline px-2 text-2xl chinese-serif">
+								{traditional}
+							</div>
+						))}
 				</div>
 			</div>
 			<div className="w-full md:w-3/4 flex flex-wrap english-serif mx-auto mb-12 bg-white border-solid border-2 border-black dark:border-gray-600 dark:bg-gray-800">
