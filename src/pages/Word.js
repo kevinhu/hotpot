@@ -79,36 +79,38 @@ const Word = () => {
 	const [wordData, setWordData] = useState();
 	const [loading, setLoading] = useState(false);
 
-	if (wordParam && modeParam && !loading) {
-		// if word or mode changes, and we are not currently loading
-		if (wordParam !== word || modeParam !== wordMode) {
-			setLoading(true);
-			setProgress(0);
-			fetch(
-				`https://raw.githubusercontent.com/kevinhu/dictionary-files/master/${modeParam}/${wordParam}.json`
-			)
-				.then((response) => {
-					console.log("ooo");
-					setProgress(50);
-					if (response.status === 404) {
+	useEffect(() => {
+		if (wordParam && modeParam && !loading) {
+			// if word or mode changes, and we are not currently loading
+			if (wordParam !== word || modeParam !== wordMode) {
+				setLoading(true);
+				setProgress(0);
+				console.log("LOADING!");
+				fetch(
+					`https://raw.githubusercontent.com/kevinhu/dictionary-files/master/${modeParam}/${wordParam}.json`
+				)
+					.then((response) => {
+						setProgress(50);
+						if (response.status === 404) {
+							setProgress(100);
+							setWord(wordParam);
+							setWordMode(modeParam);
+							setWordData(undefined);
+							setLoading(false);
+							return;
+						}
+						return response.json();
+					})
+					.then((data) => {
 						setProgress(100);
 						setWord(wordParam);
 						setWordMode(modeParam);
-						setWordData(undefined);
+						setWordData(data);
 						setLoading(false);
-						return;
-					}
-					return response.json();
-				})
-				.then((data) => {
-					setProgress(100);
-					setWord(wordParam);
-					setWordMode(modeParam);
-					setWordData(data);
-					setLoading(false);
-				});
+					});
+			}
 		}
-	}
+	});
 
 	const sectionHeaderStyle =
 		"text-xl text-gray-700 dark:text-gray-500 font-semibold";
