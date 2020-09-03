@@ -154,10 +154,19 @@ const Word = () => {
 			<div className="w-full md:w-3/4 flex flex-wrap english-serif mx-auto mb-12 bg-white border-solid border-2 border-black dark:border-gray-600 dark:bg-gray-800">
 				<div className="w-full md:w-2/3 border-r-2 border-gray-400">
 					<div className="p-6 border-b-2 border-gray-400">
-						<div className={sectionHeaderStyle}>Definition</div>
-						<div>
-							{wordData["definition"][0].replace("/", "; ")}
+						<div className={sectionHeaderStyle}>
+							{wordData["definition"].length > 1
+								? "Definitions"
+								: "Definition"}
 						</div>
+						{wordData["definition"].map((definition, index) => (
+							<div className="py-1">
+								<div className="inline font-bold">
+									{index + 1}.{" "}
+								</div>
+								{definition.replace("/", "; ")}
+							</div>
+						))}
 					</div>
 					<div className="p-6 border-b-2 border-gray-400">
 						<div className={sectionHeaderStyle}>
