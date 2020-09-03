@@ -19,7 +19,7 @@ const Home = () => {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		history.push(`/word?word=${searchWord}`);
+		history.push(`/word/${searchWord}`);
 	};
 
 	const executeSearch = _.debounce((word) => {
@@ -110,7 +110,7 @@ const Home = () => {
 									{results.map((result, index) => {
 										return (
 											<Link
-												to={`/word?word=${result["obj"]["simplified"]}`}
+												to={`/word/${result["obj"]["simplified"]}`}
 												className={linkHover}
 												key={index}
 											>

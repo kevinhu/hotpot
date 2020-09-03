@@ -38,7 +38,7 @@ function App() {
               {<Home />}
             </Route>
 
-            <Route path="/word">{<Word />}</Route>
+            <Route path="/word/:word">{<Word />}</Route>
 
             {/* Catch-all Route */}
             <Route path="/">

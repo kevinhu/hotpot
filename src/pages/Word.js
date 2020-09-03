@@ -5,7 +5,7 @@ import PinyinCharacter from "../components/PinyinCharacter.js";
 import { useHistory, useLocation } from "react-router-dom";
 import queryString from "query-string";
 
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import LoadingBar from "react-top-loading-bar";
 
 import Loading from "../components/Loading";
@@ -50,7 +50,7 @@ const Word = () => {
 	// initialize url params
 	let history = useHistory();
 	let location = useLocation();
-	let params = queryString.parse(location.search);
+	let params = useParams();
 
 	const { pathname } = useLocation();
 
@@ -227,7 +227,7 @@ const Word = () => {
 							? wordData["characters"].map((character, index) => {
 									return (
 										<Link
-											to={`/word?word=${character["word"]}`}
+											to={`/word/${character["word"]}`}
 											className={`${linkHover} ${
 												!character["definition"] &&
 												"disabled-link"
@@ -276,7 +276,7 @@ const Word = () => {
 									) {
 										return (
 											<Link
-												to={`/word?word=${character["word"]}`}
+												to={`/word/${character["word"]}`}
 												className={`${linkHover} ${
 													!character["definition"] &&
 													"disabled-link"
@@ -409,7 +409,7 @@ const Word = () => {
 								return (
 									<div className="pt-2" key={index}>
 										<Link
-											to={`/word/?word=${contain_word["word"]}`}
+											to={`/word/${contain_word["word"]}`}
 											className={linkHover}
 										>
 											<div className="chinese-serif text-xl flex flex-wrap">
@@ -458,7 +458,7 @@ const Word = () => {
 							return (
 								<div className="pt-2" key={index}>
 									<Link
-										to={`/word/?word=${related_word["word"]}`}
+										to={`/word/${related_word["word"]}`}
 										className={linkHover}
 									>
 										<div className="chinese-serif text-xl flex flex-wrap">
