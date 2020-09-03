@@ -75,21 +75,25 @@ const Word = () => {
 	}, [pathname]);
 
 	const [word, setWord] = useState();
+	const [wordMode, setWordMode] = useState();
 	const [wordData, setWordData] = useState();
 	const [loading, setLoading] = useState(false);
 
-	if (wordParam) {
-		if (wordParam !== word && !loading) {
+	if (wordParam && modeParam && !loading) {
+		// if word or mode changes, and we are not currently loading
+		if (wordParam !== word || modeParam !== wordMode) {
 			setLoading(true);
 			setProgress(0);
 			fetch(
 				`https://raw.githubusercontent.com/kevinhu/dictionary-files/master/${modeParam}/${wordParam}.json`
 			)
 				.then((response) => {
+					console.log("ooo");
 					setProgress(50);
 					if (response.status === 404) {
 						setProgress(100);
 						setWord(wordParam);
+						setWordMode(modeParam);
 						setWordData(undefined);
 						setLoading(false);
 						return;
@@ -99,6 +103,7 @@ const Word = () => {
 				.then((data) => {
 					setProgress(100);
 					setWord(wordParam);
+					setWordMode(modeParam);
 					setWordData(data);
 					setLoading(false);
 				});
@@ -255,7 +260,7 @@ const Word = () => {
 							? wordData["characters"].map((character, index) => {
 									return (
 										<Link
-											to={`/word/${character["word"]}`}
+											to={`/word/${character["word"]}/?mode=${modeParam}`}
 											className={`${linkHover} ${
 												!character["definition"] &&
 												"disabled-link"
@@ -304,7 +309,7 @@ const Word = () => {
 									) {
 										return (
 											<Link
-												to={`/word/${character["word"]}`}
+												to={`/word/${character["word"]}/?mode=${modeParam}`}
 												className={`${linkHover} ${
 													!character["definition"] &&
 													"disabled-link"
@@ -437,7 +442,7 @@ const Word = () => {
 								return (
 									<div className="pt-2" key={index}>
 										<Link
-											to={`/word/${contain_word["word"]}`}
+											to={`/word/${contain_word["word"]}/?mode=${modeParam}`}
 											className={linkHover}
 										>
 											<div className="chinese-serif text-xl flex flex-wrap">
@@ -486,7 +491,7 @@ const Word = () => {
 							return (
 								<div className="pt-2" key={index}>
 									<Link
-										to={`/word/${related_word["word"]}`}
+										to={`/word/${related_word["word"]}/?mode=${modeParam}`}
 										className={linkHover}
 									>
 										<div className="chinese-serif text-xl flex flex-wrap">
