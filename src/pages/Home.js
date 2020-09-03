@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 
-import Fuse from "fuse.js";
 import words from "../assets/search_data.json";
 import { convert_pinyin, numberWithCommas } from "../utilities";
 
