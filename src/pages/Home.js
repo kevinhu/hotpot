@@ -40,14 +40,15 @@ const Home = () => {
 						"pinyin",
 					],
 					allowTypo: false,
+					limit: 8,
 					threshold: -100,
 				});
 				fuzzyResults = fuzzyResults.sort((a, b) =>
 					a.obj.rank >= b.obj.rank ? 1 : -1
 				);
 
-				setResults(fuzzyResults.slice(0, 8));
-			}, 100);
+				setResults(fuzzyResults);
+			}, 50);
 		}
 		debouncedFn();
 	};
