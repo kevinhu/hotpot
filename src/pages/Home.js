@@ -22,8 +22,8 @@ const Home = () => {
 		history.push(`/word?word=${searchWord}`);
 	};
 
-	const executeSearch = _.debounce(() => {
-		let fuzzyResults = fuzzysort.go(searchWord, words, {
+	const executeSearch = _.debounce((word) => {
+		let fuzzyResults = fuzzysort.go(word, words, {
 			keys: [
 				"toneless_pinyin",
 				"short_definition",
@@ -46,7 +46,7 @@ const Home = () => {
 		event.persist();
 		setSearchWord(event.target.value);
 
-		executeSearch();
+		executeSearch(event.target.value);
 	};
 
 	// general link hover style
