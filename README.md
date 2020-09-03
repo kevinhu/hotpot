@@ -4,7 +4,7 @@ A static Chinese-English dictionary entirely hosted on GitHub Pages. See it live
 
 ## Overview
 
-Chinese-English dictionaries are essential tools for learning the language. This project constructs a dictionary with the essential function of providing English definitions for Chinese words plus three powerful extensions:
+Chinese-English dictionaries are essential tools for learning the language. This project constructs a dictionary with the basic function of providing English definitions for Chinese words plus three powerful extensions:
 
 1. Word frequency statistics
 2. Word/character decomposition and etymology
@@ -25,10 +25,11 @@ Chinese-English dictionaries are essential tools for learning the language. This
 4. Segmentation of filtered translated sentences using `jieba` (`/dictionary/4_segment_examples.py`)
 5. Extraction of segmented words from sentences to create a word -> example sentences mapping (`/dictionary/5_words_to_sentences.py`)
 6. Computation of words-containing-words through Aho-Corasick on CEDICT (`/dictionary/6_containing_words.py`)
-7. Computation of related words by using nearest-neighbor search on FastText vectors (`/dictionary/7_fasttext_similars.py`)
+7. Computation of related words by using nearest-neighbor search (via a K-D tree) on FastText vectors (`/dictionary/7_fasttext_similars.py`)
 8. Unification of previous outputs into single JSON files for each word ready for the frontend, split by simplified and traditional (`/dictionary/8_unify.py`)
-9. Construction of a reduced dictionary for client-side search (`/dictionary/9_client_search.py`)
-10. The web client (a standard create-react-app) takes the JSON files hosted on GitHub to render the entries
+9. Construction of an index for client-side search (`/dictionary/9_client_search.py`)
+
+The web client (a standard create-react-app) then takes the JSON files hosted on GitHub to render the entries
 
 Considerations:
 
