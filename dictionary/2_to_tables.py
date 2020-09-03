@@ -74,7 +74,7 @@ cjkvi = pd.read_csv(
 )
 
 # keep first decomposition for characters with multiple
-cjkvi["decomposition"] = cjkvi["decomposition"].str.split("]").str[0]
+cjkvi["decomposition"] = cjkvi["decomposition"].str.split("[").str[0]
 
 INVALID_CHARACTERS = [
     "⓪",

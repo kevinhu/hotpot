@@ -14,8 +14,8 @@ Chinese-English dictionaries are essential tools for learning the language. This
 ## How it works
 
 1. Retrieval of source data (performed by `/dictionary/1_retrieve.py`):
-   - Word definitions from (CEDICT)[https://www.mdbg.net/chinese/dictionary?page=cedict]
-   - Word frequencies from (BCC_LEX)[https://challenges.hackingchinese.com/resources/stories/451-blcu-balanced-corpus-frequency-lists]
+   - Word definitions from [CEDICT](https://www.mdbg.net/chinese/dictionary?page=cedict)
+   - Word frequencies from [BCC_LEX](https://challenges.hackingchinese.com/resources/stories/451-blcu-balanced-corpus-frequency-lists)
    - Word decompositions from [CJK (Chinese-Japanese-Korean) ideographic description sequences](https://github.com/cjkvi/cjkvi-ids)
    - Chinese word embeddings from [FastText](https://fasttext.cc/docs/en/crawl-vectors.html) on Common Crawl and Wikipedia
    - Sentence segmentation index for the [jieba library](https://github.com/fxsjy/jieba)
