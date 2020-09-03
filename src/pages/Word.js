@@ -150,7 +150,11 @@ const Word = () => {
 									character={character["word"]}
 									pinyin={
 										singlePinyin
-											? pinyinify(character["pinyin"][0])
+											? pinyinify(
+													wordData["pinyin"][0].split(
+														" "
+													)[index]
+											  )
 											: ""
 									}
 									characterSize="6rem"
