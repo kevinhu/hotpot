@@ -204,7 +204,7 @@ const Word = () => {
 
 				<div className="mx-auto pb-2" style={{ width: "max-content" }}>
 					<div
-						className={`border-b ${borderSecondaryColor} english-serif`}
+						className={`border-b ${borderSecondaryColor} english-serif ${textSecondaryColor}`}
 					>
 						{wordType === "simplified"
 							? "Traditional"
