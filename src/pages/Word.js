@@ -14,7 +14,7 @@ import NotFound from "../assets/not_found.svg";
 
 import { linkHover } from "../themes";
 
-import { pinyinify, removeDuplicates } from "../utilities";
+import { pinyinify, removeDuplicates, getCharacterLength } from "../utilities";
 const IDEOGRAPHIC_DESCRIPTIONS = [
 	"⿰",
 	"⿱",
@@ -118,6 +118,8 @@ const Word = () => {
 	const sectionHeaderStyle =
 		"text-xl text-gray-700 dark:text-gray-500 font-semibold";
 
+	console.log(wordData);
+
 	if (!wordData) {
 		if (!loading) {
 			return (
@@ -142,6 +144,8 @@ const Word = () => {
 		removeDuplicates(wordData["pinyin"].map((x) => x.toLowerCase()))
 			.length === 1;
 
+	console.log(wordData["word"], "|", wordData["word"].length);
+
 	return (
 		<div className="w-full">
 			<LoadingBar
@@ -151,7 +155,7 @@ const Word = () => {
 			/>
 			<div className="w-full text-center pt-16">
 				<div className="chinese-serif w-3/4 mx-auto flex justify-center flex-wrap pb-8">
-					{wordData["word"].length === 1 ? (
+					{getCharacterLength(wordData["word"]) === 1 ? (
 						<PinyinCharacter
 							character={wordData["word"]}
 							pinyin={
@@ -164,6 +168,7 @@ const Word = () => {
 							className="px-2"
 						/>
 					) : (
+						wordData["characters"] &&
 						wordData["characters"].map((character, index) => {
 							return (
 								<PinyinCharacter
@@ -253,11 +258,11 @@ const Word = () => {
 					</div>
 					<div className="p-6 border-b-2 border-gray-400">
 						<div className={sectionHeaderStyle}>
-							{wordData["word"].length > 1
+							{getCharacterLength(wordData["word"]) > 1
 								? "Characters"
 								: "Components"}
 						</div>
-						{wordData["word"].length > 1
+						{getCharacterLength(wordData["word"]) > 1
 							? wordData["characters"].map((character, index) => {
 									return (
 										<Link
@@ -346,7 +351,10 @@ const Word = () => {
 														<div className="text-gray-700 dark:text-gray-500">
 															{character[
 																"definition"
-															].join(" | ")}
+															] &&
+																character[
+																	"definition"
+																].join(" | ")}
 														</div>
 													</div>
 												</div>
@@ -449,18 +457,21 @@ const Word = () => {
 											<div className="chinese-serif text-xl flex flex-wrap">
 												{displayWord}
 											</div>
+											<div className="text-gray-700 dark:text-gray-500 break-words">
+												{contain_word["definition"]
+													.length >
+												MAX_OTHER_DESCRIPTION_LENGTH
+													? contain_word[
+															"definition"
+													  ].substring(
+															0,
+															MAX_OTHER_DESCRIPTION_LENGTH
+													  ) + "..."
+													: contain_word[
+															"definition"
+													  ]}
+											</div>
 										</Link>
-										<div className="text-gray-700 dark:text-gray-500 break-words">
-											{contain_word["definition"].length >
-											MAX_OTHER_DESCRIPTION_LENGTH
-												? contain_word[
-														"definition"
-												  ].substring(
-														0,
-														MAX_OTHER_DESCRIPTION_LENGTH
-												  ) + "..."
-												: contain_word["definition"]}
-										</div>
 									</div>
 								);
 							}
@@ -498,18 +509,18 @@ const Word = () => {
 										<div className="chinese-serif text-xl flex flex-wrap">
 											{displayWord}
 										</div>
+										<div className="text-gray-700 dark:text-gray-500 break-words">
+											{related_word["definition"].length >
+											MAX_OTHER_DESCRIPTION_LENGTH
+												? related_word[
+														"definition"
+												  ].substring(
+														0,
+														MAX_OTHER_DESCRIPTION_LENGTH
+												  ) + "..."
+												: related_word["definition"]}
+										</div>
 									</Link>
-									<div className="text-gray-700 dark:text-gray-500 break-words">
-										{related_word["definition"].length >
-										MAX_OTHER_DESCRIPTION_LENGTH
-											? related_word[
-													"definition"
-											  ].substring(
-													0,
-													MAX_OTHER_DESCRIPTION_LENGTH
-											  ) + "..."
-											: related_word["definition"]}
-									</div>
 								</div>
 							);
 						})}

@@ -188,3 +188,15 @@ export const removeDuplicates = (arr) => {
   }, []);
   return unique;
 };
+
+/**
+ * Length of a Unicode-encoded string
+ * (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/length#Unicode)
+ * @param  {String} the string to convert
+ * @return {String} the converted string
+ */
+export const getCharacterLength = (str) => {
+  // The string iterator that is used here iterates over characters,
+  //  not mere code units
+  return [...str].length;
+};

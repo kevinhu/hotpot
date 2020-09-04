@@ -22007,28 +22007,30 @@ video {
 
 @import url("https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap");
 
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&display=swap");
+
 .english-serif {
   font-family: "Source Serif Pro", serif;
 }
 
 .chinese-serif {
-  font-family: "Noto Serif SC", serif;
+  font-family: "Noto Serif SC", "Noto Serif TC", serif;
 }
 
 .red {
-  color: #c10000;
+  color: #c10000 !important;
 }
 
 .hover-red:hover {
-  color: #c10000;
+  color: #c10000 !important;
 }
 
 .mode-dark .red {
-  color: #e84a5f;
+  color: #e84a5f !important;
 }
 
 .mode-dark .hover-red:hover {
-  color: #e84a5f;
+  color: #e84a5f !important;
 }
 
 html,
