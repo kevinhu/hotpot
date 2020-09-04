@@ -309,7 +309,7 @@ const Word = () => {
 															)}
 													</div>
 													<div
-														className={`${textSecondaryColor} leading-5`}
+														className={`${textSecondaryColor} leading-5 break-all`}
 													>
 														{character[
 															"definition"
@@ -369,7 +369,7 @@ const Word = () => {
 																)}
 														</div>
 														<div
-															className={`${textSecondaryColor} leading-5`}
+															className={`${textSecondaryColor} leading-5 break-all`}
 														>
 															{character[
 																"definition"
@@ -482,7 +482,7 @@ const Word = () => {
 												{displayWord}
 											</div>
 											<div
-												className={`${textSecondaryColor} break-words leading-5`}
+												className={`${textSecondaryColor}  break-all leading-5`}
 											>
 												{contain_word["definition"]
 													.length >
@@ -536,7 +536,7 @@ const Word = () => {
 											{displayWord}
 										</div>
 										<div
-											className={`${textSecondaryColor} break-words leading-5`}
+											className={`${textSecondaryColor}  break-all leading-5`}
 										>
 											{related_word["definition"].length >
 											MAX_OTHER_DESCRIPTION_LENGTH
