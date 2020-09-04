@@ -12,7 +12,17 @@ import Loading from "../components/Loading";
 
 import NotFound from "../assets/not_found.svg";
 
-import { linkHover } from "../themes";
+import {
+	linkHover,
+	primaryColor,
+	secondaryColor,
+	darkPrimaryColor,
+	darkSecondaryColor,
+	textPrimaryColor,
+	textSecondaryColor,
+	borderPrimaryColor,
+	borderSecondaryColor,
+} from "../themes";
 
 import {
 	pinyinify,
@@ -120,8 +130,7 @@ const Word = () => {
 		}
 	});
 
-	const sectionHeaderStyle =
-		"text-xl text-gray-700 dark:text-gray-500 font-semibold";
+	const sectionHeaderStyle = `text-xl font-semibold ${textSecondaryColor}`;
 
 	if (!wordData) {
 		if (!loading) {
@@ -194,7 +203,9 @@ const Word = () => {
 				</div>
 
 				<div className="mx-auto pb-2" style={{ width: "max-content" }}>
-					<div className="border-b border-gray-500 dark:border-gray-400 english-serif">
+					<div
+						className={`border-b ${borderSecondaryColor} english-serif`}
+					>
 						{wordType === "simplified"
 							? "Traditional"
 							: "Simplified"}
@@ -237,9 +248,13 @@ const Word = () => {
 						)}
 				</div>
 			</div>
-			<div className="w-full md:w-3/4 flex flex-wrap english-serif mx-auto mb-12 bg-white border-solid border-2 border-black dark:border-gray-600 dark:bg-gray-800">
-				<div className="w-full md:w-2/3 border-r-2 border-gray-400">
-					<div className="p-6 border-b-2 border-gray-400">
+			<div
+				className={`w-full md:w-3/4 flex flex-wrap english-serif mx-auto mb-12 bg-white border-2 dark:bg-gray-800 ${borderPrimaryColor}`}
+			>
+				<div
+					className={`w-full md:w-2/3 border-r-2 ${borderSecondaryColor}`}
+				>
+					<div className={`p-6 border-b-2 ${borderSecondaryColor}`}>
 						<div className={sectionHeaderStyle}>
 							{wordData["definition"].length > 1
 								? "Definitions"
@@ -257,7 +272,7 @@ const Word = () => {
 							</div>
 						))}
 					</div>
-					<div className="p-6 border-b-2 border-gray-400">
+					<div className={`p-6 border-b-2 ${borderSecondaryColor}`}>
 						<div className={sectionHeaderStyle}>
 							{getCharacterLength(wordData["word"]) > 1
 								? "Characters"
@@ -400,7 +415,7 @@ const Word = () => {
 					</div>
 				</div>
 				<div className="w-full md:w-1/3">
-					<div className="p-6 border-b-2 border-gray-400">
+					<div className={`p-6 border-b-2 ${borderSecondaryColor}`}>
 						<div className={sectionHeaderStyle}>Statistics</div>
 
 						{wordData["rank"] !== -1 && (
@@ -427,7 +442,7 @@ const Word = () => {
 							</div>
 						)}
 					</div>
-					<div className="p-6 border-b-2 border-gray-400">
+					<div className={`p-6 border-b-2 ${borderSecondaryColor}`}>
 						<div className={sectionHeaderStyle}>
 							Containing words
 						</div>

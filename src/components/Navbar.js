@@ -4,6 +4,13 @@ import { useHistory, Link } from "react-router-dom";
 // Import dark mode
 import { useDarkMode } from "../components/DarkMode";
 
+import {
+	textPrimaryColor,
+	textSecondaryColor,
+	borderPrimaryColor,
+	borderSecondaryColor,
+} from "../themes";
+
 const Navbar = () => {
 	const [theme, toggleTheme, componentMounted] = useDarkMode();
 	let history = useHistory();
@@ -21,14 +28,14 @@ const Navbar = () => {
 
 	return (
 		<div
-			className="w-full md:w-3/4 flex mx-auto bg-white dark:bg-gray-800 border-2 border-black dark:border-gray-600"
+			className={`w-full md:w-3/4 flex mx-auto bg-white dark:bg-gray-800 border-2 ${borderPrimaryColor}`}
 			style={{
 				marginTop: "-2px",
 			}}
 		>
 			<Link
 				to="/"
-				className="english-serif px-6 py-2 red text-2xl border-r-2 border-black dark:border-gray-600"
+				className={`english-serif px-6 py-2 red text-2xl border-r-2 ${borderSecondaryColor}`}
 			>
 				huoguo
 			</Link>
@@ -47,7 +54,7 @@ const Navbar = () => {
 			<div
 				onClick={toggleTheme}
 				checked={theme === "dark"}
-				className="chinese-serif py-2 text-2xl px-2 cursor-pointer select-none border-l-2 border-black dark:border-gray-600"
+				className={`chinese-serif py-2 text-2xl px-2 cursor-pointer select-none border-l-2 ${borderSecondaryColor}`}
 			>
 				{theme === "dark" ? "暗" : "光"}
 			</div>

@@ -7,7 +7,13 @@ import { pinyinify, numberWithCommas } from "../utilities";
 // Import dark mode
 import { useDarkMode } from "../components/DarkMode";
 
-import { linkHover } from "../themes";
+import {
+	linkHover,
+	textPrimaryColor,
+	textSecondaryColor,
+	borderPrimaryColor,
+	borderSecondaryColor,
+} from "../themes";
 
 var _ = require("lodash");
 const fuzzysort = require("fuzzysort");
@@ -54,10 +60,8 @@ const Home = () => {
 	// search box style
 	const searchBoxSizing =
 		"w-full md:w-2/3 xl:w-1/2 absolute mx-auto text-center py-12";
-	const searchBoxAesthetics = "border-2 border-black bg-white";
-	const searchBoxAestheticsDark =
-		"dark:border-2 dark:border-gray-700 dark:bg-gray-800";
-	const searchBoxStyle = `${searchBoxSizing} ${searchBoxAesthetics} ${searchBoxAestheticsDark}`;
+	const searchBoxAesthetics = "border-2 bg-white dark:bg-gray-800";
+	const searchBoxStyle = `${searchBoxSizing} ${searchBoxAesthetics} ${borderPrimaryColor}`;
 
 	return (
 		<div>
@@ -93,7 +97,7 @@ const Home = () => {
 					>
 						<div className="w-full relative">
 							<input
-								className="text-lg chinese-serif p-2 bg-transparent outline-none w-full mx-auto border-solid border-2 border-black dark:border-gray-600"
+								className={`text-lg chinese-serif p-2 outline-none w-full bg-transparent border-solid border-2 ${borderSecondaryColor}`}
 								type="text"
 								placeholder={`Search ${numberWithCommas(
 									words.length
@@ -103,7 +107,7 @@ const Home = () => {
 							></input>
 							{results.length > 0 && searchWord !== "" && (
 								<div
-									className="absolute text-left bg-white border-solid border-2 border-black w-full dark:border-gray-600 dark:bg-gray-800"
+									className={`absolute text-left bg-white dark:bg-gray-800 border-2 border-black w-full ${borderSecondaryColor}`}
 									style={{ marginTop: "-4px" }}
 								>
 									{results.map((result, index) => {
