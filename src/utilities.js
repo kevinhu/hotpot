@@ -117,13 +117,17 @@ const convertPinyin = (str) => {
  * @return {String} the converted string
  */
 export const pinyinify = (str) => {
+  const NOT_PINYIN = [","];
+
   if (typeof str !== "string") {
     return str;
   }
 
-  if (!str) {
-    return "";
+  if (!str || NOT_PINYIN.includes(str)) {
+    // non-breaking space, to fix spacing issues
+    return "\xa0";
   }
+
   str = str.toLowerCase();
   str = str.replace("u:", "ü");
 

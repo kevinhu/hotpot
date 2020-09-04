@@ -156,6 +156,20 @@ const Word = () => {
 		removeDuplicates(wordData["pinyin"].map((x) => x.toLowerCase()))
 			.length === 1;
 
+	let mainSize = 0;
+
+	const wordLength = getCharacterLength(wordData["word"]);
+
+	if (wordLength < 3) {
+		mainSize = 6;
+	} else if (wordLength < 6) {
+		mainSize = 4;
+	} else if (wordLength < 9) {
+		mainSize = 3;
+	} else {
+		mainSize = 2;
+	}
+
 	return (
 		<div className="w-full">
 			<LoadingBar
@@ -173,9 +187,9 @@ const Word = () => {
 									? pinyinify(wordData["pinyin"][0])
 									: ""
 							}
-							characterSize="6rem"
-							pinyinSize="2rem"
-							className="px-2"
+							characterSize={`${mainSize}rem`}
+							pinyinSize={`${mainSize / 3}rem`}
+							className="px-1"
 						/>
 					) : (
 						wordData["characters"] &&
@@ -192,9 +206,9 @@ const Word = () => {
 											  )
 											: ""
 									}
-									characterSize="6rem"
-									pinyinSize="2rem"
-									className="px-2"
+									characterSize={`${mainSize}rem`}
+									pinyinSize={`${mainSize / 3}rem`}
+									className="px-1"
 									key={index}
 								/>
 							);
