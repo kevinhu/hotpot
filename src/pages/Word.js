@@ -114,7 +114,7 @@ const Word = () => {
 						setWordData(data);
 						setLoading(false);
 
-						console.log(wordData);
+						console.log(data);
 					});
 			}
 		}
@@ -122,8 +122,6 @@ const Word = () => {
 
 	const sectionHeaderStyle =
 		"text-xl text-gray-700 dark:text-gray-500 font-semibold";
-
-	console.log(wordData);
 
 	if (!wordData) {
 		if (!loading) {
@@ -148,8 +146,6 @@ const Word = () => {
 	const singlePinyin =
 		removeDuplicates(wordData["pinyin"].map((x) => x.toLowerCase()))
 			.length === 1;
-
-	console.log(wordData["word"], "|", wordData["word"].length);
 
 	return (
 		<div className="w-full">
@@ -310,7 +306,9 @@ const Word = () => {
 										</Link>
 									);
 							  })
-							: wordData["components"][
+							: "decomposition_definitions" in
+									wordData["components"] &&
+							  wordData["components"][
 									"decomposition_definitions"
 							  ].map((character, index) => {
 									if (
