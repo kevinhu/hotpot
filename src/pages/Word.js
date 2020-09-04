@@ -308,7 +308,9 @@ const Word = () => {
 																	.join(" / ")
 															)}
 													</div>
-													<div className="text-gray-700 dark:text-gray-500 leading-5">
+													<div
+														className={`${textSecondaryColor} leading-5`}
+													>
 														{character[
 															"definition"
 														] &&
@@ -366,7 +368,9 @@ const Word = () => {
 																		)
 																)}
 														</div>
-														<div className="text-gray-700 dark:text-gray-500 leading-5">
+														<div
+															className={`${textSecondaryColor} leading-5`}
+														>
 															{character[
 																"definition"
 															] &&
@@ -477,7 +481,9 @@ const Word = () => {
 											<div className="chinese-serif text-xl flex flex-wrap">
 												{displayWord}
 											</div>
-											<div className="text-gray-700 dark:text-gray-500 break-words leading-5">
+											<div
+												className={`${textSecondaryColor} break-words leading-5`}
+											>
 												{contain_word["definition"]
 													.length >
 												MAX_OTHER_DESCRIPTION_LENGTH
@@ -529,7 +535,9 @@ const Word = () => {
 										<div className="chinese-serif text-xl flex flex-wrap">
 											{displayWord}
 										</div>
-										<div className="text-gray-700 dark:text-gray-500 break-words leading-5">
+										<div
+											className={`${textSecondaryColor} break-words leading-5`}
+										>
 											{related_word["definition"].length >
 											MAX_OTHER_DESCRIPTION_LENGTH
 												? related_word[
