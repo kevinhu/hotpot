@@ -198,7 +198,7 @@ const Word = () => {
 				</div>
 
 				<div className="mx-auto pb-2" style={{ width: "max-content" }}>
-					<div className="border-b border-gray-500 dark:border-gray-400">
+					<div className="border-b border-gray-500 dark:border-gray-400 english-serif">
 						{wordType === "simplified"
 							? "Traditional"
 							: "Simplified"}
@@ -250,7 +250,7 @@ const Word = () => {
 								: "Definition"}
 						</div>
 						{wordData["definition"].map((definition, index) => (
-							<div className="py-1" key={index}>
+							<div className="py-1 leading-5" key={index}>
 								<div className="inline font-bold">
 									{index + 1}.{" "}
 								</div>
@@ -297,7 +297,7 @@ const Word = () => {
 																	.join(" / ")
 															)}
 													</div>
-													<div className="text-gray-700 dark:text-gray-500">
+													<div className="text-gray-700 dark:text-gray-500 leading-5">
 														{character[
 															"definition"
 														] &&
@@ -353,7 +353,7 @@ const Word = () => {
 																		)
 																)}
 														</div>
-														<div className="text-gray-700 dark:text-gray-500">
+														<div className="text-gray-700 dark:text-gray-500 leading-5">
 															{character[
 																"definition"
 															] &&
@@ -383,7 +383,7 @@ const Word = () => {
 							);
 
 							return (
-								<div className="pt-2" key={index}>
+								<div className="py-3" key={index}>
 									<div className="chinese-serif text-xl">
 										{beforeWord}
 										{
@@ -464,7 +464,7 @@ const Word = () => {
 											<div className="chinese-serif text-xl flex flex-wrap">
 												{displayWord}
 											</div>
-											<div className="text-gray-700 dark:text-gray-500 break-words">
+											<div className="text-gray-700 dark:text-gray-500 break-words leading-5">
 												{contain_word["definition"]
 													.length >
 												MAX_OTHER_DESCRIPTION_LENGTH
@@ -516,7 +516,7 @@ const Word = () => {
 										<div className="chinese-serif text-xl flex flex-wrap">
 											{displayWord}
 										</div>
-										<div className="text-gray-700 dark:text-gray-500 break-words">
+										<div className="text-gray-700 dark:text-gray-500 break-words leading-5">
 											{related_word["definition"].length >
 											MAX_OTHER_DESCRIPTION_LENGTH
 												? related_word[
