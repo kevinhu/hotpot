@@ -12,7 +12,7 @@ const PinyinCharacter = ({
 	return (
 		<div className={className} style={{ width: "max-content" }}>
 			<div
-				className={`font-semibold english-serif text-center ${
+				className={`font-semibold english-serif select-none text-center ${
 					pinyinClass ? pinyinClass : ""
 				}`}
 				style={{ fontSize: pinyinSize }}
