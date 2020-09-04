@@ -14,7 +14,12 @@ import NotFound from "../assets/not_found.svg";
 
 import { linkHover } from "../themes";
 
-import { pinyinify, removeDuplicates, getCharacterLength } from "../utilities";
+import {
+	pinyinify,
+	removeDuplicates,
+	getCharacterLength,
+	splitFirst,
+} from "../utilities";
 const IDEOGRAPHIC_DESCRIPTIONS = [
 	"⿰",
 	"⿱",
@@ -371,8 +376,10 @@ const Word = () => {
 						</div>
 						{wordData["sentences"].map((sentence, index) => {
 							let sentenceWord = sentence["chinese"];
-							let [beforeWord, afterWord] = sentenceWord.split(
-								word
+							let [beforeWord, afterWord] = splitFirst(
+								sentenceWord,
+								word,
+								1
 							);
 
 							return (

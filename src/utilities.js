@@ -200,3 +200,20 @@ export const getCharacterLength = (str) => {
   //  not mere code units
   return [...str].length;
 };
+
+/**
+ * Split the first occurrences of a delimiter, leaving
+ * the rest of the string unsplit
+ * @param {String} string
+ * @param {delim} delim delimiter
+ * @param {int} limit max number of splits
+ * @return {Array}
+ */
+export function splitFirst(string, delim, limit) {
+  const arr = string.split(delim);
+  const result = arr.splice(0, limit);
+
+  result.push(arr.join(delim));
+
+  return result;
+}
