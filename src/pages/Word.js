@@ -391,6 +391,8 @@ const Word = () => {
 						<div className={sectionHeaderStyle}>
 							Example sentences
 						</div>
+						{wordData["sentences"].length === 0 &&
+							"No example sentences found."}
 						{wordData["sentences"].map((sentence, index) => {
 							let sentenceWord = sentence["chinese"];
 							let [beforeWord, afterWord] = splitFirst(
@@ -422,7 +424,7 @@ const Word = () => {
 					<div className={`p-6 border-b-2 ${borderSecondaryColor}`}>
 						<div className={sectionHeaderStyle}>Statistics</div>
 
-						{wordData["rank"] !== -1 && (
+						{wordData["rank"] !== -1 ? (
 							<div>
 								<div className="font-bold inline">
 									{wordData["rank"]}
@@ -432,9 +434,11 @@ const Word = () => {
 								</div>{" "}
 								most frequent word
 							</div>
+						) : (
+							<div>Word rank unavailable.</div>
 						)}
 
-						{wordData["fraction"] !== -1 && (
+						{wordData["fraction"] !== -1 ? (
 							<div>
 								<div className="font-bold inline">
 									{(wordData["fraction"] * 100).toPrecision(
@@ -444,12 +448,16 @@ const Word = () => {
 								</div>{" "}
 								of all words
 							</div>
+						) : (
+							<div>Word fraction unavailable.</div>
 						)}
 					</div>
 					<div className={`p-6 border-b-2 ${borderSecondaryColor}`}>
 						<div className={sectionHeaderStyle}>
 							Containing words
 						</div>
+						{wordData["containing_words"].length === 0 &&
+							"No containing words found."}
 						{wordData["containing_words"].map(
 							(contain_word, index) => {
 								let wordPinyin = contain_word[
@@ -505,6 +513,8 @@ const Word = () => {
 					</div>
 					<div className="p-6">
 						<div className={sectionHeaderStyle}>See also</div>
+						{wordData["related"].length === 0 &&
+							"No related words found."}
 						{wordData["related"].map((related_word, index) => {
 							let wordPinyin = related_word["pinyin"][0].split(
 								" "
