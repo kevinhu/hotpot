@@ -33,15 +33,12 @@
 	color: #e84a5f !important;
 }
 
-html,
-body,
-#root,
-.app-container {
+html {
 	@apply min-h-screen;
 	background-color: #f8f8f8;
 }
 
-.app-container.mode-dark {
+html.mode-dark {
 	@apply bg-gray-900;
 	@apply text-gray-200 !important;
 }

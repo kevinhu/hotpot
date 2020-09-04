@@ -22033,15 +22033,12 @@ video {
   color: #e84a5f !important;
 }
 
-html,
-body,
-#root,
-.app-container {
+html {
   min-height: 100vh;
   background-color: #f8f8f8;
 }
 
-.app-container.mode-dark {
+html.mode-dark {
   --bg-opacity: 1;
   background-color: #1a202c;
   background-color: rgba(26, 32, 44, var(--bg-opacity));

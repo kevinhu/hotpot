@@ -29,13 +29,16 @@ const DarkModeProvider = ({ children }) => {
       : setMode("light");
     setComponentMounted(true);
   }, []);
+  if (theme === "dark") {
+    document.documentElement.classList.add("mode-dark");
+  } else {
+    document.documentElement.classList.remove("mode-dark");
+  }
 
   // return [theme, toggleTheme, componentMounted];
   return (
     <DarkModeCtx.Provider value={[theme, toggleTheme, componentMounted]}>
-      <div className={`app-container ${theme === "dark" ? "mode-dark" : ""}`}>
-        {children}
-      </div>
+      {children}
     </DarkModeCtx.Provider>
   );
 };
