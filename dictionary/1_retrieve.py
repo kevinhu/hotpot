@@ -49,6 +49,13 @@ download_from_url(
     overwrite=True,
 )
 
+# Tencent word vectors
+download_from_url(
+    "https://ai.tencent.com/ailab/nlp/en/data/Tencent_AILab_ChineseEmbedding.tar.gz",
+    "./data/raw/Tencent_AILab_ChineseEmbedding.tar.gz",
+    overwrite=True,
+)
+
 print("Unzipping BCC_LEX_Zh.zip... ", end="")
 
 with zipfile.ZipFile("./data/raw/BCC_LEX_Zh.zip", "r") as zip_ref:
@@ -59,5 +66,12 @@ print("Unzipping cedict_1_0_ts_utf-8_mdbg.zip... ", end="")
 
 with zipfile.ZipFile("./data/raw/cedict_1_0_ts_utf-8_mdbg.zip", "r") as zip_ref:
     zip_ref.extractall("./data/raw/cedict_1_0_ts_utf-8_mdbg")
+
+    print("ok")
+
+print("Unzipping Tencent_AILab_ChineseEmbedding.zip... ", end="")
+
+with zipfile.ZipFile("./data/raw/Tencent_AILab_ChineseEmbedding.zip", "r") as zip_ref:
+    zip_ref.extractall("./data/raw/Tencent_AILab_ChineseEmbedding")
 
     print("ok")
