@@ -2,6 +2,7 @@ import config
 import opencc
 import pandas as pd
 import ujson
+from gensim.models import KeyedVectors
 from tqdm import tqdm
 
 tqdm.pandas()
@@ -144,6 +145,17 @@ cjkvi["decomposition"] = cjkvi["decomposition"].apply(replace_all)
 cjkvi.to_csv(f"./data/intermediate/cjkvi.txt", sep="\t")
 
 print("ok")
+
+# --------------------
+# Tencent word vectors
+# --------------------
+
+tencent_vectors = KeyedVectors.load_word2vec_format(
+    "data/raw/Tencent_AILab_ChineseEmbedding/Tencent_AILab_ChineseEmbedding.txt",
+    binary=False,
+)
+
+tencent_vectors.save("data/intermediate/tencent_vectors")
 
 # -----------------
 # Translated corpus
