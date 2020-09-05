@@ -282,7 +282,7 @@ const Word = () => {
 								<div className="inline font-semibold">
 									({pinyinify(wordData["pinyin"][index])}){" "}
 								</div>
-								{definition.replace("/", "; ")}
+								{definition.replace(/\//g, "; ")}
 							</div>
 						))}
 					</div>
