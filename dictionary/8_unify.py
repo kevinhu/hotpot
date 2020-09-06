@@ -116,6 +116,8 @@ embeddings_nearest = pd.read_hdf(
     "./data/intermediate/embeddings_nearest.h5", key="embeddings_nearest",
 )
 
+embedded_words = set(embeddings_dists.index)
+
 # iterator for each CEDICT row
 def unify_word_info(word, cedict_entry, cedict_reference, kind):
 
@@ -203,7 +205,10 @@ def unify_word_info(word, cedict_entry, cedict_reference, kind):
         ]
 
     # get embedding-based related words
-    related = list(embeddings_nearest.loc[word])
+    if word in embedded_words:
+        related = list(embeddings_nearest.loc[word])
+    else:
+        related = []
 
     if kind == "simplified":
         related = [traditional_to_simplified.get(x, x) for x in related]
@@ -226,12 +231,14 @@ def unify_word_info(word, cedict_entry, cedict_reference, kind):
         ujson.dump(word_info, f)
 
 
+print("Creating simplified files")
 try:
     for word, entry in tqdm(cedict_simplified.items()):
         unify_word_info(word, entry, cedict_simplified, "simplified")
 except Exception as e:
     print(e)
 
+print("Creating traditional files")
 try:
     for word, entry in tqdm(cedict_traditional.items()):
         unify_word_info(word, entry, cedict_traditional, "traditional")
