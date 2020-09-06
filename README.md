@@ -17,7 +17,7 @@ Chinese-English dictionaries are essential tools for learning the language. This
    - Word definitions from [CEDICT](https://www.mdbg.net/chinese/dictionary?page=cedict)
    - Word frequencies from [BCC_LEX](https://challenges.hackingchinese.com/resources/stories/451-blcu-balanced-corpus-frequency-lists)
    - Word decompositions from [CJK (Chinese-Japanese-Korean) ideographic description sequences](https://github.com/cjkvi/cjkvi-ids)
-   - Chinese word embeddings from [FastText](https://fasttext.cc/docs/en/crawl-vectors.html) on Common Crawl and Wikipedia
+   - Chinese word embeddings from [Tencent AI](https://ai.tencent.com/ailab/nlp/en/embedding.html)
    - Sentence segmentation index for the [jieba library](https://github.com/fxsjy/jieba)
    - Open Chinese-English translated sentences from [kaggle](https://www.kaggle.com/terrychanorg/translation2019zh)
 2. Conversion of source data to Pandas-processable tables; [`/dictionary/2_to_tables.py`](https://github.com/kevinhu/huoguo/blob/master/dictionary/2_to_tables.py)
@@ -25,7 +25,7 @@ Chinese-English dictionaries are essential tools for learning the language. This
 4. Segmentation of filtered translated sentences using `jieba`; [`/dictionary/4_segment_examples.py`](https://github.com/kevinhu/huoguo/blob/master/dictionary/4_segment_examples.py)
 5. Extraction of segmented words from sentences to create a word -> example sentences mapping; [`/dictionary/5_words_to_sentences.py`](https://github.com/kevinhu/huoguo/blob/master/dictionary/5_words_to_sentences.py)
 6. Computation of words-containing-words through Aho-Corasick on CEDICT; [`/dictionary/6_containing_words.py`](https://github.com/kevinhu/huoguo/blob/master/dictionary/6_containing_words.py)
-7. Computation of related words by using nearest-neighbor search (via a K-D tree) on FastText vectors; [`/dictionary/7_fasttext_similars.py`](https://github.com/kevinhu/huoguo/blob/master/dictionary/7_fasttext_similars.py)
+7. Computation of related words by using nearest-neighbor search (via [annoy](https://github.com/spotify/annoy)) on FastText vectors; [`/dictionary/7_word2vec_similars.py`](https://github.com/kevinhu/huoguo/blob/master/dictionary/7_fasttext_similars.py)
 8. Unification of previous outputs into single JSON files for each word ready for the frontend, split by simplified and traditional; [`/dictionary/8_unify.py`](https://github.com/kevinhu/huoguo/blob/master/dictionary/8_unify.py)
 9. Construction of an index for client-side search; [`/dictionary/9_client_search.py`](https://github.com/kevinhu/huoguo/blob/master/dictionary/9_client_search.py)
 
