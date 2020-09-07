@@ -19,6 +19,14 @@ MIN_UNIQUENESS = 0.8
 
 zh_translations = pd.read_feather("./data/intermediate/zh_translations.feather",)
 
+# --------------------------
+# Remove language duplicates
+# --------------------------
+print("Removing duplicates")
+zh_translations = zh_translations.drop_duplicates(
+    subset=["simplified", "traditional", "english"], keep="first"
+)
+
 # -------------------------
 # Filter by sentence length
 # -------------------------
