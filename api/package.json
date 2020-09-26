@@ -3,7 +3,9 @@
 	"version": "1.0.0",
 	"main": "index.js",
 	"license": "MIT",
-	"dependencies": {},
+	"dependencies": {
+		"fs": "0.0.1-security"
+	},
 	"scripts": {
 		"start": "echo 'start'",
 		"build": "echo 'build'",

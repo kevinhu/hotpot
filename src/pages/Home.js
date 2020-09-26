@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 
-import words from "../assets/search_data.json";
 import { pinyinify, numberWithCommas } from "../utilities";
 
 // Import dark mode
@@ -16,7 +15,6 @@ import {
 } from "../themes";
 
 var _ = require("lodash");
-const fuzzysort = require("fuzzysort");
 
 const Home = () => {
 	const [theme, toggleTheme, componentMounted] = useDarkMode();
@@ -31,7 +29,6 @@ const Home = () => {
 	};
 
 	const executeSearch = _.debounce((query) => {
-		// setResults(fuzzyResults);
 		fetch(
 			`https://huoguo-search.kevinhu.io/.netlify/functions/search?query=${query}`
 		)
@@ -39,7 +36,6 @@ const Home = () => {
 				return response.json();
 			})
 			.then((body) => {
-				console.log(body);
 				setResults(body);
 			});
 	}, 250);
@@ -94,7 +90,7 @@ const Home = () => {
 								className={`text-lg chinese-serif p-2 outline-none w-full bg-transparent border-solid border-2 ${borderSecondaryColor}`}
 								type="text"
 								placeholder={`Search ${numberWithCommas(
-									words.length
+									118639
 								)} words`}
 								value={searchWord}
 								onChange={handleChange}

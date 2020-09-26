@@ -8,8 +8,6 @@ import ujson
 # =================================================
 
 # truncate descriptions to save space
-MAX_DESCRIPTION_LENGTH = 64
-
 cedict = pd.read_csv(f"./data/intermediate/cedict.txt", sep="\t", index_col=0)
 
 # unify CEDICT and BCC_LEX
@@ -27,11 +25,6 @@ cedict["toneless_pinyin"] = [
     "".join([y[:-1] for y in x.split(" ")]) for x in cedict["pinyin"]
 ]
 
-# truncate definitions
-cedict["short_definition"] = cedict["definition"].apply(
-    lambda x: x[:MAX_DESCRIPTION_LENGTH]
-)
-
 cedict["id"] = range(len(cedict))
 
 search_data = cedict[
@@ -40,16 +33,13 @@ search_data = cedict[
         "toneless_pinyin",
         "simplified",
         "traditional",
-        "short_definition",
+        "definition",
         "rank",
         "id",
     ]
 ].to_dict(orient="index")
 
 search_data = list(search_data.values())
-
-with open("../api/search_data_test.json", "w") as f:
-    f.write(ujson.dumps(search_data[50000:60000]))
 
 with open("../api/search_data.json", "w") as f:
     f.write(ujson.dumps(search_data))
