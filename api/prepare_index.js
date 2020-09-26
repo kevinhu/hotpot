@@ -1,11 +1,8 @@
+var FlexSearch = require("./flexsearch.min.js");
+
 const SearchData = require("./search_data.json");
-// const fuzzysort = require("fuzzysort");
-var FlexSearch = require("flexsearch");
-fs = require("fs");
 
 var index = new FlexSearch({
-	// default values:
-
 	encode: "icase",
 	threshold: 8,
 	resolution: 9,
@@ -16,11 +13,11 @@ var index = new FlexSearch({
 	doc: {
 		id: "id",
 		field: [
-			"toneless_pinyin",
-			"short_definition",
+			"definition",
 			"simplified",
 			"traditional",
 			"pinyin",
+			"toneless_pinyin",
 		],
 	},
 });
