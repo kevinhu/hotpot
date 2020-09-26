@@ -32,6 +32,8 @@ cedict["short_definition"] = cedict["definition"].apply(
     lambda x: x[:MAX_DESCRIPTION_LENGTH]
 )
 
+cedict["id"] = range(len(cedict))
+
 search_data = cedict[
     [
         "pinyin",
@@ -40,10 +42,14 @@ search_data = cedict[
         "traditional",
         "short_definition",
         "rank",
+        "id",
     ]
 ].to_dict(orient="index")
 
 search_data = list(search_data.values())
+
+with open("../api/search_data_test.json", "w") as f:
+    f.write(ujson.dumps(search_data[50000:60000]))
 
 with open("../api/search_data.json", "w") as f:
     f.write(ujson.dumps(search_data))
