@@ -45,5 +45,5 @@ search_data = cedict[
 
 search_data = list(search_data.values())
 
-with open("../src/assets/search_data.json", "w") as f:
+with open("../api/search_data.json", "w") as f:
     f.write(ujson.dumps(search_data))
