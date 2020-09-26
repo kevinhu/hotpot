@@ -3,9 +3,11 @@
 	"version": "1.0.0",
 	"main": "index.js",
 	"license": "MIT",
-	"dependencies": {
-		"flexsearch": "^0.6.32",
-		"fs": "0.0.1-security",
-		"fuzzysort": "^1.1.4"
+	"dependencies": {},
+	"scripts": {
+		"start": "echo 'start'",
+		"build": "echo 'build'",
+		"predeploy": "echo 'predeploy'",
+		"deploy": "echo 'deploy'"
 	}
 }
