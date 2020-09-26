@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useHistory, Link } from "react-router-dom";
 
 import { pinyinify, numberWithCommas } from "../utilities";
@@ -14,7 +14,7 @@ import {
 	borderSecondaryColor,
 } from "../themes";
 
-var _ = require("lodash");
+import _ from "lodash";
 
 const Home = () => {
 	const [theme, toggleTheme, componentMounted] = useDarkMode();
@@ -28,17 +28,24 @@ const Home = () => {
 		history.push(`/word/${searchWord}`);
 	};
 
-	const executeSearch = _.debounce((query) => {
-		fetch(
-			`https://huoguo-search.kevinhu.io/.netlify/functions/search?query=${query}`
-		)
-			.then((response) => {
-				return response.json();
-			})
-			.then((body) => {
-				setResults(body);
-			});
-	}, 250);
+	const executeSearch = useRef(
+		_.debounce((query) => {
+			// if query is just whitespace
+			if (!query.replace(/\s/g, "").length) {
+				setResults([]);
+				return;
+			}
+			fetch(
+				`https://huoguo-search.kevinhu.io/.netlify/functions/search?query=${query}`
+			)
+				.then((response) => {
+					return response.json();
+				})
+				.then((body) => {
+					setResults(body);
+				});
+		}, 160)
+	).current;
 
 	const handleChange = (event) => {
 		event.persist();

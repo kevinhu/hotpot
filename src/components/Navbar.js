@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useHistory, Link } from "react-router-dom";
 
 import { pinyinify, numberWithCommas } from "../utilities";
@@ -28,17 +28,24 @@ const Navbar = () => {
     history.push(`/word?word=${searchWord}`);
   };
 
-  const executeSearch = _.debounce((query) => {
-    fetch(
-      `https://huoguo-search.kevinhu.io/.netlify/functions/search?query=${query}`
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then((body) => {
-        setResults(body);
-      });
-  }, 250);
+  const executeSearch = useRef(
+    _.debounce((query) => {
+      // if query is just whitespace
+      if (!query.replace(/\s/g, "").length) {
+        setResults([]);
+        return;
+      }
+      fetch(
+        `https://huoguo-search.kevinhu.io/.netlify/functions/search?query=${query}`
+      )
+        .then((response) => {
+          return response.json();
+        })
+        .then((body) => {
+          setResults(body);
+        });
+    }, 160)
+  ).current;
 
   const handleChange = (event) => {
     event.persist();
@@ -98,7 +105,7 @@ const Navbar = () => {
                           {pinyinify(result["pinyin"])}
                         </div>
                         <div className="text-gray-700 dark:text-gray-300">
-                          {result["short_definition"]}
+                          {result["definition"]}
                         </div>
                       </div>
                     </div>
