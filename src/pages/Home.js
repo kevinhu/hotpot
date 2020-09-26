@@ -30,24 +30,33 @@ const Home = () => {
 		history.push(`/word/${searchWord}`);
 	};
 
-	const executeSearch = _.debounce((word) => {
-		let fuzzyResults = fuzzysort.go(word, words, {
-			keys: [
-				"toneless_pinyin",
-				"short_definition",
-				"simplified",
-				"traditional",
-				"pinyin",
-			],
-			allowTypo: false,
-			limit: 8,
-			threshold: -100,
-		});
-		fuzzyResults = fuzzyResults.sort((a, b) =>
-			a.obj.rank >= b.obj.rank ? 1 : -1
-		);
+	const executeSearch = _.debounce((query) => {
+		// let fuzzyResults = fuzzysort.go(word, words, {
+		// 	keys: [
+		// 		"toneless_pinyin",
+		// 		"short_definition",
+		// 		"simplified",
+		// 		"traditional",
+		// 		"pinyin",
+		// 	],
+		// 	allowTypo: false,
+		// 	limit: 8,
+		// 	threshold: -100,
+		// });
+		// fuzzyResults = fuzzyResults.sort((a, b) =>
+		// 	a.obj.rank >= b.obj.rank ? 1 : -1
+		// );
 
-		setResults(fuzzyResults);
+		// setResults(fuzzyResults);
+		fetch(
+			`https://huoguo-search.kevinhu.io/.netlify/functions/search?query=${query}`
+		)
+			.then((response) => {
+				return response.json();
+			})
+			.then((data) => {
+				console.log(data);
+			});
 	}, 50);
 
 	const handleChange = (event) => {
