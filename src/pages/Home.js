@@ -31,22 +31,6 @@ const Home = () => {
 	};
 
 	const executeSearch = _.debounce((query) => {
-		// let fuzzyResults = fuzzysort.go(word, words, {
-		// 	keys: [
-		// 		"toneless_pinyin",
-		// 		"short_definition",
-		// 		"simplified",
-		// 		"traditional",
-		// 		"pinyin",
-		// 	],
-		// 	allowTypo: false,
-		// 	limit: 8,
-		// 	threshold: -100,
-		// });
-		// fuzzyResults = fuzzyResults.sort((a, b) =>
-		// 	a.obj.rank >= b.obj.rank ? 1 : -1
-		// );
-
 		// setResults(fuzzyResults);
 		fetch(
 			`https://huoguo-search.kevinhu.io/.netlify/functions/search?query=${query}`
@@ -54,10 +38,11 @@ const Home = () => {
 			.then((response) => {
 				return response.json();
 			})
-			.then((data) => {
-				console.log(data);
+			.then((body) => {
+				console.log(body);
+				setResults(body);
 			});
-	}, 50);
+	}, 250);
 
 	const handleChange = (event) => {
 		event.persist();
@@ -122,29 +107,23 @@ const Home = () => {
 									{results.map((result, index) => {
 										return (
 											<Link
-												to={`/word/${result["obj"]["simplified"]}`}
+												to={`/word/${result["simplified"]}`}
 												className={linkHover}
 												key={index}
 											>
 												<div className="flex items-center">
 													<div className="p-2 text-xl font-semibold">
-														{
-															result["obj"][
-																"simplified"
-															]
-														}
+														{result["simplified"]}
 													</div>
 													<div>
 														<div className="font-semibold">
 															{pinyinify(
-																result["obj"][
-																	"pinyin"
-																]
+																result["pinyin"]
 															)}
 														</div>
 														<div className="text-gray-700 dark:text-gray-300">
 															{
-																result["obj"][
+																result[
 																	"short_definition"
 																]
 															}
