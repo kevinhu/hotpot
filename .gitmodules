@@ -1,3 +1,3 @@
 [submodule "dictionary-files"] 
   path = dictionary/data/dictionary-files 
-  url = git@github.com:kevinhu/dictionary-files.git
+  url = https://github.com/kevinhu/dictionary-files.git
