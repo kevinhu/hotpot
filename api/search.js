@@ -1,7 +1,6 @@
 var FlexSearch = require("./flexsearch/flexsearch.min.js");
 
 var index = new FlexSearch({
-	encode: "icase",
 	threshold: 8,
 	resolution: 9,
 	depth: 1,
@@ -10,13 +9,29 @@ var index = new FlexSearch({
 	cache: true,
 	doc: {
 		id: "id",
-		field: [
-			"definition",
-			"simplified",
-			"traditional",
-			"pinyin",
-			"toneless_pinyin",
-		],
+		field: {
+			definition: {
+				encode: "advanced",
+			},
+			simplified: {
+				encode: false,
+				tokenize: function (str) {
+					return str.replace(/[\x00-\x7F]/g, "").split("");
+				},
+			},
+			traditional: {
+				encode: false,
+				tokenize: function (str) {
+					return str.replace(/[\x00-\x7F]/g, "").split("");
+				},
+			},
+			pinyin: {
+				encode: "advanced",
+			},
+			toneless_pinyin: {
+				encode: "advanced",
+			},
+		},
 	},
 });
 
