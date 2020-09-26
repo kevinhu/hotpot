@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 
-import words from "../assets/search_data.json";
 import { pinyinify, numberWithCommas } from "../utilities";
 
 // Import dark mode
@@ -16,7 +15,6 @@ import {
 } from "../themes";
 
 var _ = require("lodash");
-const fuzzysort = require("fuzzysort");
 
 const Navbar = () => {
   const [theme, toggleTheme, componentMounted] = useDarkMode();
@@ -30,25 +28,17 @@ const Navbar = () => {
     history.push(`/word?word=${searchWord}`);
   };
 
-  const executeSearch = _.debounce((word) => {
-    let fuzzyResults = fuzzysort.go(word, words, {
-      keys: [
-        "toneless_pinyin",
-        "short_definition",
-        "simplified",
-        "traditional",
-        "pinyin",
-      ],
-      allowTypo: false,
-      limit: 8,
-      threshold: -100,
-    });
-    fuzzyResults = fuzzyResults.sort((a, b) =>
-      a.obj.rank >= b.obj.rank ? 1 : -1
-    );
-
-    setResults(fuzzyResults);
-  }, 50);
+  const executeSearch = _.debounce((query) => {
+    fetch(
+      `https://huoguo-search.kevinhu.io/.netlify/functions/search?query=${query}`
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((body) => {
+        setResults(body);
+      });
+  }, 250);
 
   const handleChange = (event) => {
     event.persist();
@@ -84,7 +74,7 @@ const Navbar = () => {
           <input
             className="chinese-serif bg-transparent outline-none w-full h-full"
             type="text"
-            placeholder={`Search ${numberWithCommas(words.length)} words`}
+            placeholder={`Search 118639 words`}
             value={searchWord}
             onChange={handleChange}
           ></input>
@@ -95,20 +85,20 @@ const Navbar = () => {
               {results.map((result, index) => {
                 return (
                   <Link
-                    to={`/word/${result["obj"]["simplified"]}`}
+                    to={`/word/${result["simplified"]}`}
                     className={linkHover}
                     key={index}
                   >
                     <div className="flex items-center">
                       <div className="p-2 text-xl font-semibold">
-                        {result["obj"]["simplified"]}
+                        {result["simplified"]}
                       </div>
                       <div>
                         <div className="font-semibold">
-                          {pinyinify(result["obj"]["pinyin"])}
+                          {pinyinify(result["pinyin"])}
                         </div>
                         <div className="text-gray-700 dark:text-gray-300">
-                          {result["obj"]["short_definition"]}
+                          {result["short_definition"]}
                         </div>
                       </div>
                     </div>

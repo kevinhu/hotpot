@@ -120,7 +120,7 @@ const Home = () => {
 														<div className="text-gray-700 dark:text-gray-300">
 															{
 																result[
-																	"short_definition"
+																	"definition"
 																]
 															}
 														</div>
