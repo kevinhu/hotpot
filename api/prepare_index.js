@@ -1,4 +1,4 @@
-var FlexSearch = require("./flexsearch.min.js");
+var FlexSearch = require("./flexsearch/flexsearch.min.js");
 
 const SearchData = require("./search_data.json");
 
