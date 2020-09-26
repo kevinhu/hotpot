@@ -104,7 +104,7 @@ const Home = () => {
 							></input>
 							{results.length > 0 && searchWord !== "" && (
 								<div
-									className={`absolute text-left bg-white dark:bg-gray-800 border-2 border-black w-full ${borderSecondaryColor}`}
+									className={`z-10 absolute text-left bg-white dark:bg-gray-800 border-2 border-black w-full ${borderSecondaryColor}`}
 									style={{ marginTop: "-4px" }}
 								>
 									{results.map((result, index) => {
@@ -114,23 +114,23 @@ const Home = () => {
 												className={linkHover}
 												key={index}
 											>
-												<div className="flex items-center">
-													<div className="p-2 text-xl font-semibold">
-														{result["simplified"]}
-													</div>
-													<div>
-														<div className="font-semibold">
+												<div className="p-2">
+													<div className="font-semibold">
+														<div className="text-xl inline">
+															{
+																result[
+																	"simplified"
+																]
+															}
+														</div>
+														<div className="pl-2 inline text-gray-700 dark:text-gray-300">
 															{pinyinify(
 																result["pinyin"]
 															)}
 														</div>
-														<div className="text-gray-700 dark:text-gray-300">
-															{
-																result[
-																	"definition"
-																]
-															}
-														</div>
+													</div>
+													<div className="text-gray-700 dark:text-gray-300">
+														{result["definition"]}
 													</div>
 												</div>
 											</Link>
@@ -143,7 +143,10 @@ const Home = () => {
 				</div>
 			</div>
 
-			<div className="text-center w-full absolute bottom-0 text-gray-800 dark:text-gray-200">
+			<div
+				className="text-center w-full absolute bottom-0 text-gray-800 dark:text-gray-200"
+				style={{ zIndex: -1 }}
+			>
 				Made by{" "}
 				<a
 					className={`underline ${linkHover}`}
