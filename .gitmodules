@@ -1,4 +1,0 @@
-[submodule "dictionary-files"] 
-  path = dictionary/data/dictionary-files 
-  url = https://github.com/kevinhu/dictionary-files.git
-  update = none
