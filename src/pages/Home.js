@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useHistory, Link } from "react-router-dom";
 
 import { pinyinify, numberWithCommas } from "../utilities";
@@ -61,6 +61,28 @@ const Home = () => {
 	const searchBoxAesthetics = "border-2 bg-white dark:bg-gray-800";
 	const searchBoxStyle = `${searchBoxSizing} ${searchBoxAesthetics} ${borderPrimaryColor}`;
 
+	// handlers for detecting clicks outside of search input and suggestions
+	// see https://medium.com/@pitipatdop/little-neat-trick-to-capture-click-outside-with-react-hook-ba77c37c7e82
+	const searchContainer = useRef();
+
+	useEffect(() => {
+		// add when mounted
+		document.addEventListener("mousedown", handleClick);
+		// return function to be called when unmounted
+		return () => {
+			document.removeEventListener("mousedown", handleClick);
+		};
+	}, []);
+
+	const handleClick = (e) => {
+		if (searchContainer.current.contains(e.target)) {
+			// inside click
+			return;
+		}
+		// outside click
+		setSearchFocused(false);
+	};
+
 	return (
 		<div>
 			<div
@@ -93,7 +115,7 @@ const Home = () => {
 						onSubmit={handleSubmit}
 						className="chinese-serif px-6 bg-transparent outline-none w-full"
 					>
-						<div className="w-full relative">
+						<div className="w-full relative" ref={searchContainer}>
 							<input
 								className={`text-lg chinese-serif p-2 outline-none w-full bg-transparent border-solid border-2 ${borderSecondaryColor}`}
 								type="text"
@@ -103,7 +125,7 @@ const Home = () => {
 								value={searchWord}
 								onChange={handleChange}
 								onFocus={() => setSearchFocused(true)}
-								onBlur={() => setSearchFocused(false)}
+								onClick={() => {}}
 							></input>
 							{results.length > 0 &&
 								searchWord !== "" &&
