@@ -22,6 +22,7 @@ const Home = () => {
 
 	let [searchWord, setSearchWord] = useState("");
 	let [results, setResults] = useState([]);
+	let [searchFocused, setSearchFocused] = useState(false);
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -101,43 +102,53 @@ const Home = () => {
 								)} words`}
 								value={searchWord}
 								onChange={handleChange}
+								onFocus={() => setSearchFocused(true)}
+								onBlur={() => setSearchFocused(false)}
 							></input>
-							{results.length > 0 && searchWord !== "" && (
-								<div
-									className={`z-10 absolute text-left bg-white dark:bg-gray-800 border-2 border-black w-full ${borderSecondaryColor}`}
-									style={{ marginTop: "-4px" }}
-								>
-									{results.map((result, index) => {
-										return (
-											<Link
-												to={`/word/${result["simplified"]}`}
-												className={linkHover}
-												key={index}
-											>
-												<div className="p-2">
-													<div className="font-semibold">
-														<div className="text-xl inline">
+							{results.length > 0 &&
+								searchWord !== "" &&
+								searchFocused && (
+									<div
+										className={`z-10 absolute text-left bg-white dark:bg-gray-800 border-2 border-black w-full ${borderSecondaryColor}`}
+										style={{ marginTop: "-4px" }}
+									>
+										{results.map((result, index) => {
+											return (
+												<Link
+													to={`/word/${result["simplified"]}`}
+													className={linkHover}
+													key={index}
+												>
+													<div className="p-2">
+														<div className="font-semibold">
+															<div className="text-xl inline">
+																{
+																	result[
+																		"simplified"
+																	]
+																}
+															</div>
+															<div className="pl-2 inline text-gray-700 dark:text-gray-300">
+																{pinyinify(
+																	result[
+																		"pinyin"
+																	]
+																)}
+															</div>
+														</div>
+														<div className="text-gray-700 dark:text-gray-300">
 															{
 																result[
-																	"simplified"
+																	"definition"
 																]
 															}
 														</div>
-														<div className="pl-2 inline text-gray-700 dark:text-gray-300">
-															{pinyinify(
-																result["pinyin"]
-															)}
-														</div>
 													</div>
-													<div className="text-gray-700 dark:text-gray-300">
-														{result["definition"]}
-													</div>
-												</div>
-											</Link>
-										);
-									})}
-								</div>
-							)}
+												</Link>
+											);
+										})}
+									</div>
+								)}
 						</div>
 					</form>
 				</div>
