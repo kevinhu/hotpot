@@ -113,7 +113,7 @@ const Home = () => {
 				<div>
 					<form
 						onSubmit={handleSubmit}
-						className="chinese-serif px-6 bg-transparent outline-none w-full"
+						className="chinese-serif px-12 bg-transparent outline-none w-full"
 					>
 						<div className="w-full relative" ref={searchContainer}>
 							<input
@@ -141,7 +141,7 @@ const Home = () => {
 													className={linkHover}
 													key={index}
 												>
-													<div className="p-2">
+													<div className="p-2 border-b-2 border-gray-300 dark:border-gray-700">
 														<div className="font-semibold">
 															<div className="text-xl inline">
 																{
