@@ -8,10 +8,11 @@ console.time("index_import");
 index.import(indexFile, { serialize: false });
 console.timeEnd("index_import");
 
-const query = "yao ming";
+const query = "hotpot";
 
 const results = index.search(query, {
 	limit: 10,
+	sort: "rank",
 	// threshold: 5,
 	// depth: 3,
 });
