@@ -4,9 +4,25 @@ var fs = require("fs");
 
 const BSON = require("bson");
 
+const simdjson = require("simdjson");
+
 console.time("index_load");
 const indexFile = require("./index.json");
+
+// const indexFile = fs.readFileSync("./index.json");
+
+// const indexBuffer = fs.readFileSync("./index.json");
 console.timeEnd("index_load");
+
+// console.time("index_parse");
+// const indexFile = JSON.parse(indexBuffer);
+
+// const indexFile = simdjson.lazyParse(indexBuffer);
+
+// var indexFile = new FastJson();
+// indexFile.write(indexBuffer);
+// console.log(indexFile[0]);
+// console.timeEnd("index_parse");
 
 console.time("index_import");
 index.import(indexFile, { serialize: false });
@@ -20,4 +36,4 @@ const results = index.search(query, {
 	// depth: 3,
 });
 
-console.log(results);
+console.log(results[0]);

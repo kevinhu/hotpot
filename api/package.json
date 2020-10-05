@@ -8,10 +8,5 @@
 		"build": "echo 'build'",
 		"predeploy": "echo 'predeploy'",
 		"deploy": "echo 'deploy'"
-	},
-	"dependencies": {
-		"bson": "^4.1.0",
-		"bson-ext": "^2.0.5",
-		"msgpack-lite": "^0.1.26"
 	}
 }
