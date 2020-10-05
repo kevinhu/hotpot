@@ -8,10 +8,10 @@ console.time("index_import");
 index.import(indexFile, { serialize: false });
 console.timeEnd("index_import");
 
-const query = "hotpot";
+const query = "basketball";
 
 const results = index.search(query, {
-	limit: 10,
+	limit: 64,
 	sort: "rank",
 	// threshold: 5,
 	// depth: 3,
