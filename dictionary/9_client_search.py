@@ -22,7 +22,7 @@ cedict["rank"] = cedict["rank"].astype(int)
 
 # toneless pinyin for search
 cedict["toneless_pinyin"] = [
-    "".join([y[:-1] for y in x.split(" ")]) for x in cedict["pinyin"]
+    " ".join([y[:-1] for y in x.split(" ")]) for x in cedict["pinyin"]
 ]
 
 cedict["id"] = range(len(cedict))
