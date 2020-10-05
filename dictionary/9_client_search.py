@@ -1,6 +1,7 @@
 import config
 import pandas as pd
 import ujson
+import re
 
 # =================================================
 # Script purpose:
@@ -20,10 +21,15 @@ cedict = cedict.drop("frequency", axis=1)
 cedict["rank"][cedict["rank"] == -1] = max(cedict["rank"])
 cedict["rank"] = cedict["rank"].astype(int)
 
+cedict["pinyin"] = cedict["pinyin"].apply(lambda x: x.lower())
+
+
+def remove_pinyin_tone(string):
+    return re.sub("([0-9])+(\s|$)", " ", string)[:-1]
+
+
 # toneless pinyin for search
-cedict["toneless_pinyin"] = [
-    " ".join([y[:-1] for y in x.split(" ")]) for x in cedict["pinyin"]
-]
+cedict["toneless_pinyin"] = [remove_pinyin_tone(x) for x in cedict["pinyin"]]
 
 cedict["id"] = range(len(cedict))
 

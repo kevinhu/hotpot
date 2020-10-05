@@ -8,7 +8,7 @@ console.time("index_import");
 index.import(indexFile, { serialize: false });
 console.timeEnd("index_import");
 
-const query = "hello";
+const query = "yao ming";
 
 const results = index.search(query, {
 	limit: 10,
@@ -16,4 +16,4 @@ const results = index.search(query, {
 	// depth: 3,
 });
 
-console.log(results[0]);
+console.log(results.slice(0, 5));
