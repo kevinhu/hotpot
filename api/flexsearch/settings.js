@@ -2,7 +2,7 @@ var FlexSearch = require("./flexsearch.min.js");
 
 exports.index = new FlexSearch({
 	threshold: 0,
-	resolution: 16,
+	resolution: 25,
 	depth: 3,
 	async: false,
 	worker: false,
@@ -13,7 +13,7 @@ exports.index = new FlexSearch({
 			definition: {
 				encode: "advanced",
 				tokenize: "strict",
-				threshold: 16,
+				threshold: 25,
 			},
 			simplified: {
 				encode: false,
@@ -30,10 +30,12 @@ exports.index = new FlexSearch({
 			pinyin: {
 				encode: "simple",
 				tokenize: "strict",
+				threshold: 25,
 			},
 			toneless_pinyin: {
 				encode: "simple",
 				tokenize: "strict",
+				threshold: 25,
 			},
 		},
 	},

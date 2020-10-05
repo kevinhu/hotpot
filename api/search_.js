@@ -8,7 +8,7 @@ console.time("index_import");
 index.import(indexFile, { serialize: false });
 console.timeEnd("index_import");
 
-const query = "basketball";
+const query = "huo guo";
 
 const results = index.search(query, {
 	limit: 64,
