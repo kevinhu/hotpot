@@ -13,7 +13,8 @@ exports.handler = async (event, context) => {
 	const query = event.queryStringParameters.query;
 
 	const results = index.search(query, {
-		limit: 10,
+		limit: 64,
+		sort: "rank",
 		// threshold: 5,
 		// depth: 3,
 	});
