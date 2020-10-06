@@ -1,6 +1,7 @@
 import config
 import opencc
 import pandas as pd
+import re
 import ujson
 from gensim.models import KeyedVectors
 from tqdm import tqdm
@@ -31,7 +32,7 @@ cedict.columns = ["traditional", "simplified", "definition"]
 
 def format_pinyin(pinyin):
 
-    pinyin = pinyin.replace(" r5", "r")
+    pinyin = re.sub("(^|\s)r5", "r", pinyin)
 
     return pinyin
 
