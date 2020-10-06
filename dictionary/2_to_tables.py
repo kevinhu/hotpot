@@ -32,13 +32,9 @@ cedict.columns = ["traditional", "simplified", "definition"]
 
 def format_pinyin(pinyin):
 
-    pinyin = re.sub("(^|\s)r5", "r", pinyin)
-
-    if len(pinyin) >= 2:
-
-        if pinyin[-1] == "r" and pinyin[-2] != " ":
-
-            pinyin = pinyin[:-2] + " 'r"
+    pinyin = re.sub("(^|\s)r5", " 'r", pinyin)
+    if pinyin.startswith(" "):
+        pinyin = pinyin[1:]
 
     return pinyin
 
