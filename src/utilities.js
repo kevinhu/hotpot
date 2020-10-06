@@ -119,7 +119,11 @@ const convertPinyin = (str) => {
 export const pinyinify = (str) => {
   const NOT_PINYIN = [","];
 
-  if (typeof str !== "string" || !str || NOT_PINYIN.includes(str)) {
+  if (
+    typeof str !== "string" ||
+    str === undefined ||
+    NOT_PINYIN.includes(str)
+  ) {
     // non-breaking space, to fix spacing issues
     return "\xa0";
   }
