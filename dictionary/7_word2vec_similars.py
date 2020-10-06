@@ -8,7 +8,7 @@ from scipy.spatial import cKDTree
 from tqdm import tqdm
 
 # ============================================================
-# Script function:
+# Script purpose:
 # Use nearest-neighbor word embeddings to find suggested words
 # ============================================================
 

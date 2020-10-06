@@ -28,8 +28,17 @@ cedict = pd.read_csv(
 cedict = cedict["line"].str.split(" ", 2, expand=True)
 cedict.columns = ["traditional", "simplified", "definition"]
 
+
+def format_pinyin(pinyin):
+
+    pinyin = pinyin.replace(" r5", "r")
+
+    return pinyin
+
+
 # trim bracket separators
 cedict["pinyin"] = cedict["definition"].apply(lambda x: x.split("]", 1)[0][1:])
+cedict["pinyin"] = cedict["pinyin"].apply(format_pinyin)
 cedict["definition"] = cedict["definition"].apply(lambda x: x.split("]", 1)[1][2:-1])
 
 cedict.to_csv(f"./data/intermediate/cedict.txt", sep="\t")
