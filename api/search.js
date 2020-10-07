@@ -19,12 +19,14 @@ exports.handler = async (event, context) => {
 		limit = MAX_RESULTS;
 	}
 
-	const results = index.search(query, {
-		limit: limit,
+	let results = index.search(query, {
+		limit: MAX_RESULTS,
 		sort: "rank",
 		// threshold: 5,
 		// depth: 3,
 	});
+
+	results = results.slice(0, limit);
 
 	const headers = {
 		"Access-Control-Allow-Origin": "*",

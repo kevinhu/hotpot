@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory, useLocation, Link } from "react-router-dom";
+import queryString from "query-string";
 
 import { pinyinify, numberWithCommas } from "../utilities";
 
@@ -19,10 +20,19 @@ var _ = require("lodash");
 const Navbar = () => {
   const [theme, toggleTheme, componentMounted] = useDarkMode();
   let history = useHistory();
+  let location = useLocation();
 
   var [searchWord, setSearchWord] = useState("");
   let [results, setResults] = useState([]);
   let [searchFocused, setSearchFocused] = useState(false);
+
+  let queryParams = queryString.parse(location.search);
+  let modeParam = queryParams["mode"];
+
+  if (modeParam !== "simplified" && modeParam !== "traditional") {
+    queryParams["mode"] = "simplified";
+    history.push(`${location.pathname}/?${queryString.stringify(queryParams)}`);
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -83,6 +93,24 @@ const Navbar = () => {
     setSearchFocused(false);
   };
 
+  const toggleMode = () => {
+    queryParams["mode"] =
+      queryParams["mode"] === "simplified" ? "traditional" : "simplified";
+
+    let location_split = location.pathname.split("/");
+    location_split = location_split.filter((x) => x !== "");
+
+    if (location_split[0] === "word") {
+      const temp = queryParams["alt"];
+      queryParams["alt"] = location_split[1];
+      location_split[1] = temp;
+
+      history.push(
+        `/${location_split.join("/")}/?${queryString.stringify(queryParams)}`
+      );
+    }
+  };
+
   return (
     <div
       className={`w-full md:w-3/4 flex mx-auto bg-white dark:bg-gray-800 border-2 ${borderPrimaryColor}`}
@@ -93,6 +121,12 @@ const Navbar = () => {
       <Link to="/" className={`english-serif px-6 py-2 red text-2xl`}>
         huoguo
       </Link>
+      <div
+        onClick={toggleMode}
+        className={`flex-none chinese-serif py-3 text-xl px-2 cursor-pointer select-none border-l-2 ${borderSecondaryColor}`}
+      >
+        {modeParam === "simplified" ? "简体" : "繁体"}
+      </div>
       <form
         onSubmit={handleSubmit}
         className={`chinese-serif bg-transparent outline-none w-full`}

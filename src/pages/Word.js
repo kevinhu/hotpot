@@ -122,9 +122,19 @@ const Word = () => {
 						setWord(wordParam);
 						setWordMode(modeParam);
 						setWordData(data);
-						setLoading(false);
 
-						console.log(data);
+						if (modeParam === "simplified") {
+							const alt = data["traditional"][0];
+							history.push(
+								`/word/${wordParam}/?mode=${modeParam}&alt=${alt}`
+							);
+						} else if (modeParam === "traditional") {
+							const alt = data["simplified"][0];
+							history.push(
+								`/word/${wordParam}/?mode=${modeParam}&alt=${alt}`
+							);
+						}
+						setLoading(false);
 					});
 			}
 		}
