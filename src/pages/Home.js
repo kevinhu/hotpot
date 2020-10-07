@@ -66,6 +66,8 @@ const Home = () => {
 	const searchContainer = useRef();
 
 	useEffect(() => {
+		// ping the search endpoint to warm it up
+		fetch(`https://huoguo-search.kevinhu.io/.netlify/functions/search`);
 		// add when mounted
 		document.addEventListener("mousedown", handleClick);
 		// return function to be called when unmounted
