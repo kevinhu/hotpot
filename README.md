@@ -1,6 +1,6 @@
 # [huoguo](https://huoguo.kevinhu.io)
 
-A static Chinese-English dictionary entirely hosted on GitHub Pages. See it live at [https://huoguo.kevinhu.io](https://huoguo.kevinhu.io/).
+A static Chinese-English dictionary entirely hosted on GitHub Pages and Netlify. See it live at [https://huoguo.kevinhu.io](https://huoguo.kevinhu.io/).
 
 ## Overview
 
