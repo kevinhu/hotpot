@@ -2,6 +2,8 @@ const { index } = require("./flexsearch/settings.js");
 
 index.import(require("./index.json"), { serialize: false });
 
+const MAX_RESULTS = 64;
+
 exports.handler = async (event, context) => {
 	if (event.httpMethod != "GET") {
 		return {
@@ -11,9 +13,14 @@ exports.handler = async (event, context) => {
 	}
 
 	const query = event.queryStringParameters.query;
+	let limit = event.queryStringParameters.limit;
+
+	if (!Number.isInteger(limit) || limit > MAX_RESULTS) {
+		limit = MAX_RESULTS;
+	}
 
 	const results = index.search(query, {
-		limit: 64,
+		limit: limit,
 		sort: "rank",
 		// threshold: 5,
 		// depth: 3,
