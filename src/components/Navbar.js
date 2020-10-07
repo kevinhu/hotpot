@@ -37,7 +37,7 @@ const Navbar = () => {
         return;
       }
       fetch(
-        `https://huoguo-search.kevinhu.io/.netlify/functions/search?query=${query}`
+        `https://huoguo-search.kevinhu.io/.netlify/functions/search?query=${query}&limit=4`
       )
         .then((response) => {
           return response.json();

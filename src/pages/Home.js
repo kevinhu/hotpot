@@ -37,7 +37,7 @@ const Home = () => {
 				return;
 			}
 			fetch(
-				`https://huoguo-search.kevinhu.io/.netlify/functions/search?query=${query}`
+				`https://huoguo-search.kevinhu.io/.netlify/functions/search?query=${query}&limit=8`
 			)
 				.then((response) => {
 					return response.json();

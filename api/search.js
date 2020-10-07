@@ -13,7 +13,7 @@ exports.handler = async (event, context) => {
 	}
 
 	const query = event.queryStringParameters.query;
-	let limit = event.queryStringParameters.limit;
+	let limit = parseInt(event.queryStringParameters.limit);
 
 	if (!Number.isInteger(limit) || limit > MAX_RESULTS) {
 		limit = MAX_RESULTS;
