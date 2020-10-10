@@ -71,7 +71,7 @@ const Home = () => {
 	// search box style
 	const searchBoxSizing =
 		"w-full md:w-2/3 xl:w-1/2 absolute mx-auto text-center py-12";
-	const searchBoxAesthetics = "border-2 bg-white dark:bg-gray-800";
+	const searchBoxAesthetics = "shadow-lg border-2 bg-white dark:bg-gray-800";
 	const searchBoxStyle = `${searchBoxSizing} ${searchBoxAesthetics} ${borderPrimaryColor}`;
 
 	useEffect(() => {
@@ -110,7 +110,7 @@ const Home = () => {
 			<div
 				onClick={toggleTheme}
 				checked={theme === "dark"}
-				className="chinese-serif py-2 text-2xl px-4 mx-auto cursor-pointer select-none border-2 border-black bg-white dark:border-2 dark:border-gray-700 dark:bg-gray-800"
+				className="shadow-xl chinese-serif py-2 text-2xl px-4 mx-auto cursor-pointer select-none border-2 border-black bg-white dark:border-2 dark:border-gray-700 dark:bg-gray-800"
 				style={{ width: "max-content", marginTop: "-2px" }}
 			>
 				{theme === "dark" ? "暗" : "光"}
@@ -138,7 +138,7 @@ const Home = () => {
 						className="chinese-serif px-12 bg-transparent outline-none w-full"
 					>
 						<div className="w-full relative" ref={searchContainer}>
-							<div className="flex">
+							<div className="shadow-lg flex">
 								<div
 									onClick={toggleMode}
 									className={`select-none cursor-pointer border-solid border-2 text-xl chinese-serif p-2 flex-none border-black dark:border-gray-200 bg-black text-white dark:bg-gray-200 dark:text-black`}
@@ -163,7 +163,7 @@ const Home = () => {
 								searchWord !== "" &&
 								searchFocused && (
 									<div
-										className={`z-10 absolute text-left bg-white dark:bg-gray-800 border-2 border-black w-full border-black dark:border-gray-200`}
+										className={`shadow-lg z-10 absolute text-left bg-white dark:bg-gray-800 border-2 border-black w-full border-black dark:border-gray-200`}
 										style={{ marginTop: "-2px" }}
 									>
 										{results.map((result, index) => {
