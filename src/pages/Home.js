@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory, useLocation, Link } from "react-router-dom";
 
 import { pinyinify, numberWithCommas } from "../utilities";
+
+import queryString from "query-string";
 
 // Import dark mode
 import { useDarkMode } from "../components/DarkMode";
@@ -12,6 +14,8 @@ import {
 	textSecondaryColor,
 	borderPrimaryColor,
 	borderSecondaryColor,
+	backgroundPrimaryColor,
+	backgroundSecondaryColor,
 } from "../themes";
 
 import _ from "lodash";
@@ -19,10 +23,19 @@ import _ from "lodash";
 const Home = () => {
 	const [theme, toggleTheme, componentMounted] = useDarkMode();
 	let history = useHistory();
+	let location = useLocation();
 
 	let [searchWord, setSearchWord] = useState("");
 	let [results, setResults] = useState([]);
 	let [searchFocused, setSearchFocused] = useState(false);
+
+	let queryParams = queryString.parse(location.search);
+	let modeParam = queryParams["mode"];
+
+	if (modeParam !== "simplified" && modeParam !== "traditional") {
+		modeParam = "simplified";
+		history.push(`/?mode=${modeParam}`);
+	}
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -37,7 +50,7 @@ const Home = () => {
 				return;
 			}
 			fetch(
-				`https://huoguo-search.kevinhu.io/.netlify/functions/search?query=${query}&limit=8`
+				`https://huoguo-search.kevinhu.io/.netlify/functions/search?query=${query}&mode=${modeParam}&limit=8`
 			)
 				.then((response) => {
 					return response.json();
@@ -61,10 +74,6 @@ const Home = () => {
 	const searchBoxAesthetics = "border-2 bg-white dark:bg-gray-800";
 	const searchBoxStyle = `${searchBoxSizing} ${searchBoxAesthetics} ${borderPrimaryColor}`;
 
-	// handlers for detecting clicks outside of search input and suggestions
-	// see https://medium.com/@pitipatdop/little-neat-trick-to-capture-click-outside-with-react-hook-ba77c37c7e82
-	const searchContainer = useRef();
-
 	useEffect(() => {
 		// ping the search endpoint to warm it up
 		fetch(`https://huoguo-search.kevinhu.io/.netlify/functions/search`);
@@ -76,6 +85,10 @@ const Home = () => {
 		};
 	}, []);
 
+	// handlers for detecting clicks outside of search input and suggestions
+	// see https://medium.com/@pitipatdop/little-neat-trick-to-capture-click-outside-with-react-hook-ba77c37c7e82
+	const searchContainer = useRef();
+
 	const handleClick = (e) => {
 		if (searchContainer.current.contains(e.target)) {
 			// inside click
@@ -83,6 +96,13 @@ const Home = () => {
 		}
 		// outside click
 		setSearchFocused(false);
+	};
+
+	const toggleMode = () => {
+		queryParams["mode"] =
+			queryParams["mode"] === "simplified" ? "traditional" : "simplified";
+
+		history.push(`/?mode=${queryParams["mode"]}`);
 	};
 
 	return (
@@ -117,7 +137,16 @@ const Home = () => {
 						onSubmit={handleSubmit}
 						className="chinese-serif px-12 bg-transparent outline-none w-full"
 					>
-						<div className="w-full relative" ref={searchContainer}>
+						<div
+							className="w-full relative flex"
+							ref={searchContainer}
+						>
+							<div
+								onClick={toggleMode}
+								className={`select-none cursor-pointer text-white dark:text-gray-300 border-solid border-2 text-xl chinese-serif p-2 flex-none bg ${backgroundSecondaryColor} ${borderSecondaryColor}`}
+							>
+								{modeParam === "simplified" ? "简体" : "繁体"}
+							</div>
 							<input
 								className={`text-lg chinese-serif p-2 outline-none w-full bg-transparent border-solid border-2 ${borderSecondaryColor}`}
 								type="text"
@@ -134,7 +163,7 @@ const Home = () => {
 								searchFocused && (
 									<div
 										className={`z-10 absolute text-left bg-white dark:bg-gray-800 border-2 border-black w-full ${borderSecondaryColor}`}
-										style={{ marginTop: "-4px" }}
+										style={{ marginTop: "-2px" }}
 									>
 										{results.map((result, index) => {
 											return (
