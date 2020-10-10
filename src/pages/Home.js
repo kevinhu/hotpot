@@ -137,27 +137,28 @@ const Home = () => {
 						onSubmit={handleSubmit}
 						className="chinese-serif px-12 bg-transparent outline-none w-full"
 					>
-						<div
-							className="w-full relative flex"
-							ref={searchContainer}
-						>
-							<div
-								onClick={toggleMode}
-								className={`select-none cursor-pointer text-white dark:text-gray-300 border-solid border-2 text-xl chinese-serif p-2 flex-none bg ${backgroundSecondaryColor} ${borderSecondaryColor}`}
-							>
-								{modeParam === "simplified" ? "简体" : "繁体"}
+						<div className="w-full relative" ref={searchContainer}>
+							<div className="flex">
+								<div
+									onClick={toggleMode}
+									className={`select-none cursor-pointer text-white dark:text-gray-300 border-solid border-2 text-xl chinese-serif p-2 flex-none bg ${backgroundSecondaryColor} ${borderSecondaryColor}`}
+								>
+									{modeParam === "simplified"
+										? "简体"
+										: "繁体"}
+								</div>
+								<input
+									className={`text-lg chinese-serif p-2 outline-none w-full bg-transparent border-solid border-2 ${borderSecondaryColor}`}
+									type="text"
+									placeholder={`Search ${numberWithCommas(
+										118639
+									)} words`}
+									value={searchWord}
+									onChange={handleChange}
+									onFocus={() => setSearchFocused(true)}
+									onClick={() => {}}
+								></input>
 							</div>
-							<input
-								className={`text-lg chinese-serif p-2 outline-none w-full bg-transparent border-solid border-2 ${borderSecondaryColor}`}
-								type="text"
-								placeholder={`Search ${numberWithCommas(
-									118639
-								)} words`}
-								value={searchWord}
-								onChange={handleChange}
-								onFocus={() => setSearchFocused(true)}
-								onClick={() => {}}
-							></input>
 							{results.length > 0 &&
 								searchWord !== "" &&
 								searchFocused && (
@@ -175,11 +176,14 @@ const Home = () => {
 													<div className="p-2 border-b-2 border-gray-300 dark:border-gray-700">
 														<div className="font-semibold">
 															<div className="text-xl inline">
-																{
-																	result[
-																		"simplified"
-																	]
-																}
+																{modeParam ==
+																"simplified"
+																	? result[
+																			"simplified"
+																	  ]
+																	: result[
+																			"traditional"
+																	  ]}
 															</div>
 															<div className="pl-2 inline text-gray-700 dark:text-gray-300">
 																{pinyinify(
