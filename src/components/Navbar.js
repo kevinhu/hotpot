@@ -143,7 +143,7 @@ const Navbar = () => {
           ></input>
           {results.length > 0 && searchWord !== "" && searchFocused && (
             <div
-              className={`shadow-lg z-10 absolute text-left bg-white dark:bg-dark-800 border-2 border-black w-full ${borderSecondaryColor}`}
+              className={`shadow-lg z-10 absolute text-left bg-white dark:bg-dark-800 border-2 w-full ${borderPrimaryColor}`}
             >
               {results.map((result, index) => {
                 return (
@@ -152,7 +152,11 @@ const Navbar = () => {
                     className={linkHover}
                     key={index}
                   >
-                    <div className="p-2 border-b-2 border-gray-300 dark:border-gray-700">
+                    <div
+                      className={`p-2 ${
+                        index != 0 && "border-t-2"
+                      } border-gray-300 dark:border-gray-800`}
+                    >
                       <div className="font-semibold">
                         <div className="text-xl inline">
                           {result["simplified"]}

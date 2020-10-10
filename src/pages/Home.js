@@ -173,7 +173,12 @@ const Home = () => {
 													className={linkHover}
 													key={index}
 												>
-													<div className="p-2 border-b-2 border-gray-300 dark:border-gray-700">
+													<div
+														className={`p-2 ${
+															index != 0 &&
+															"border-t-2"
+														} border-gray-300 dark:border-gray-700`}
+													>
 														<div className="font-semibold">
 															<div className="text-xl inline">
 																{modeParam ==
