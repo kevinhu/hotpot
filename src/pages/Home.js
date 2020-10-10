@@ -141,14 +141,14 @@ const Home = () => {
 							<div className="flex">
 								<div
 									onClick={toggleMode}
-									className={`select-none cursor-pointer text-white dark:text-gray-300 border-solid border-2 text-xl chinese-serif p-2 flex-none bg ${backgroundSecondaryColor} ${borderSecondaryColor}`}
+									className={`select-none cursor-pointer border-solid border-2 text-xl chinese-serif p-2 flex-none border-black dark:border-gray-200 bg-black text-white dark:bg-gray-200 dark:text-black`}
 								>
 									{modeParam === "simplified"
 										? "简体"
 										: "繁体"}
 								</div>
 								<input
-									className={`text-lg chinese-serif p-2 outline-none w-full bg-transparent border-solid border-2 ${borderSecondaryColor}`}
+									className={`text-lg chinese-serif p-2 outline-none w-full bg-transparent border-solid border-2 border-black dark:border-gray-200`}
 									type="text"
 									placeholder={`Search ${numberWithCommas(
 										118639
@@ -163,7 +163,7 @@ const Home = () => {
 								searchWord !== "" &&
 								searchFocused && (
 									<div
-										className={`z-10 absolute text-left bg-white dark:bg-gray-800 border-2 border-black w-full ${borderSecondaryColor}`}
+										className={`z-10 absolute text-left bg-white dark:bg-gray-800 border-2 border-black w-full border-black dark:border-gray-200`}
 										style={{ marginTop: "-2px" }}
 									>
 										{results.map((result, index) => {
