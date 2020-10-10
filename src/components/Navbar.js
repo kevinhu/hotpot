@@ -113,7 +113,7 @@ const Navbar = () => {
 
   return (
     <div
-      className={`shadow-lg w-full md:w-3/4 flex mx-auto bg-white dark:bg-gray-800 border-2 ${borderPrimaryColor}`}
+      className={`shadow-lg w-full md:w-3/4 flex mx-auto bg-white dark:bg-dark-800 border-2 ${borderPrimaryColor}`}
       style={{
         marginTop: "-2px",
       }}
@@ -143,7 +143,7 @@ const Navbar = () => {
           ></input>
           {results.length > 0 && searchWord !== "" && searchFocused && (
             <div
-              className={`shadow-lg z-10 absolute text-left bg-white dark:bg-gray-800 border-2 border-black w-full ${borderSecondaryColor}`}
+              className={`shadow-lg z-10 absolute text-left bg-white dark:bg-dark-800 border-2 border-black w-full ${borderSecondaryColor}`}
             >
               {results.map((result, index) => {
                 return (

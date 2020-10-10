@@ -273,7 +273,7 @@ const Word = () => {
 				</div>
 			</div>
 			<div
-				className={`shadow-xl w-full md:w-3/4 flex flex-wrap english-serif mx-auto mb-12 bg-white border-2 dark:bg-gray-800 ${borderPrimaryColor}`}
+				className={`shadow-xl w-full md:w-3/4 flex flex-wrap english-serif mx-auto mb-12 bg-white border-2 dark:bg-dark-800 ${borderPrimaryColor}`}
 			>
 				<div
 					className={`w-full md:w-2/3 border-r-2 ${borderSecondaryColor}`}

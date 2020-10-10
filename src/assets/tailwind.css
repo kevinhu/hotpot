@@ -36,7 +36,8 @@ html {
 }
 
 html.mode-dark {
-	@apply bg-gray-900;
+	/*@apply bg-gray-900;*/
+	background-color: rgba(0, 0, 0, 0.95);
 	@apply text-gray-200 !important;
 }
 

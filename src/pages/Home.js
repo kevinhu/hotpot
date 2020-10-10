@@ -71,7 +71,7 @@ const Home = () => {
 	// search box style
 	const searchBoxSizing =
 		"w-full md:w-2/3 xl:w-1/2 absolute mx-auto text-center py-12";
-	const searchBoxAesthetics = "shadow-lg border-2 bg-white dark:bg-gray-800";
+	const searchBoxAesthetics = "shadow-lg border-2 bg-white dark:bg-dark-700";
 	const searchBoxStyle = `${searchBoxSizing} ${searchBoxAesthetics} ${borderPrimaryColor}`;
 
 	useEffect(() => {
@@ -110,7 +110,7 @@ const Home = () => {
 			<div
 				onClick={toggleTheme}
 				checked={theme === "dark"}
-				className="shadow-xl chinese-serif py-2 text-2xl px-4 mx-auto cursor-pointer select-none border-2 border-black bg-white dark:border-2 dark:border-gray-700 dark:bg-gray-800"
+				className="shadow-xl chinese-serif py-2 text-2xl px-4 mx-auto cursor-pointer select-none border-2 border-black bg-white dark:border-2 dark:border-gray-700 dark:bg-dark-700"
 				style={{ width: "max-content", marginTop: "-2px" }}
 			>
 				{theme === "dark" ? "暗" : "光"}
@@ -129,7 +129,7 @@ const Home = () => {
 				>
 					huoguo
 				</div>
-				<div className="english-serif text-xl text-gray-600 pt-4 pb-8">
+				<div className="english-serif text-xl text-gray-400 pt-4 pb-8">
 					A modern Chinese-English dictionary
 				</div>
 				<div>
@@ -163,7 +163,7 @@ const Home = () => {
 								searchWord !== "" &&
 								searchFocused && (
 									<div
-										className={`shadow-lg z-10 absolute text-left bg-white dark:bg-gray-800 border-2 border-black w-full border-black dark:border-gray-200`}
+										className={`shadow-lg z-10 absolute text-left bg-white dark:bg-dark-800 border-2 border-black w-full border-black dark:border-gray-200`}
 										style={{ marginTop: "-2px" }}
 									>
 										{results.map((result, index) => {
