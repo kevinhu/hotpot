@@ -169,7 +169,7 @@ const Home = () => {
 										{results.map((result, index) => {
 											return (
 												<Link
-													to={`/word/${result["simplified"]}`}
+													to={`/word/${result["simplified"]}?mode=${modeParam}`}
 													className={linkHover}
 													key={index}
 												>
