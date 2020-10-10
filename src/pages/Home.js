@@ -3,6 +3,9 @@ import { useHistory, useLocation, Link } from "react-router-dom";
 
 import { pinyinify, numberWithCommas } from "../utilities";
 
+import BarLoader from "react-spinners/BarLoader";
+import { css } from "@emotion/core";
+
 import queryString from "query-string";
 
 // Import dark mode
@@ -28,6 +31,7 @@ const Home = () => {
 	let [searchWord, setSearchWord] = useState("");
 	let [results, setResults] = useState([]);
 	let [searchFocused, setSearchFocused] = useState(false);
+	let [loading, setLoading] = useState(false);
 
 	let queryParams = queryString.parse(location.search);
 	let modeParam = queryParams["mode"];
@@ -49,6 +53,7 @@ const Home = () => {
 				setResults([]);
 				return;
 			}
+			setLoading(true);
 			fetch(
 				`https://huoguo-search.kevinhu.io/.netlify/functions/search?query=${query}&mode=${modeParam}&limit=8`
 			)
@@ -57,6 +62,7 @@ const Home = () => {
 				})
 				.then((body) => {
 					setResults(body);
+					setLoading(false);
 				});
 		}, 160)
 	).current;
@@ -104,6 +110,14 @@ const Home = () => {
 
 		history.push(`/?mode=${queryParams["mode"]}`);
 	};
+
+	const override = css`
+		width: 100%;
+		height: 2px;
+		display: block;
+		margin-top: -2px;
+		background-color: ${theme === "dark" ? "white" : "black"};
+	`;
 
 	return (
 		<div>
@@ -159,6 +173,12 @@ const Home = () => {
 									onClick={() => {}}
 								></input>
 							</div>
+							<BarLoader
+								css={override}
+								size={"100%"}
+								color={theme === "dark" ? "#c10000" : "#e84a5f"}
+								loading={loading}
+							/>
 							{results.length > 0 &&
 								searchWord !== "" &&
 								searchFocused && (
