@@ -23,10 +23,15 @@ const Results = () => {
 	let location = useLocation();
 	let [loading, setLoading] = useState(false);
 	let [results, setResults] = useState([]);
+	let [searchWord, setSearchWord] = useState("");
 
 	let queryParams = queryString.parse(location.search);
 	let modeParam = queryParams["mode"];
 	let searchParam = queryParams["search"];
+
+	if (searchParam != searchWord) {
+		setSearchWord(searchParam);
+	}
 
 	if (modeParam !== "simplified" && modeParam !== "traditional") {
 		modeParam = "simplified";
@@ -37,7 +42,7 @@ const Results = () => {
 		setLoading(true);
 		// ping the search endpoint to warm it up
 		fetch(
-			`https://hotpot-search.kevinhu.io/.netlify/functions/search?query=${searchParam}&mode=${modeParam}&limit=64`
+			`https://hotpot-search.kevinhu.io/.netlify/functions/search?query=${searchWord}&mode=${modeParam}&limit=64`
 		)
 			.then((response) => {
 				return response.json();
@@ -46,7 +51,7 @@ const Results = () => {
 				setResults(body);
 				setLoading(false);
 			});
-	}, []);
+	}, [searchWord]);
 
 	return (
 		<div className="w-full md:w-3/4 mx-auto">

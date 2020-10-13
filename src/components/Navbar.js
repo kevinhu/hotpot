@@ -31,7 +31,8 @@ const Navbar = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    history.push(`/word?word=${searchWord}`);
+    setSearchFocused(false);
+    history.push(`/results?search=${searchWord}&mode=${modeParam}`);
   };
 
   const executeSearch = useRef(
@@ -65,6 +66,7 @@ const Navbar = () => {
 
   const handleChange = (event) => {
     event.persist();
+    setSearchFocused(true);
     setSearchWord(event.target.value);
 
     executeSearch(event.target.value);
