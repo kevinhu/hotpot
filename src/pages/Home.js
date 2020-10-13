@@ -29,7 +29,7 @@ const Home = () => {
 
 	if (modeParam !== "simplified" && modeParam !== "traditional") {
 		modeParam = "simplified";
-		history.push(`/?mode=${modeParam}`);
+		history.replace(`/?mode=${modeParam}`);
 	}
 
 	const handleSubmit = (event) => {
