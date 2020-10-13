@@ -161,7 +161,7 @@ const Home = () => {
 										: "繁体"}
 								</div>
 								<input
-									className={`text-lg chinese-serif p-2 outline-none w-full bg-transparent border-solid border-2 border-black dark:border-gray-200`}
+									className={`text-lg chinese-serif py-2 px-3 outline-none w-full bg-transparent border-solid border-2 border-black dark:border-gray-200`}
 									type="text"
 									placeholder={`Search ${numberWithCommas(
 										118639
@@ -193,10 +193,7 @@ const Home = () => {
 													key={index}
 												>
 													<div
-														className={`p-2 ${
-															index != 0 &&
-															"border-t-2"
-														} border-gray-300 dark:border-gray-700`}
+														className={`py-1 px-3`}
 													>
 														<div className="font-semibold">
 															<div className="text-xl inline chinese-serif">

@@ -129,7 +129,7 @@ const Navbar = () => {
       </Link>
       <div
         onClick={toggleMode}
-        className={`flex-none chinese-serif py-3 text-xl px-2 cursor-pointer select-none border-l-2 ${borderSecondaryColor}`}
+        className={`flex-none chinese-serif py-3 text-xl px-2 cursor-pointer select-none bg-black text-white dark:bg-gray-800 dark:text-gray-500`}
       >
         {modeParam === "simplified" ? "简体" : "繁体"}
       </div>
@@ -139,7 +139,7 @@ const Navbar = () => {
       >
         <div className="w-full h-full relative" ref={searchContainer}>
           <input
-            className={`px-6 chinese-serif bg-transparent outline-none w-full h-full border-l-2 border-r-2 ${borderSecondaryColor}`}
+            className={`px-4 chinese-serif bg-transparent outline-none w-full h-full border-l-2 border-r-2 ${borderPrimaryColor}`}
             type="text"
             placeholder={`Search ${numberWithCommas(118639)} words`}
             value={searchWord}
@@ -158,11 +158,7 @@ const Navbar = () => {
                     className={linkHover}
                     key={index}
                   >
-                    <div
-                      className={`p-2 ${
-                        index != 0 && "border-t-2"
-                      } border-gray-300 dark:border-gray-800`}
-                    >
+                    <div className={`py-1 px-3`}>
                       <div className="font-semibold">
                         <div className="text-xl inline chinese-serif">
                           {modeParam == "simplified"
