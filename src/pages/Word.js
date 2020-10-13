@@ -14,11 +14,6 @@ import NotFound from "../assets/not_found.svg";
 
 import {
 	linkHover,
-	primaryColor,
-	secondaryColor,
-	darkPrimaryColor,
-	darkSecondaryColor,
-	textPrimaryColor,
 	textSecondaryColor,
 	borderPrimaryColor,
 	borderSecondaryColor,
@@ -138,7 +133,7 @@ const Word = () => {
 					});
 			}
 		}
-	});
+	}, [wordParam, modeParam, loading, word, wordMode, history]);
 
 	const sectionHeaderStyle = `text-xl font-semibold ${textSecondaryColor}`;
 

@@ -1,24 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory, useLocation, Link } from "react-router-dom";
 
 import queryString from "query-string";
 
-import { pinyinify, numberWithCommas } from "../utilities";
+import { pinyinify } from "../utilities";
 
-import { useDarkMode } from "../components/DarkMode";
-
-import {
-	linkHover,
-	textPrimaryColor,
-	textSecondaryColor,
-	borderPrimaryColor,
-	borderSecondaryColor,
-	backgroundPrimaryColor,
-	backgroundSecondaryColor,
-} from "../themes";
+import { linkHover } from "../themes";
 
 const Results = () => {
-	const [theme, toggleTheme, componentMounted] = useDarkMode();
 	let history = useHistory();
 	let location = useLocation();
 	let [loading, setLoading] = useState(false);
@@ -29,7 +18,7 @@ const Results = () => {
 	let modeParam = queryParams["mode"];
 	let searchParam = queryParams["search"];
 
-	if (searchParam != searchWord) {
+	if (searchParam !== searchWord) {
 		setSearchWord(searchParam);
 	}
 
@@ -51,7 +40,7 @@ const Results = () => {
 				setResults(body);
 				setLoading(false);
 			});
-	}, [searchWord]);
+	}, [searchWord, modeParam]);
 
 	return (
 		<div className="w-full md:w-3/4 mx-auto">
@@ -72,12 +61,12 @@ const Results = () => {
 							>
 								<div
 									className={`p-2 ${
-										index != 0 && "border-t-2"
+										index !== 0 && "border-t-2"
 									} border-gray-300 dark:border-gray-700`}
 								>
 									<div className="font-semibold">
 										<div className="text-xl inline chinese-serif">
-											{modeParam == "simplified"
+											{modeParam === "simplified"
 												? result["simplified"]
 												: result["traditional"]}
 										</div>

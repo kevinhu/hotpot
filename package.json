@@ -1,8 +1,8 @@
 {
-  "name": "huoguo",
+  "name": "hotpot",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://huoguo.kevin.io",
+  "homepage": "https://hotpot.kevin.io",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",

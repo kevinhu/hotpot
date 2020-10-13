@@ -10,15 +10,7 @@ import queryString from "query-string";
 
 import { useDarkMode } from "../components/DarkMode";
 
-import {
-	linkHover,
-	textPrimaryColor,
-	textSecondaryColor,
-	borderPrimaryColor,
-	borderSecondaryColor,
-	backgroundPrimaryColor,
-	backgroundSecondaryColor,
-} from "../themes";
+import { linkHover, borderPrimaryColor } from "../themes";
 
 import _ from "lodash";
 
@@ -197,7 +189,7 @@ const Home = () => {
 													>
 														<div className="font-semibold">
 															<div className="text-xl inline chinese-serif">
-																{modeParam ==
+																{modeParam ===
 																"simplified"
 																	? result[
 																			"simplified"

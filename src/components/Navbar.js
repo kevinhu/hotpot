@@ -7,13 +7,7 @@ import { pinyinify, numberWithCommas } from "../utilities";
 // Import dark mode
 import { useDarkMode } from "../components/DarkMode";
 
-import {
-  linkHover,
-  textPrimaryColor,
-  textSecondaryColor,
-  borderPrimaryColor,
-  borderSecondaryColor,
-} from "../themes";
+import { linkHover, borderPrimaryColor } from "../themes";
 
 var _ = require("lodash");
 
@@ -53,12 +47,6 @@ const Navbar = () => {
         });
     }, 160)
   ).current;
-
-  // search box style
-  const searchBoxSizing =
-    "w-full md:w-2/3 xl:w-1/2 absolute mx-auto text-center py-12";
-  const searchBoxAesthetics = "border-2 bg-white dark:bg-gray-800";
-  const searchBoxStyle = `${searchBoxSizing} ${searchBoxAesthetics} ${borderPrimaryColor}`;
 
   // handlers for detecting clicks outside of search input and suggestions
   // see https://medium.com/@pitipatdop/little-neat-trick-to-capture-click-outside-with-react-hook-ba77c37c7e82
@@ -162,7 +150,7 @@ const Navbar = () => {
                     <div className={`py-1 px-3`}>
                       <div className="font-semibold">
                         <div className="text-xl inline chinese-serif">
-                          {modeParam == "simplified"
+                          {modeParam === "simplified"
                             ? result["simplified"]
                             : result["traditional"]}
                         </div>
