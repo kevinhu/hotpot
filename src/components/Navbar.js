@@ -155,6 +155,7 @@ const Navbar = () => {
                 return (
                   <Link
                     to={`/word/${result["simplified"]}?mode=${modeParam}`}
+                    onClick={() => setSearchFocused(false)}
                     className={linkHover}
                     key={index}
                   >
