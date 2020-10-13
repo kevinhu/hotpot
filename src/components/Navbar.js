@@ -104,6 +104,12 @@ const Navbar = () => {
         `/${location_split.join("/")}/?${queryString.stringify(queryParams)}`
       );
     }
+
+    if (location_split[0] === "results") {
+      history.push(
+        `/${location_split.join("/")}/?${queryString.stringify(queryParams)}`
+      );
+    }
   };
 
   return (
@@ -113,7 +119,10 @@ const Navbar = () => {
         marginTop: "-2px",
       }}
     >
-      <Link to="/" className={`english-serif px-6 py-2 red text-2xl`}>
+      <Link
+        to="/"
+        className={`font-semibold english-serif px-6 py-2 red text-2xl`}
+      >
         hotpot
       </Link>
       <div
