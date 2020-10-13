@@ -74,7 +74,7 @@ const Word = () => {
 
 	if (modeParam !== "simplified" && modeParam !== "traditional") {
 		modeParam = "simplified";
-		history.push(`/word/${wordParam}/?mode=${modeParam}`);
+		history.replace(`/word/${wordParam}/?mode=${modeParam}`);
 	}
 
 	let otherMode;
@@ -125,12 +125,12 @@ const Word = () => {
 
 						if (modeParam === "simplified") {
 							const alt = data["traditional"][0];
-							history.push(
+							history.replace(
 								`/word/${wordParam}/?mode=${modeParam}&alt=${alt}`
 							);
 						} else if (modeParam === "traditional") {
 							const alt = data["simplified"][0];
-							history.push(
+							history.replace(
 								`/word/${wordParam}/?mode=${modeParam}&alt=${alt}`
 							);
 						}
