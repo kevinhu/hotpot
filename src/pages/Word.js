@@ -188,7 +188,7 @@ const Word = () => {
 				onLoaderFinished={() => setProgress(0)}
 			/>
 			<div className="w-full text-center pt-16">
-				<div className="chinese-serif w-3/4 mx-auto flex justify-center flex-wrap pb-8">
+				<div className="chinese-serif w-3/4 mx-auto flex justify-center flex-wrap pb-8 dark:text-gray-400">
 					{getCharacterLength(wordData["word"]) === 1 ? (
 						<PinyinCharacter
 							character={wordData["word"]}
@@ -239,7 +239,7 @@ const Word = () => {
 							(traditional, index) => (
 								<Link
 									to={`/word/${traditional}/?mode=${otherMode}`}
-									className={`${linkHover} 
+									className={`dark:text-gray-400 ${linkHover} 
 											}`}
 									key={index}
 								>
@@ -257,7 +257,7 @@ const Word = () => {
 							(simplified, index) => (
 								<Link
 									to={`/word/${simplified}/?mode=${otherMode}`}
-									className={`${linkHover} 
+									className={`dark:text-gray-400 ${linkHover} 
 											}`}
 									key={index}
 								>
@@ -278,7 +278,9 @@ const Word = () => {
 				<div
 					className={`w-full md:w-2/3 border-r-2 ${borderSecondaryColor}`}
 				>
-					<div className={`p-6 border-b-2 ${borderSecondaryColor}`}>
+					<div
+						className={`p-6 border-b-2 ${borderSecondaryColor} dark:text-gray-400`}
+					>
 						<div className={sectionHeaderStyle}>
 							{wordData["definition"].length > 1
 								? "Definitions"
@@ -296,7 +298,9 @@ const Word = () => {
 							</div>
 						))}
 					</div>
-					<div className={`p-6 border-b-2 ${borderSecondaryColor}`}>
+					<div
+						className={`p-6 border-b-2 ${borderSecondaryColor} dark:text-gray-400`}
+					>
 						<div className={sectionHeaderStyle}>
 							{getCharacterLength(wordData["word"]) > 1
 								? "Characters"
@@ -307,7 +311,7 @@ const Word = () => {
 									return (
 										<Link
 											to={`/word/${character["word"]}/?mode=${modeParam}`}
-											className={`${linkHover} ${
+											className={`dark:text-gray-400 ${linkHover} ${
 												!character["definition"] &&
 												"disabled-link"
 											}`}
@@ -411,7 +415,7 @@ const Word = () => {
 									}
 							  })}
 					</div>
-					<div className="p-6">
+					<div className="p-6 dark:text-gray-400">
 						<div className={sectionHeaderStyle}>
 							Example sentences
 						</div>
@@ -445,7 +449,9 @@ const Word = () => {
 					</div>
 				</div>
 				<div className="w-full md:w-1/3">
-					<div className={`p-6 border-b-2 ${borderSecondaryColor}`}>
+					<div
+						className={`p-6 border-b-2 ${borderSecondaryColor} dark:text-gray-400`}
+					>
 						<div className={sectionHeaderStyle}>Statistics</div>
 
 						{wordData["rank"] !== -1 ? (
@@ -476,7 +482,9 @@ const Word = () => {
 							<div>Word fraction unavailable.</div>
 						)}
 					</div>
-					<div className={`p-6 border-b-2 ${borderSecondaryColor}`}>
+					<div
+						className={`p-6 border-b-2 ${borderSecondaryColor} dark:text-gray-400`}
+					>
 						<div className={sectionHeaderStyle}>
 							Containing words
 						</div>
@@ -536,7 +544,11 @@ const Word = () => {
 						)}
 					</div>
 					<div className="p-6">
-						<div className={sectionHeaderStyle}>See also</div>
+						<div
+							className={`${sectionHeaderStyle} dark:text-gray-400`}
+						>
+							See also
+						</div>
 						{wordData["related"].length === 0 &&
 							"No related words found."}
 						{wordData["related"].map((related_word, index) => {
@@ -561,7 +573,10 @@ const Word = () => {
 								});
 
 							return (
-								<div className="pt-2" key={index}>
+								<div
+									className="pt-2 dark:text-gray-400"
+									key={index}
+								>
 									<Link
 										to={`/word/${related_word["word"]}/?mode=${modeParam}`}
 										className={linkHover}
