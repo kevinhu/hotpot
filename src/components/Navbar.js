@@ -159,7 +159,9 @@ const Navbar = () => {
                     >
                       <div className="font-semibold">
                         <div className="text-xl inline chinese-serif">
-                          {result["simplified"]}
+                          {modeParam == "simplified"
+                            ? result["simplified"]
+                            : result["traditional"]}
                         </div>
                         <div className="pl-2 inline text-gray-700 dark:text-gray-300 english-serif">
                           {pinyinify(result["pinyin"])}
