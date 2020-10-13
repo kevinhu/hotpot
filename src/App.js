@@ -8,6 +8,7 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import Word from "./pages/Word";
+import Results from "./pages/Results";
 
 // Import reset scroll component
 import ScrollToTop from "./components/ScrollToTop";
@@ -39,6 +40,8 @@ function App() {
             </Route>
 
             <Route path="/word/:word">{<Word />}</Route>
+
+            <Route path="/results">{<Results />}</Route>
 
             {/* Catch-all Route */}
             <Route path="/">

@@ -43,7 +43,7 @@ const Home = () => {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		history.push(`/word/${searchWord}`);
+		history.push(`/results?query=${searchWord}&mode=${modeParam}`);
 	};
 
 	const executeSearch = useRef(
