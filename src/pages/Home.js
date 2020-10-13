@@ -8,7 +8,6 @@ import { css } from "@emotion/core";
 
 import queryString from "query-string";
 
-// Import dark mode
 import { useDarkMode } from "../components/DarkMode";
 
 import {
@@ -43,7 +42,7 @@ const Home = () => {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		history.push(`/results?query=${searchWord}&mode=${modeParam}`);
+		history.push(`/results?search=${searchWord}&mode=${modeParam}`);
 	};
 
 	const executeSearch = useRef(
@@ -200,7 +199,7 @@ const Home = () => {
 														} border-gray-300 dark:border-gray-700`}
 													>
 														<div className="font-semibold">
-															<div className="text-xl inline">
+															<div className="text-xl inline chinese-serif">
 																{modeParam ==
 																"simplified"
 																	? result[
@@ -210,7 +209,7 @@ const Home = () => {
 																			"traditional"
 																	  ]}
 															</div>
-															<div className="pl-2 inline text-gray-700 dark:text-gray-300">
+															<div className="pl-2 inline text-gray-700 dark:text-gray-300 english-serif">
 																{pinyinify(
 																	result[
 																		"pinyin"
@@ -218,7 +217,7 @@ const Home = () => {
 																)}
 															</div>
 														</div>
-														<div className="text-gray-700 dark:text-gray-300">
+														<div className="text-gray-700 dark:text-gray-300 english-serif">
 															{
 																result[
 																	"definition"

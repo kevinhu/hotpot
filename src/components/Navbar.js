@@ -158,14 +158,14 @@ const Navbar = () => {
                       } border-gray-300 dark:border-gray-800`}
                     >
                       <div className="font-semibold">
-                        <div className="text-xl inline">
+                        <div className="text-xl inline chinese-serif">
                           {result["simplified"]}
                         </div>
-                        <div className="pl-2 inline text-gray-700 dark:text-gray-300">
+                        <div className="pl-2 inline text-gray-700 dark:text-gray-300 english-serif">
                           {pinyinify(result["pinyin"])}
                         </div>
                       </div>
-                      <div className="text-gray-700 dark:text-gray-300">
+                      <div className="text-gray-700 dark:text-gray-300 english-serif">
                         {result["definition"]}
                       </div>
                     </div>
