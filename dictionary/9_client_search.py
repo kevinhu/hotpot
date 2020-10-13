@@ -29,7 +29,22 @@ def remove_pinyin_tone(string):
 
 
 # toneless pinyin for search
-cedict["toneless_pinyin"] = [remove_pinyin_tone(x) for x in cedict["pinyin"]]
+cedict["toneless_pinyin"] = cedict["pinyin"].apply(remove_pinyin_tone)
+
+
+def format_definition(definition):
+
+    # get rid of text in parentheses
+    definition = re.sub("\(.+\)", "", definition)
+
+    # space out definitions
+    definition = re.sub("/", "; ", definition)
+
+    return definition
+
+
+cedict["definition"] = cedict["definition"].apply(format_definition)
+
 
 cedict["id"] = range(len(cedict))
 
@@ -46,6 +61,8 @@ search_data = cedict[
 ].to_dict(orient="index")
 
 search_data = list(search_data.values())
+
+print(f"Index size: {len(search_data)}")
 
 with open("../api/search_data.json", "w") as f:
     f.write(ujson.dumps(search_data))
