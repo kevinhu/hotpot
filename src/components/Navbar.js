@@ -47,7 +47,7 @@ const Navbar = () => {
         return;
       }
       fetch(
-        `https://huoguo-search.kevinhu.io/.netlify/functions/search?query=${query}&limit=4`
+        `https://hotpot-search.kevinhu.io/.netlify/functions/search?query=${query}&limit=4`
       )
         .then((response) => {
           return response.json();
@@ -119,7 +119,7 @@ const Navbar = () => {
       }}
     >
       <Link to="/" className={`english-serif px-6 py-2 red text-2xl`}>
-        huoguo
+        hotpot
       </Link>
       <div
         onClick={toggleMode}

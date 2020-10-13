@@ -55,7 +55,7 @@ const Home = () => {
 			}
 			setLoading(true);
 			fetch(
-				`https://huoguo-search.kevinhu.io/.netlify/functions/search?query=${query}&mode=${modeParam}&limit=8`
+				`https://hotpot-search.kevinhu.io/.netlify/functions/search?query=${query}&mode=${modeParam}&limit=8`
 			)
 				.then((response) => {
 					return response.json();
@@ -82,7 +82,7 @@ const Home = () => {
 
 	useEffect(() => {
 		// ping the search endpoint to warm it up
-		fetch(`https://huoguo-search.kevinhu.io/.netlify/functions/search`);
+		fetch(`https://hotpot-search.kevinhu.io/.netlify/functions/search`);
 		// add when mounted
 		document.addEventListener("mousedown", handleClick);
 		// return function to be called when unmounted
@@ -141,7 +141,7 @@ const Home = () => {
 					className="english-serif red font-semibold"
 					style={{ fontSize: "4rem", lineHeight: "4rem" }}
 				>
-					huoguo
+					hotpot
 				</div>
 				<div className="english-serif text-xl text-gray-400 pt-4 pb-8">
 					A modern Chinese-English dictionary
@@ -252,7 +252,7 @@ const Home = () => {
 				<br />
 				<a
 					className={`underline ${linkHover}`}
-					href="https://github.com/kevinhu/huoguo"
+					href="https://github.com/kevinhu/hotpot"
 					target="_blank"
 					rel="noopener noreferrer"
 				>
