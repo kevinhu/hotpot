@@ -51,7 +51,7 @@ const Results = () => {
 	return (
 		<div className="w-full md:w-3/4 mx-auto">
 			<div className="text-2xl mt-12 mb-2 english-serif">
-				Results for "{searchParam}"
+				{results.length} results for "{searchParam}"
 			</div>
 			{results.length > 0 && searchParam !== "" && (
 				<div
