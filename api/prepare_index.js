@@ -1,5 +1,4 @@
 var fs = require("fs");
-var msgpack = require("msgpack-lite");
 
 const SearchData = require("./search_data.json");
 
