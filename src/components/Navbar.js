@@ -29,11 +29,6 @@ const Navbar = () => {
   let queryParams = queryString.parse(location.search);
   let modeParam = queryParams["mode"];
 
-  if (modeParam !== "simplified" && modeParam !== "traditional") {
-    queryParams["mode"] = "simplified";
-    history.push(`${location.pathname}/?${queryString.stringify(queryParams)}`);
-  }
-
   const handleSubmit = (event) => {
     event.preventDefault();
     history.push(`/word?word=${searchWord}`);
