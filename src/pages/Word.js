@@ -306,7 +306,7 @@ const Word = () => {
 									return (
 										<Link
 											to={`/word/${character["word"]}/?mode=${modeParam}`}
-											className={`block bg-white dark:bg-dark-500 transform hover:scale-105 hover:shadow-lg dark-hover:bg-dark-800 hover:z-20 relative -ml-4 p-4 ${linkHover} ${
+											className={`block bg-white dark:bg-dark-800 transform hover:scale-105 hover:shadow-lg dark-hover:bg-dark-800 hover:z-20 relative -ml-4 p-4 ${linkHover} ${
 												!character["definition"] &&
 												"disabled-link"
 											}`}
@@ -362,7 +362,7 @@ const Word = () => {
 										return (
 											<Link
 												to={`/word/${character["word"]}/?mode=${modeParam}`}
-												className={`block bg-white dark:bg-dark-500 transform hover:scale-105 hover:shadow-lg dark-hover:bg-dark-800 hover:z-20 relative -ml-4 p-4 ${linkHover} ${
+												className={`block bg-white dark:bg-dark-800 transform hover:scale-105 hover:shadow-lg dark-hover:bg-dark-800 hover:z-20 relative -ml-4 p-4 ${linkHover} ${
 													!character["definition"] &&
 													"disabled-link"
 												}`}
@@ -517,10 +517,10 @@ const Word = () => {
 									<div className="pt-1" key={index}>
 										<Link
 											to={`/word/${contain_word["word"]}/?mode=${modeParam}`}
-											className={`${linkHover} block bg-white dark:bg-dark-500 transform hover:scale-105 hover:shadow-lg dark-hover:bg-dark-800 hover:z-20 relative -ml-4 p-4 -mb-4`}
+											className={`${linkHover} block bg-white dark:bg-dark-800 transform hover:scale-105 hover:shadow-lg dark-hover:bg-dark-800 hover:z-20 relative -ml-4 p-4 -mb-4`}
 										>
 											<div
-												className="chinese-serif flex flex-wrap text-xl dark:text-gray-400 "
+												className={`chinese-serif flex flex-wrap text-xl`}
 												style={{ width: "max-content" }}
 											>
 												{displayWord}
@@ -584,10 +584,10 @@ const Word = () => {
 								>
 									<Link
 										to={`/word/${related_word["word"]}/?mode=${modeParam}`}
-										className={`${linkHover} block bg-white dark:bg-dark-500 transform hover:scale-105 hover:shadow-lg dark-hover:bg-dark-800 hover:z-20 relative -ml-4 p-4 -mb-4`}
+										className={`${linkHover} block bg-white dark:bg-dark-800 transform hover:scale-105 hover:shadow-lg dark-hover:bg-dark-800 hover:z-20 relative -ml-4 p-4 -mb-4`}
 									>
 										<div
-											className="chinese-serif flex flex-wrap text-xl dark:text-gray-400 "
+											className={`chinese-serif flex flex-wrap text-xl`}
 											style={{ width: "max-content" }}
 										>
 											{displayWord}
