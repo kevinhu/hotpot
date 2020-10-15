@@ -22,6 +22,7 @@ module.exports = {
 		backgroundColor: ["hover", "responsive", "focus", "dark", "dark-hover"],
 		textColor: ["hover", "responsive", "focus", "dark", "dark-hover"],
 		borderColor: ["hover", "responsive", "focus", "dark", "dark-hover"],
+		zIndex: ["responsive", "hover", "focus"],
 	},
 	plugins: [require("tailwindcss-dark-mode")()],
 };

@@ -32,12 +32,11 @@
 
 html {
 	@apply min-h-screen;
-	background-color: #f8f8f8;
+	background-color: #f6f6f6;
 }
 
 html.mode-dark {
-	/*@apply bg-gray-900;*/
-	background-color: rgba(0, 0, 0, 0.95);
+	@apply bg-dark-500;
 	@apply text-gray-200 !important;
 }
 

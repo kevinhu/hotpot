@@ -65,12 +65,6 @@ const Home = () => {
 		executeSearch(event.target.value);
 	};
 
-	// search box style
-	const searchBoxSizing =
-		"w-full md:w-2/3 xl:w-1/2 absolute mx-auto text-center py-12";
-	const searchBoxAesthetics = "shadow-lg border-2 bg-white dark:bg-dark-700";
-	const searchBoxStyle = `${searchBoxSizing} ${searchBoxAesthetics} ${borderPrimaryColor}`;
-
 	useEffect(() => {
 		// ping the search endpoint to warm it up
 		fetch(`https://hotpot-search.kevinhu.io/.netlify/functions/search`);
@@ -121,7 +115,7 @@ const Home = () => {
 				{theme === "dark" ? "暗" : "光"}
 			</div>
 			<div
-				className={searchBoxStyle}
+				className={`w-full md:w-2/3 xl:w-1/2 absolute mx-auto text-center py-12 shadow-xl bg-white dark:bg-dark-900`}
 				style={{
 					top: "40%",
 					left: "50%",
@@ -134,7 +128,7 @@ const Home = () => {
 				>
 					hotpot
 				</div>
-				<div className="english-serif text-xl text-gray-400 pt-4 pb-8">
+				<div className="english-serif text-xl text-gray-600 pt-4 pb-8">
 					A modern Chinese-English dictionary
 				</div>
 				<div>
@@ -174,14 +168,14 @@ const Home = () => {
 								searchWord !== "" &&
 								searchFocused && (
 									<div
-										className={`shadow-lg z-10 absolute text-left bg-white dark:bg-dark-800 border-2 border-black w-full border-black dark:border-gray-200`}
+										className={`shadow-lg z-10 absolute text-left border-2 w-full border-black dark:border-gray-200`}
 										style={{ marginTop: "-2px" }}
 									>
 										{results.map((result, index) => {
 											return (
 												<Link
 													to={`/word/${result["simplified"]}?mode=${modeParam}`}
-													className={linkHover}
+													className={`${linkHover} block bg-white dark:bg-dark-700 transform hover:scale-105 hover:shadow hover:z-20 relative`}
 													key={index}
 												>
 													<div
