@@ -56,14 +56,10 @@ const Results = () => {
 						return (
 							<Link
 								to={`/word/${result["simplified"]}?mode=${modeParam}`}
-								className={linkHover}
+								className={`${linkHover} block bg-white dark:bg-dark-500 transform hover:scale-105 hover:shadow dark-hover:bg-dark-800 hover:z-20 relative`}
 								key={index}
 							>
-								<div
-									className={`p-2 ${
-										index !== 0 && "border-t-2"
-									} border-gray-300 dark:border-gray-700`}
-								>
+								<div className={`p-2`}>
 									<div className="font-semibold">
 										<div className="text-xl inline chinese-serif">
 											{modeParam === "simplified"

@@ -144,7 +144,7 @@ const Navbar = () => {
                   <Link
                     to={`/word/${result["simplified"]}?mode=${modeParam}`}
                     onClick={() => setSearchFocused(false)}
-                    className={linkHover}
+                    className={`${linkHover} block bg-white dark:bg-dark-500 transform hover:scale-105 hover:shadow dark-hover:bg-dark-800 hover:z-20 relative`}
                     key={index}
                   >
                     <div className={`py-1 px-3`}>
