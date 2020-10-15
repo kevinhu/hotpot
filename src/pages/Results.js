@@ -49,7 +49,7 @@ const Results = () => {
 			</div>
 			{results.length > 0 && searchParam !== "" && (
 				<div
-					className={`shadow-lg z-10 text-left bg-white dark:bg-dark-800 border-2 border-black w-full border-black dark:border-gray-200`}
+					className={`shadow-lg z-10 text-left bg-white dark:bg-dark-500 border-2 w-full border-black dark:border-gray-200 p-4`}
 					style={{ marginTop: "-2px" }}
 				>
 					{results.map((result, index) => {
@@ -61,12 +61,12 @@ const Results = () => {
 							>
 								<div className={`p-2`}>
 									<div className="font-semibold">
-										<div className="text-xl inline chinese-serif">
+										<div className="text-2xl inline chinese-serif">
 											{modeParam === "simplified"
 												? result["simplified"]
 												: result["traditional"]}
 										</div>
-										<div className="pl-2 inline text-gray-700 dark:text-gray-300 english-serif">
+										<div className="pl-2 text-xl inline text-gray-700 dark:text-gray-300 english-serif">
 											{pinyinify(result["pinyin"])}
 										</div>
 									</div>

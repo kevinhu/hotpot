@@ -294,7 +294,7 @@ const Word = () => {
 						))}
 					</div>
 					<div
-						className={`p-6 border-b-2 ${borderSecondaryColor} dark:text-gray-400`}
+						className={`p-6 pr-2 border-b-2 ${borderSecondaryColor} dark:text-gray-400`}
 					>
 						<div className={sectionHeaderStyle}>
 							{getCharacterLength(wordData["word"]) > 1
@@ -304,76 +304,21 @@ const Word = () => {
 						{getCharacterLength(wordData["word"]) > 1
 							? wordData["characters"].map((character, index) => {
 									return (
-										<div
-											className={`flex items-center ${
-												index !== 0 && "pt-4"
+										<Link
+											to={`/word/${character["word"]}/?mode=${modeParam}`}
+											className={`block bg-white dark:bg-dark-500 transform hover:scale-105 hover:shadow-lg dark-hover:bg-dark-800 hover:z-20 relative -ml-4 p-4 ${linkHover} ${
+												!character["definition"] &&
+												"disabled-link"
 											}`}
+											key={index}
 										>
-											<Link
-												to={`/word/${character["word"]}/?mode=${modeParam}`}
-												className={`dark:text-gray-400 transform relative hover:shadow-inner hover:bg-gray-100 dark-hover:bg-dark-600 -ml-2 mr-4 ${linkHover} ${
-													!character["definition"] &&
-													"disabled-link"
-												}`}
-												key={index}
+											<div
+												className={`flex items-center`}
 											>
-												<div className="chinese-serif text-4xl p-2 leading-8">
+												<div className="chinese-serif text-4xl pr-4 leading-8">
 													{character["word"]}
 												</div>
-											</Link>
 
-											<div>
-												<div className="text-xl font-semibold">
-													{character["pinyin"] &&
-														pinyinify(
-															removeDuplicates(
-																character[
-																	"pinyin"
-																].map((x) =>
-																	x.toLowerCase()
-																)
-															)
-																.sort()
-																.join(" / ")
-														)}
-												</div>
-												<div
-													className={`${textSecondaryColor} leading-5 break-all`}
-												>
-													{character["definition"] &&
-														character[
-															"definition"
-														].join(" | ")}
-												</div>
-											</div>
-										</div>
-									);
-							  })
-							: "decomposition_definitions" in
-									wordData["components"] &&
-							  wordData["components"][
-									"decomposition_definitions"
-							  ].map((character, index) => {
-									if (
-										!IDEOGRAPHIC_DESCRIPTIONS.includes(
-											character["word"]
-										)
-									) {
-										return (
-											<div className="flex items-center">
-												<Link
-													to={`/word/${character["word"]}/?mode=${modeParam}`}
-													className={`dark:text-gray-400 transform relative hover:shadow-inner hover:bg-gray-100 dark-hover:bg-dark-600 -ml-2 mr-4 ${linkHover} ${
-														!character[
-															"definition"
-														] && "disabled-link"
-													}`}
-													key={index}
-												>
-													<div className="chinese-serif text-4xl p-2 leading-8">
-														{character["word"]}
-													</div>
-												</Link>
 												<div>
 													<div className="text-xl font-semibold">
 														{character["pinyin"] &&
@@ -401,6 +346,70 @@ const Word = () => {
 													</div>
 												</div>
 											</div>
+										</Link>
+									);
+							  })
+							: "decomposition_definitions" in
+									wordData["components"] &&
+							  wordData["components"][
+									"decomposition_definitions"
+							  ].map((character, index) => {
+									if (
+										!IDEOGRAPHIC_DESCRIPTIONS.includes(
+											character["word"]
+										)
+									) {
+										return (
+											<Link
+												to={`/word/${character["word"]}/?mode=${modeParam}`}
+												className={`block bg-white dark:bg-dark-500 transform hover:scale-105 hover:shadow-lg dark-hover:bg-dark-800 hover:z-20 relative -ml-4 p-4 ${linkHover} ${
+													!character["definition"] &&
+													"disabled-link"
+												}`}
+												key={index}
+											>
+												<div
+													className={`flex items-center`}
+												>
+													<div className="chinese-serif text-4xl pr-4 leading-8">
+														{character["word"]}
+													</div>
+
+													<div>
+														<div className="text-xl font-semibold">
+															{character[
+																"pinyin"
+															] &&
+																pinyinify(
+																	removeDuplicates(
+																		character[
+																			"pinyin"
+																		].map(
+																			(
+																				x
+																			) =>
+																				x.toLowerCase()
+																		)
+																	)
+																		.sort()
+																		.join(
+																			" / "
+																		)
+																)}
+														</div>
+														<div
+															className={`${textSecondaryColor} leading-5 break-all`}
+														>
+															{character[
+																"definition"
+															] &&
+																character[
+																	"definition"
+																].join(" | ")}
+														</div>
+													</div>
+												</div>
+											</Link>
 										);
 									} else {
 										return "";
@@ -475,7 +484,7 @@ const Word = () => {
 						)}
 					</div>
 					<div
-						className={`p-6 border-b-2 ${borderSecondaryColor} dark:text-gray-400`}
+						className={`p-6 pr-2 border-b-2 ${borderSecondaryColor} dark:text-gray-400`}
 					>
 						<div className={sectionHeaderStyle}>
 							Containing words
@@ -506,36 +515,40 @@ const Word = () => {
 
 								return (
 									<div className="pt-1" key={index}>
-										<div
-											className="-ml-1 chinese-serif text-xl dark:text-gray-400 hover:shadow-inner hover:bg-gray-100 dark-hover:bg-dark-600"
-											style={{ width: "max-content" }}
+										<Link
+											to={`/word/${contain_word["word"]}/?mode=${modeParam}`}
+											className={`${linkHover} block bg-white dark:bg-dark-500 transform hover:scale-105 hover:shadow-lg dark-hover:bg-dark-800 hover:z-20 relative -ml-4 p-4 -mb-4`}
 										>
-											<Link
-												to={`/word/${contain_word["word"]}/?mode=${modeParam}`}
-												className={`${linkHover} flex flex-wrap p-1`}
+											<div
+												className="chinese-serif flex flex-wrap text-xl dark:text-gray-400 "
+												style={{ width: "max-content" }}
 											>
 												{displayWord}
-											</Link>
-										</div>
-										<div
-											className={`${textSecondaryColor}  break-all leading-5`}
-										>
-											{contain_word["definition"].length >
-											MAX_OTHER_DESCRIPTION_LENGTH
-												? contain_word[
-														"definition"
-												  ].substring(
-														0,
-														MAX_OTHER_DESCRIPTION_LENGTH
-												  ) + "..."
-												: contain_word["definition"]}
-										</div>
+											</div>
+
+											<div
+												className={`${textSecondaryColor}  break-all leading-5`}
+											>
+												{contain_word["definition"]
+													.length >
+												MAX_OTHER_DESCRIPTION_LENGTH
+													? contain_word[
+															"definition"
+													  ].substring(
+															0,
+															MAX_OTHER_DESCRIPTION_LENGTH
+													  ) + "..."
+													: contain_word[
+															"definition"
+													  ]}
+											</div>
+										</Link>
 									</div>
 								);
 							}
 						)}
 					</div>
-					<div className="p-6">
+					<div className="p-6 pr-2">
 						<div
 							className={`${sectionHeaderStyle} dark:text-gray-400`}
 						>
@@ -569,31 +582,31 @@ const Word = () => {
 									className="pt-1 dark:text-gray-400"
 									key={index}
 								>
-									<div
-										className="-ml-1 chinese-serif text-xl dark:text-gray-400 hover:shadow-inner hover:bg-gray-100 dark-hover:bg-dark-600"
-										style={{ width: "max-content" }}
+									<Link
+										to={`/word/${related_word["word"]}/?mode=${modeParam}`}
+										className={`${linkHover} block bg-white dark:bg-dark-500 transform hover:scale-105 hover:shadow-lg dark-hover:bg-dark-800 hover:z-20 relative -ml-4 p-4 -mb-4`}
 									>
-										<Link
-											to={`/word/${related_word["word"]}/?mode=${modeParam}`}
-											className={`${linkHover} flex flex-wrap p-1`}
+										<div
+											className="chinese-serif flex flex-wrap text-xl dark:text-gray-400 "
+											style={{ width: "max-content" }}
 										>
 											{displayWord}
-										</Link>
-									</div>
+										</div>
 
-									<div
-										className={`${textSecondaryColor}  break-all leading-5`}
-									>
-										{related_word["definition"].length >
-										MAX_OTHER_DESCRIPTION_LENGTH
-											? related_word[
-													"definition"
-											  ].substring(
-													0,
-													MAX_OTHER_DESCRIPTION_LENGTH
-											  ) + "..."
-											: related_word["definition"]}
-									</div>
+										<div
+											className={`${textSecondaryColor}  break-all leading-5`}
+										>
+											{related_word["definition"].length >
+											MAX_OTHER_DESCRIPTION_LENGTH
+												? related_word[
+														"definition"
+												  ].substring(
+														0,
+														MAX_OTHER_DESCRIPTION_LENGTH
+												  ) + "..."
+												: related_word["definition"]}
+										</div>
+									</Link>
 								</div>
 							);
 						})}
