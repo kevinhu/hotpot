@@ -304,18 +304,76 @@ const Word = () => {
 						{getCharacterLength(wordData["word"]) > 1
 							? wordData["characters"].map((character, index) => {
 									return (
-										<Link
-											to={`/word/${character["word"]}/?mode=${modeParam}`}
-											className={`dark:text-gray-400 ${linkHover} ${
-												!character["definition"] &&
-												"disabled-link"
+										<div
+											className={`flex items-center ${
+												index !== 0 && "pt-4"
 											}`}
-											key={index}
 										>
-											<div className="flex items-center">
-												<div className="chinese-serif text-4xl pr-4 py-4">
+											<Link
+												to={`/word/${character["word"]}/?mode=${modeParam}`}
+												className={`dark:text-gray-400 transform relative hover:shadow-inner hover:bg-gray-100 dark-hover:bg-dark-600 -ml-2 mr-4 ${linkHover} ${
+													!character["definition"] &&
+													"disabled-link"
+												}`}
+												key={index}
+											>
+												<div className="chinese-serif text-4xl p-2 leading-8">
 													{character["word"]}
 												</div>
+											</Link>
+
+											<div>
+												<div className="text-xl font-semibold">
+													{character["pinyin"] &&
+														pinyinify(
+															removeDuplicates(
+																character[
+																	"pinyin"
+																].map((x) =>
+																	x.toLowerCase()
+																)
+															)
+																.sort()
+																.join(" / ")
+														)}
+												</div>
+												<div
+													className={`${textSecondaryColor} leading-5 break-all`}
+												>
+													{character["definition"] &&
+														character[
+															"definition"
+														].join(" | ")}
+												</div>
+											</div>
+										</div>
+									);
+							  })
+							: "decomposition_definitions" in
+									wordData["components"] &&
+							  wordData["components"][
+									"decomposition_definitions"
+							  ].map((character, index) => {
+									if (
+										!IDEOGRAPHIC_DESCRIPTIONS.includes(
+											character["word"]
+										)
+									) {
+										return (
+											<div className="flex items-center">
+												<Link
+													to={`/word/${character["word"]}/?mode=${modeParam}`}
+													className={`dark:text-gray-400 transform relative hover:shadow-inner hover:bg-gray-100 dark-hover:bg-dark-600 -ml-2 mr-4 ${linkHover} ${
+														!character[
+															"definition"
+														] && "disabled-link"
+													}`}
+													key={index}
+												>
+													<div className="chinese-serif text-4xl p-2 leading-8">
+														{character["word"]}
+													</div>
+												</Link>
 												<div>
 													<div className="text-xl font-semibold">
 														{character["pinyin"] &&
@@ -343,67 +401,6 @@ const Word = () => {
 													</div>
 												</div>
 											</div>
-										</Link>
-									);
-							  })
-							: "decomposition_definitions" in
-									wordData["components"] &&
-							  wordData["components"][
-									"decomposition_definitions"
-							  ].map((character, index) => {
-									if (
-										!IDEOGRAPHIC_DESCRIPTIONS.includes(
-											character["word"]
-										)
-									) {
-										return (
-											<Link
-												to={`/word/${character["word"]}/?mode=${modeParam}`}
-												className={`${linkHover} ${
-													!character["definition"] &&
-													"disabled-link"
-												}`}
-												key={index}
-											>
-												<div className="flex items-center">
-													<div className="chinese-serif text-4xl pr-4 py-4">
-														{character["word"]}
-													</div>
-													<div>
-														<div className="text-xl font-semibold">
-															{character[
-																"pinyin"
-															] &&
-																pinyinify(
-																	removeDuplicates(
-																		character[
-																			"pinyin"
-																		].map(
-																			(
-																				x
-																			) =>
-																				x.toLowerCase()
-																		)
-																	)
-																		.sort()
-																		.join(
-																			" / "
-																		)
-																)}
-														</div>
-														<div
-															className={`${textSecondaryColor} leading-5 break-all`}
-														>
-															{character[
-																"definition"
-															] &&
-																character[
-																	"definition"
-																].join(" | ")}
-														</div>
-													</div>
-												</div>
-											</Link>
 										);
 									} else {
 										return "";
@@ -508,31 +505,31 @@ const Word = () => {
 									});
 
 								return (
-									<div className="pt-2" key={index}>
-										<Link
-											to={`/word/${contain_word["word"]}/?mode=${modeParam}`}
-											className={linkHover}
+									<div className="pt-1" key={index}>
+										<div
+											className="-ml-1 chinese-serif text-xl dark:text-gray-400 hover:shadow-inner hover:bg-gray-100 dark-hover:bg-dark-600"
+											style={{ width: "max-content" }}
 										>
-											<div className="chinese-serif text-xl flex flex-wrap">
-												{displayWord}
-											</div>
-											<div
-												className={`${textSecondaryColor}  break-all leading-5`}
+											<Link
+												to={`/word/${contain_word["word"]}/?mode=${modeParam}`}
+												className={`${linkHover} flex flex-wrap p-1`}
 											>
-												{contain_word["definition"]
-													.length >
-												MAX_OTHER_DESCRIPTION_LENGTH
-													? contain_word[
-															"definition"
-													  ].substring(
-															0,
-															MAX_OTHER_DESCRIPTION_LENGTH
-													  ) + "..."
-													: contain_word[
-															"definition"
-													  ]}
-											</div>
-										</Link>
+												{displayWord}
+											</Link>
+										</div>
+										<div
+											className={`${textSecondaryColor}  break-all leading-5`}
+										>
+											{contain_word["definition"].length >
+											MAX_OTHER_DESCRIPTION_LENGTH
+												? contain_word[
+														"definition"
+												  ].substring(
+														0,
+														MAX_OTHER_DESCRIPTION_LENGTH
+												  ) + "..."
+												: contain_word["definition"]}
+										</div>
 									</div>
 								);
 							}
@@ -569,30 +566,34 @@ const Word = () => {
 
 							return (
 								<div
-									className="pt-2 dark:text-gray-400"
+									className="pt-1 dark:text-gray-400"
 									key={index}
 								>
-									<Link
-										to={`/word/${related_word["word"]}/?mode=${modeParam}`}
-										className={linkHover}
+									<div
+										className="-ml-1 chinese-serif text-xl dark:text-gray-400 hover:shadow-inner hover:bg-gray-100 dark-hover:bg-dark-600"
+										style={{ width: "max-content" }}
 									>
-										<div className="chinese-serif text-xl flex flex-wrap">
-											{displayWord}
-										</div>
-										<div
-											className={`${textSecondaryColor}  break-all leading-5`}
+										<Link
+											to={`/word/${related_word["word"]}/?mode=${modeParam}`}
+											className={`${linkHover} flex flex-wrap p-1`}
 										>
-											{related_word["definition"].length >
-											MAX_OTHER_DESCRIPTION_LENGTH
-												? related_word[
-														"definition"
-												  ].substring(
-														0,
-														MAX_OTHER_DESCRIPTION_LENGTH
-												  ) + "..."
-												: related_word["definition"]}
-										</div>
-									</Link>
+											{displayWord}
+										</Link>
+									</div>
+
+									<div
+										className={`${textSecondaryColor}  break-all leading-5`}
+									>
+										{related_word["definition"].length >
+										MAX_OTHER_DESCRIPTION_LENGTH
+											? related_word[
+													"definition"
+											  ].substring(
+													0,
+													MAX_OTHER_DESCRIPTION_LENGTH
+											  ) + "..."
+											: related_word["definition"]}
+									</div>
 								</div>
 							);
 						})}

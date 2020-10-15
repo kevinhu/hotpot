@@ -175,7 +175,7 @@ const Home = () => {
 											return (
 												<Link
 													to={`/word/${result["simplified"]}?mode=${modeParam}`}
-													className={`${linkHover} block bg-white dark:bg-dark-700 transform hover:scale-105 hover:shadow hover:z-20 relative`}
+													className={`${linkHover} block bg-white dark:bg-dark-500 transform hover:scale-105 hover:shadow dark-hover:bg-dark-800 hover:z-20 relative`}
 													key={index}
 												>
 													<div
