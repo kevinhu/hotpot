@@ -6,6 +6,7 @@ const Footer = ({ className }) => {
 	return (
 		<div
 			className={`pb-8 text-center w-full bottom-0 text-gray-800 dark:text-gray-200 ${className}`}
+			style={{ zIndex: -1 }}
 		>
 			Made by{" "}
 			<a
