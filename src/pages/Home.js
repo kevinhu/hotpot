@@ -9,6 +9,7 @@ import { css } from "@emotion/core";
 import queryString from "query-string";
 
 import { useDarkMode } from "../components/DarkMode";
+import Footer from "../components/Footer";
 
 import { linkHover, borderPrimaryColor } from "../themes";
 
@@ -222,39 +223,7 @@ const Home = () => {
 				</div>
 			</div>
 
-			<div
-				className="pb-4 text-center w-full absolute bottom-0 text-gray-800 dark:text-gray-200"
-				style={{ zIndex: -1 }}
-			>
-				Made by{" "}
-				<a
-					className={`underline ${linkHover}`}
-					href="https://kevinhu.io"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					Kevin Hu
-				</a>{" "}
-				and{" "}
-				<a
-					className={`underline ${linkHover}`}
-					href="https://https://taehyoungjo.github.io/"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					Tae Hyoung Jo
-				</a>
-				<br />
-				<a
-					className={`underline ${linkHover}`}
-					href="https://github.com/kevinhu/hotpot"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					Source
-				</a>{" "}
-				on GitHub
-			</div>
+			<Footer className="absolute" />
 		</div>
 	);
 };

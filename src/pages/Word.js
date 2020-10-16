@@ -9,6 +9,7 @@ import { Link, useParams } from "react-router-dom";
 import LoadingBar from "react-top-loading-bar";
 
 import Loading from "../components/Loading";
+import Footer from "../components/Footer";
 
 import NotFound from "../assets/not_found.svg";
 
@@ -629,6 +630,7 @@ const Word = () => {
 					</div>
 				</div>
 			</div>
+			<Footer />
 		</div>
 	);
 };
