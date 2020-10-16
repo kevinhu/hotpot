@@ -1,33 +1,42 @@
 import React, { useState, useEffect } from "react";
-import { useHistory, useLocation, Link } from "react-router-dom";
 
+// location management
+import { useHistory, useLocation, Link } from "react-router-dom";
 import queryString from "query-string";
 
-import { pinyinify } from "../utilities";
+// themes and components
 import Footer from "../components/Footer";
-
 import { linkHover } from "../themes";
 
+// other utilities
+import { pinyinify } from "../utilities";
+
 const Results = () => {
+	// enable location and history
 	let history = useHistory();
 	let location = useLocation();
-	let [loading, setLoading] = useState(false);
-	let [results, setResults] = useState([]);
-	let [searchWord, setSearchWord] = useState("");
 
+	let [loading, setLoading] = useState(false); // whether results are loading
+	let [results, setResults] = useState([]); // store search results
+	let [searchWord, setSearchWord] = useState(""); // search query
+
+	// parse search parameters and get mode and query
 	let queryParams = queryString.parse(location.search);
 	let modeParam = queryParams["mode"];
 	let searchParam = queryParams["search"];
 
+	// update the query state if different
 	if (searchParam !== searchWord) {
 		setSearchWord(searchParam);
 	}
 
+	// resolve other modes
 	if (modeParam !== "simplified" && modeParam !== "traditional") {
 		modeParam = "simplified";
 		history.push(`/?mode=${modeParam}`);
 	}
 
+	// initial calls
 	useEffect(() => {
 		setLoading(true);
 		// ping the search endpoint to warm it up
@@ -47,10 +56,13 @@ const Results = () => {
 
 	return (
 		<div>
+			{/* Results container */}
 			<div className="w-full md:w-3/4 mx-auto mb-8">
+				{/* Report result count */}
 				<div className="text-2xl mt-12 mb-2 english-serif">
 					{results.length} results for "{searchParam}"
 				</div>
+				{/* Render results */}
 				{results.length > 0 && searchParam !== "" && (
 					<div
 						className={`shadow-lg z-10 text-left bg-white dark:bg-dark-500 border-2 w-full border-black dark:border-gray-200 p-4`}
@@ -67,15 +79,18 @@ const Results = () => {
 								>
 									<div className={`p-2`}>
 										<div className="font-semibold">
+											{/* Result character */}
 											<div className="text-2xl inline chinese-serif">
 												{modeParam === "simplified"
 													? result["simplified"]
 													: result["traditional"]}
 											</div>
+											{/* Pinyin */}
 											<div className="pl-2 text-xl inline text-gray-700 dark:text-gray-300 english-serif">
 												{pinyinify(result["pinyin"])}
 											</div>
 										</div>
+										{/* Definition */}
 										<div className="text-gray-700 dark:text-gray-300 english-serif">
 											{result["definition"]}
 										</div>

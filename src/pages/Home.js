@@ -1,19 +1,22 @@
 import React, { useState, useEffect, useRef } from "react";
 
+// location management
 import { useHistory, useLocation, Link } from "react-router-dom";
 import queryString from "query-string";
 
-import _ from "lodash";
-
+// themes and components
 import { linkHover, borderPrimaryColor } from "../themes";
 import { useDarkMode } from "../components/DarkMode";
 import Footer from "../components/Footer";
 import { useWindowDimensions } from "../components/WindowDimensionsProvider";
 
+// loading animation
 import BarLoader from "react-spinners/BarLoader";
 import { css } from "@emotion/core";
 
+// other utilities
 import { pinyinify, numberWithCommas } from "../utilities";
+import _ from "lodash";
 
 const Home = () => {
 	// dark mode functions
@@ -206,6 +209,7 @@ const Home = () => {
 														className={`py-1 px-3`}
 													>
 														<div className="font-semibold">
+															{/* Result character */}
 															<div className="text-xl inline chinese-serif">
 																{modeParam ===
 																"simplified"
@@ -216,6 +220,7 @@ const Home = () => {
 																			"traditional"
 																	  ]}
 															</div>
+															{/* Pinyin */}
 															<div className="pl-2 inline text-gray-700 dark:text-gray-300 english-serif">
 																{pinyinify(
 																	result[
@@ -224,6 +229,7 @@ const Home = () => {
 																)}
 															</div>
 														</div>
+														{/* Definition */}
 														<div className="text-gray-700 dark:text-gray-300 english-serif">
 															{
 																result[
