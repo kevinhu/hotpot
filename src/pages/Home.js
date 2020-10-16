@@ -1,48 +1,56 @@
 import React, { useState, useEffect, useRef } from "react";
+
 import { useHistory, useLocation, Link } from "react-router-dom";
-
-import { pinyinify, numberWithCommas } from "../utilities";
-
-import BarLoader from "react-spinners/BarLoader";
-import { css } from "@emotion/core";
-
 import queryString from "query-string";
 
+import _ from "lodash";
+
+import { linkHover, borderPrimaryColor } from "../themes";
 import { useDarkMode } from "../components/DarkMode";
 import Footer from "../components/Footer";
 import { useWindowDimensions } from "../components/WindowDimensionsProvider";
 
-import { linkHover, borderPrimaryColor } from "../themes";
+import BarLoader from "react-spinners/BarLoader";
+import { css } from "@emotion/core";
 
-import _ from "lodash";
+import { pinyinify, numberWithCommas } from "../utilities";
 
 const Home = () => {
+	// dark mode functions
 	const [theme, toggleTheme, componentMounted] = useDarkMode();
+
+	// enable location and history
 	let history = useHistory();
 	let location = useLocation();
+
+	// get screen dimensions
 	const { width } = useWindowDimensions();
 	const isMobile = width < 768;
 
-	let [searchWord, setSearchWord] = useState("");
-	let [results, setResults] = useState([]);
-	let [searchFocused, setSearchFocused] = useState(false);
-	let [loading, setLoading] = useState(false);
+	let [searchWord, setSearchWord] = useState(""); // current text in search box
+	let [results, setResults] = useState([]); // preview search results
+	let [searchFocused, setSearchFocused] = useState(false); // if search box is focused
+	let [loading, setLoading] = useState(false); // if search preview is loading
 
+	// parse search parameters and get mode
 	let queryParams = queryString.parse(location.search);
 	let modeParam = queryParams["mode"];
 
+	// resolve other modes
 	if (modeParam !== "simplified" && modeParam !== "traditional") {
 		modeParam = "simplified";
 		history.replace(`/?mode=${modeParam}`);
 	}
 
-	const handleSubmit = (event) => {
-		event.preventDefault();
-		history.push(
-			`/results?search=${encodeURI(searchWord)}&mode=${modeParam}`
-		);
+	// search while typing handler
+	const updateSearch = (event) => {
+		event.persist();
+		setSearchWord(event.target.value);
+
+		executeSearch(event.target.value);
 	};
 
+	// execute search handler (debounced)
 	const executeSearch = useRef(
 		_.debounce((query) => {
 			// if query is just whitespace
@@ -64,29 +72,19 @@ const Home = () => {
 		}, 160)
 	).current;
 
-	const handleChange = (event) => {
-		event.persist();
-		setSearchWord(event.target.value);
-
-		executeSearch(event.target.value);
+	// handle search submit event
+	const handleSubmit = (event) => {
+		event.preventDefault();
+		history.push(
+			`/results?search=${encodeURI(searchWord)}&mode=${modeParam}`
+		);
 	};
-
-	useEffect(() => {
-		// ping the search endpoint to warm it up
-		fetch(`https://hotpot-search.kevinhu.io/.netlify/functions/search`);
-		// add when mounted
-		document.addEventListener("mousedown", handleClick);
-		// return function to be called when unmounted
-		return () => {
-			document.removeEventListener("mousedown", handleClick);
-		};
-	}, []);
 
 	// handlers for detecting clicks outside of search input and suggestions
 	// see https://medium.com/@pitipatdop/little-neat-trick-to-capture-click-outside-with-react-hook-ba77c37c7e82
 	const searchContainer = useRef();
 
-	const handleClick = (e) => {
+	const checkSearchFocus = (e) => {
 		if (searchContainer.current.contains(e.target)) {
 			// inside click
 			return;
@@ -95,6 +93,19 @@ const Home = () => {
 		setSearchFocused(false);
 	};
 
+	// initial calls
+	useEffect(() => {
+		// ping the search endpoint to warm it up
+		fetch(`https://hotpot-search.kevinhu.io/.netlify/functions/search`);
+		// add when mounted
+		document.addEventListener("mousedown", checkSearchFocus);
+		// return function to be called when unmounted
+		return () => {
+			document.removeEventListener("mousedown", checkSearchFocus);
+		};
+	}, []);
+
+	// switch between simplified-traditional
 	const toggleMode = () => {
 		queryParams["mode"] =
 			queryParams["mode"] === "simplified" ? "traditional" : "simplified";
@@ -102,16 +113,9 @@ const Home = () => {
 		history.push(`/?mode=${queryParams["mode"]}`);
 	};
 
-	const override = css`
-		width: 100%;
-		height: 2px;
-		display: block;
-		margin-top: -2px;
-		background-color: ${theme === "dark" ? "white" : "black"};
-	`;
-
 	return (
 		<div>
+			{/* Dark mode toggle */}
 			<div
 				onClick={toggleTheme}
 				checked={theme === "dark"}
@@ -120,16 +124,20 @@ const Home = () => {
 			>
 				{theme === "dark" ? "暗" : "光"}
 			</div>
+			{/* Search box container */}
 			<div
 				className={`w-full md:w-2/3 xl:w-1/2 left-0 right-0 absolute mx-auto text-center mt-32 py-12 shadow-xl bg-white dark:bg-dark-900`}
 			>
+				{/* Logo */}
 				<div
 					className="english-serif red font-semibold pb-8"
 					style={{ fontSize: "4rem", lineHeight: "4rem" }}
 				>
 					hotpot
 				</div>
+				{/* Search form container */}
 				<div>
+					{/* Search form */}
 					<form
 						onSubmit={handleSubmit}
 						className={`chinese-serif outline-none w-full ${
@@ -140,6 +148,7 @@ const Home = () => {
 					>
 						<div className="w-full relative" ref={searchContainer}>
 							<div className="shadow-lg flex">
+								{/* Simplified-traditional toggle */}
 								<div
 									onClick={toggleMode}
 									className={`select-none cursor-pointer border-solid border-2 text-xl chinese-serif p-2 flex-none border-black dark:border-gray-200 bg-black text-white dark:bg-gray-200 dark:text-black`}
@@ -148,6 +157,7 @@ const Home = () => {
 										? "简体"
 										: "繁体"}
 								</div>
+								{/* Search input box */}
 								<input
 									className={`text-lg chinese-serif py-2 px-3 outline-none w-full bg-white dark:bg-dark-900 border-solid border-2 border-black dark:border-gray-200 overflow-x-hidden`}
 									type="text"
@@ -155,17 +165,27 @@ const Home = () => {
 										118639
 									)} words`}
 									value={searchWord}
-									onChange={handleChange}
+									onChange={updateSearch}
 									onFocus={() => setSearchFocused(true)}
 									onClick={() => {}}
 								></input>
 							</div>
+							{/* Search preview loading animation */}
 							<BarLoader
-								css={override}
+								css={css`
+									width: 100%;
+									height: 2px;
+									display: block;
+									margin-top: -2px;
+									background-color: ${theme === "dark"
+										? "white"
+										: "black"};
+								`}
 								size={"100%"}
 								color={theme === "dark" ? "#c10000" : "#e84a5f"}
 								loading={loading}
 							/>
+							{/* Render search results */}
 							{results.length > 0 &&
 								searchWord !== "" &&
 								searchFocused && (
@@ -218,6 +238,7 @@ const Home = () => {
 									</div>
 								)}
 						</div>
+						{/* Overlay background on mobile */}
 						<div
 							className={`h-screen w-full bg-white dark:bg-black ${
 								searchFocused && isMobile ? "block" : "hidden"
