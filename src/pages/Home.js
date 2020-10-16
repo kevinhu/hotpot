@@ -223,7 +223,7 @@ const Home = () => {
 			</div>
 
 			<div
-				className="text-center w-full absolute bottom-0 text-gray-800 dark:text-gray-200"
+				className="pb-4 text-center w-full absolute bottom-0 text-gray-800 dark:text-gray-200"
 				style={{ zIndex: -1 }}
 			>
 				Made by{" "}
@@ -234,6 +234,15 @@ const Home = () => {
 					rel="noopener noreferrer"
 				>
 					Kevin Hu
+				</a>{" "}
+				and{" "}
+				<a
+					className={`underline ${linkHover}`}
+					href="https://https://taehyoungjo.github.io/"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					Tae Hyoung Jo
 				</a>
 				<br />
 				<a
