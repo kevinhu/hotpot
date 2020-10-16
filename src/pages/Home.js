@@ -149,7 +149,7 @@ const Home = () => {
 										: "繁体"}
 								</div>
 								<input
-									className={`text-lg chinese-serif py-2 px-3 outline-none w-full bg-white dark:bg-dark-900 border-solid border-2 border-black dark:border-gray-200`}
+									className={`text-lg chinese-serif py-2 px-3 outline-none w-full bg-white dark:bg-dark-900 border-solid border-2 border-black dark:border-gray-200 overflow-x-hidden`}
 									type="text"
 									placeholder={`Search ${numberWithCommas(
 										118639

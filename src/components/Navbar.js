@@ -111,7 +111,7 @@ const Navbar = () => {
     >
       <Link
         to="/"
-        className={`hidden sm:block font-semibold english-serif px-6 py-2 red text-2xl`}
+        className={`hidden md:block font-semibold english-serif px-6 py-2 red text-2xl`}
       >
         hotpot
       </Link>
