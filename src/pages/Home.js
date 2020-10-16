@@ -10,6 +10,7 @@ import queryString from "query-string";
 
 import { useDarkMode } from "../components/DarkMode";
 import Footer from "../components/Footer";
+import { useWindowDimensions } from "../components/WindowDimensionsProvider";
 
 import { linkHover, borderPrimaryColor } from "../themes";
 
@@ -19,6 +20,8 @@ const Home = () => {
 	const [theme, toggleTheme, componentMounted] = useDarkMode();
 	let history = useHistory();
 	let location = useLocation();
+	const { width } = useWindowDimensions();
+	const isMobile = width < 768;
 
 	let [searchWord, setSearchWord] = useState("");
 	let [results, setResults] = useState([]);
@@ -118,12 +121,7 @@ const Home = () => {
 				{theme === "dark" ? "暗" : "光"}
 			</div>
 			<div
-				className={`w-full md:w-2/3 xl:w-1/2 absolute mx-auto text-center py-12 shadow-xl bg-white dark:bg-dark-900`}
-				style={{
-					top: "40%",
-					left: "50%",
-					transform: "translate(-50%, -50%)",
-				}}
+				className={`w-full md:w-2/3 xl:w-1/2 left-0 right-0 absolute mx-auto text-center mt-32 py-12 shadow-xl bg-white dark:bg-dark-900`}
 			>
 				<div
 					className="english-serif red font-semibold pb-8"
@@ -134,7 +132,11 @@ const Home = () => {
 				<div>
 					<form
 						onSubmit={handleSubmit}
-						className="chinese-serif px-4 md:px-12 bg-transparent outline-none w-full"
+						className={`chinese-serif outline-none w-full ${
+							searchFocused && isMobile
+								? "fixed block mt-0 top-0 px-0 left-0"
+								: "px-4 md:px-12 "
+						}`}
 					>
 						<div className="w-full relative" ref={searchContainer}>
 							<div className="shadow-lg flex">
@@ -147,7 +149,7 @@ const Home = () => {
 										: "繁体"}
 								</div>
 								<input
-									className={`text-lg chinese-serif py-2 px-3 outline-none w-full bg-transparent border-solid border-2 border-black dark:border-gray-200`}
+									className={`text-lg chinese-serif py-2 px-3 outline-none w-full bg-white dark:bg-dark-900 border-solid border-2 border-black dark:border-gray-200`}
 									type="text"
 									placeholder={`Search ${numberWithCommas(
 										118639
@@ -216,6 +218,11 @@ const Home = () => {
 									</div>
 								)}
 						</div>
+						<div
+							className={`h-screen w-full bg-white dark:bg-black ${
+								searchFocused && isMobile ? "block" : "hidden"
+							}`}
+						></div>
 					</form>
 				</div>
 			</div>
