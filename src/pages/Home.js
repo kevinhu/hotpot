@@ -34,7 +34,9 @@ const Home = () => {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		history.push(`/results?search=${searchWord}&mode=${modeParam}`);
+		history.push(
+			`/results?search=${encodeURI(searchWord)}&mode=${modeParam}`
+		);
 	};
 
 	const executeSearch = useRef(
@@ -174,7 +176,9 @@ const Home = () => {
 										{results.map((result, index) => {
 											return (
 												<Link
-													to={`/word/${result["simplified"]}?mode=${modeParam}`}
+													to={`/word/${encodeURI(
+														result["simplified"]
+													)}?mode=${modeParam}`}
 													className={`${linkHover} block bg-white dark:bg-dark-500 transform hover:scale-105 hover:shadow dark-hover:bg-dark-800 hover:z-20 relative`}
 													key={index}
 												>

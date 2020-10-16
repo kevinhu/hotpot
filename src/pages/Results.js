@@ -31,7 +31,9 @@ const Results = () => {
 		setLoading(true);
 		// ping the search endpoint to warm it up
 		fetch(
-			`https://hotpot-search.kevinhu.io/.netlify/functions/search?query=${searchWord}&mode=${modeParam}&limit=64`
+			`https://hotpot-search.kevinhu.io/.netlify/functions/search?query=${encodeURI(
+				searchWord
+			)}&mode=${modeParam}&limit=64`
 		)
 			.then((response) => {
 				return response.json();
@@ -55,7 +57,9 @@ const Results = () => {
 					{results.map((result, index) => {
 						return (
 							<Link
-								to={`/word/${result["simplified"]}?mode=${modeParam}`}
+								to={`/word/${encodeURI(
+									result["simplified"]
+								)}?mode=${modeParam}`}
 								className={`${linkHover} block bg-white dark:bg-dark-500 transform hover:scale-105 hover:shadow dark-hover:bg-dark-800 hover:z-20 relative`}
 								key={index}
 							>

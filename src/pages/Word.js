@@ -69,7 +69,7 @@ const Word = () => {
 
 	if (modeParam !== "simplified" && modeParam !== "traditional") {
 		modeParam = "simplified";
-		history.replace(`/word/${wordParam}/?mode=${modeParam}`);
+		history.replace(`/word/${encodeURI(wordParam)}/?mode=${modeParam}`);
 	}
 
 	let otherMode;
@@ -121,12 +121,16 @@ const Word = () => {
 						if (modeParam === "simplified") {
 							const alt = data["traditional"][0];
 							history.replace(
-								`/word/${wordParam}/?mode=${modeParam}&alt=${alt}`
+								`/word/${encodeURI(
+									wordParam
+								)}/?mode=${modeParam}&alt=${encodeURI(alt)}`
 							);
 						} else if (modeParam === "traditional") {
 							const alt = data["simplified"][0];
 							history.replace(
-								`/word/${wordParam}/?mode=${modeParam}&alt=${alt}`
+								`/word/${encodeURI(
+									wordParam
+								)}/?mode=${modeParam}&alt=${encodeURI(alt)}`
 							);
 						}
 						setLoading(false);
@@ -233,7 +237,9 @@ const Word = () => {
 						removeDuplicates(wordData["traditional"]).map(
 							(traditional, index) => (
 								<Link
-									to={`/word/${traditional}/?mode=${otherMode}`}
+									to={`/word/${encodeURI(
+										traditional
+									)}/?mode=${otherMode}`}
 									className={`dark:text-gray-400 ${linkHover} 
 											}`}
 									key={index}
@@ -251,7 +257,9 @@ const Word = () => {
 						removeDuplicates(wordData["simplified"]).map(
 							(simplified, index) => (
 								<Link
-									to={`/word/${simplified}/?mode=${otherMode}`}
+									to={`/word/${encodeURI(
+										simplified
+									)}/?mode=${otherMode}`}
 									className={`dark:text-gray-400 ${linkHover} 
 											}`}
 									key={index}
@@ -305,7 +313,9 @@ const Word = () => {
 							? wordData["characters"].map((character, index) => {
 									return (
 										<Link
-											to={`/word/${character["word"]}/?mode=${modeParam}`}
+											to={`/word/${encodeURI(
+												character["word"]
+											)}/?mode=${modeParam}`}
 											className={`block bg-white dark:bg-dark-800 transform hover:scale-105 hover:shadow-lg dark-hover:bg-dark-800 hover:z-20 relative -ml-4 p-4 ${linkHover} ${
 												!character["definition"] &&
 												"disabled-link"
@@ -361,7 +371,9 @@ const Word = () => {
 									) {
 										return (
 											<Link
-												to={`/word/${character["word"]}/?mode=${modeParam}`}
+												to={`/word/${encodeURI(
+													character["word"]
+												)}/?mode=${modeParam}`}
 												className={`block bg-white dark:bg-dark-800 transform hover:scale-105 hover:shadow-lg dark-hover:bg-dark-800 hover:z-20 relative -ml-4 p-4 ${linkHover} ${
 													!character["definition"] &&
 													"disabled-link"
@@ -516,7 +528,9 @@ const Word = () => {
 								return (
 									<div className="pt-1" key={index}>
 										<Link
-											to={`/word/${contain_word["word"]}/?mode=${modeParam}`}
+											to={`/word/${encodeURI(
+												contain_word["word"]
+											)}/?mode=${modeParam}`}
 											className={`${linkHover} block bg-white dark:bg-dark-800 transform hover:scale-105 hover:shadow-lg dark-hover:bg-dark-800 hover:z-20 relative -ml-4 p-4 -mb-4`}
 										>
 											<div
@@ -583,7 +597,9 @@ const Word = () => {
 									key={index}
 								>
 									<Link
-										to={`/word/${related_word["word"]}/?mode=${modeParam}`}
+										to={`/word/${encodeURI(
+											related_word["word"]
+										)}/?mode=${modeParam}`}
 										className={`${linkHover} block bg-white dark:bg-dark-800 transform hover:scale-105 hover:shadow-lg dark-hover:bg-dark-800 hover:z-20 relative -ml-4 p-4 -mb-4`}
 									>
 										<div
