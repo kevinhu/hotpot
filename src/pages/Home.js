@@ -126,18 +126,15 @@ const Home = () => {
 				}}
 			>
 				<div
-					className="english-serif red font-semibold"
+					className="english-serif red font-semibold pb-8"
 					style={{ fontSize: "4rem", lineHeight: "4rem" }}
 				>
 					hotpot
 				</div>
-				<div className="english-serif text-xl text-gray-600 pt-4 pb-8">
-					A modern Chinese-English dictionary
-				</div>
 				<div>
 					<form
 						onSubmit={handleSubmit}
-						className="chinese-serif px-12 bg-transparent outline-none w-full"
+						className="chinese-serif px-4 md:px-12 bg-transparent outline-none w-full"
 					>
 						<div className="w-full relative" ref={searchContainer}>
 							<div className="shadow-lg flex">

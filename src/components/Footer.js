@@ -20,7 +20,7 @@ const Footer = ({ className }) => {
 			and{" "}
 			<a
 				className={`underline ${linkHover}`}
-				href="https://https://taehyoungjo.github.io/"
+				href="https://taehyoungjo.github.io/"
 				target="_blank"
 				rel="noopener noreferrer"
 			>
