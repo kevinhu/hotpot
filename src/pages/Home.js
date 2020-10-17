@@ -200,7 +200,7 @@ const Home = () => {
 											return (
 												<Link
 													to={`/word/${encodeURI(
-														result["simplified"]
+														result[modeParam]
 													)}?mode=${modeParam}`}
 													className={`${linkHover} ${linkHoverScale} block bg-white dark:bg-dark-500 dark-hover:bg-dark-800`}
 													key={index}

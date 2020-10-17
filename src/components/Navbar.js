@@ -119,7 +119,7 @@ const Navbar = () => {
     >
       {/* Logo and link to home */}
       <Link
-        to="/"
+        to={`/?mode=${modeParam}`}
         className={`hidden md:block font-semibold english-serif px-6 py-2 red text-2xl`}
       >
         hotpot
@@ -155,7 +155,7 @@ const Navbar = () => {
               {results.map((result, index) => {
                 return (
                   <Link
-                    to={`/word/${result["simplified"]}?mode=${modeParam}`}
+                    to={`/word/${result[modeParam]}?mode=${modeParam}`}
                     onClick={() => setSearchFocused(false)}
                     className={`${linkHover} ${linkHoverScale} block bg-white dark:bg-dark-500 dark-hover:bg-dark-800`}
                     key={index}
