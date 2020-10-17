@@ -226,7 +226,7 @@ export function splitFirst(string, delim, limit) {
  * Get the ordinal suffix of a word (e.g. 1 -> "st", 2 -> "nd", etc.)
  * @param {int} i
  */
-const ordinalSuffixOf = (i) => {
+export const ordinalSuffixOf = (i) => {
   var j = i % 10,
     k = i % 100;
   if (j === 1 && k !== 11) {

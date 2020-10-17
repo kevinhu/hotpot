@@ -451,23 +451,37 @@ const Word = () => {
 						{wordData["sentences"].length === 0 &&
 							"No example sentences found."}
 						{wordData["sentences"].map((sentence, index) => {
-							let sentenceWord = sentence["chinese"];
-							let [beforeWord, afterWord] = splitFirst(
-								sentenceWord,
-								word,
-								1
+							let sentenceSplit = sentence["chinese"].split(
+								wordData["word"]
+							);
+
+							let wordHighlight = (
+								<div className="red inline">
+									{wordData["word"]}
+								</div>
+							);
+
+							let splitLen = sentenceSplit.length;
+
+							let sentenceJoin = sentenceSplit.map(
+								(text, index) => {
+									if (index < splitLen - 1) {
+										return (
+											<React.Fragment>
+												{text}
+												{wordHighlight}
+											</React.Fragment>
+										);
+									} else {
+										return text;
+									}
+								}
 							);
 
 							return (
 								<div className="py-3" key={index}>
 									<div className="chinese-serif text-xl">
-										{beforeWord}
-										{
-											<div className="red inline">
-												{word}
-											</div>
-										}
-										{afterWord}
+										{sentenceJoin}
 									</div>
 									<div className="text-gray-700 dark:text-gray-500">
 										{sentence["english"]}
