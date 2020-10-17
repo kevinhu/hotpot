@@ -13,6 +13,7 @@ import PinyinCharacter from "../components/PinyinCharacter.js";
 import NotFound from "../assets/not_found.svg";
 import {
 	linkHover,
+	linkHoverScale,
 	textSecondaryColor,
 	borderPrimaryColor,
 	borderSecondaryColor,
@@ -331,7 +332,7 @@ const Word = () => {
 											to={`/word/${encodeURI(
 												character["word"]
 											)}/?mode=${modeParam}`}
-											className={`block bg-white dark:bg-dark-800 transform hover:scale-105 hover:shadow-lg dark-hover:bg-dark-800 hover:z-20 relative -ml-4 p-4 ${linkHover} ${
+											className={`block bg-white dark:bg-dark-800 -ml-4 p-4 dark-hover:bg-dark-800 ${linkHover} ${linkHoverScale} ${
 												!character["definition"] &&
 												"disabled-link"
 											}`}
@@ -389,7 +390,7 @@ const Word = () => {
 												to={`/word/${encodeURI(
 													character["word"]
 												)}/?mode=${modeParam}`}
-												className={`block bg-white dark:bg-dark-800 transform hover:scale-105 hover:shadow-lg dark-hover:bg-dark-800 hover:z-20 relative -ml-4 p-4 ${linkHover} ${
+												className={`block bg-white dark:bg-dark-800 dark-hover:bg-dark-800 -ml-4 p-4 ${linkHover} ${linkHoverScale} ${
 													!character["definition"] &&
 													"disabled-link"
 												}`}
@@ -564,7 +565,7 @@ const Word = () => {
 											to={`/word/${encodeURI(
 												contain_word["word"]
 											)}/?mode=${modeParam}`}
-											className={`${linkHover} block bg-white dark:bg-dark-800 transform hover:scale-105 hover:shadow-lg dark-hover:bg-dark-800 hover:z-20 relative -ml-4 p-4 -mb-4`}
+											className={`${linkHover} ${linkHoverScale} block bg-white dark:bg-dark-800 dark-hover:bg-dark-800 -ml-4 p-4 -mb-4`}
 										>
 											<div
 												className={`chinese-serif flex flex-wrap text-xl`}
@@ -634,7 +635,7 @@ const Word = () => {
 										to={`/word/${encodeURI(
 											related_word["word"]
 										)}/?mode=${modeParam}`}
-										className={`${linkHover} block bg-white dark:bg-dark-800 transform hover:scale-105 hover:shadow-lg dark-hover:bg-dark-800 hover:z-20 relative -ml-4 p-4 -mb-4`}
+										className={`${linkHover} ${linkHoverScale} block bg-white dark:bg-dark-800 dark-hover:bg-dark-800 -ml-4 p-4 -mb-4`}
 									>
 										<div
 											className={`chinese-serif flex flex-wrap text-xl`}

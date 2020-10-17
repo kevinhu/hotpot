@@ -6,7 +6,7 @@ import queryString from "query-string";
 
 // themes and components
 import { useDarkMode } from "../components/DarkMode";
-import { linkHover, borderPrimaryColor } from "../themes";
+import { linkHover, linkHoverScale, borderPrimaryColor } from "../themes";
 
 // other utilities
 import { pinyinify, numberWithCommas } from "../utilities";
@@ -157,7 +157,7 @@ const Navbar = () => {
                   <Link
                     to={`/word/${result["simplified"]}?mode=${modeParam}`}
                     onClick={() => setSearchFocused(false)}
-                    className={`${linkHover} block bg-white dark:bg-dark-500 transform hover:scale-105 hover:shadow dark-hover:bg-dark-800 hover:z-20 relative`}
+                    className={`${linkHover} ${linkHoverScale} block bg-white dark:bg-dark-500 dark-hover:bg-dark-800`}
                     key={index}
                   >
                     <div className={`py-1 px-3`}>

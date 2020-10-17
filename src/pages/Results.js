@@ -6,7 +6,7 @@ import queryString from "query-string";
 
 // themes and components
 import Footer from "../components/Footer";
-import { linkHover } from "../themes";
+import { linkHover, linkHoverScale } from "../themes";
 
 // other utilities
 import { pinyinify } from "../utilities";
@@ -74,7 +74,7 @@ const Results = () => {
 									to={`/word/${encodeURI(
 										result["simplified"]
 									)}?mode=${modeParam}`}
-									className={`${linkHover} block bg-white dark:bg-dark-500 transform hover:scale-105 hover:shadow dark-hover:bg-dark-800 hover:z-20 relative`}
+									className={`${linkHover} ${linkHoverScale} block bg-white dark:bg-dark-500 dark-hover:bg-dark-800`}
 									key={index}
 								>
 									<div className={`p-2`}>

@@ -5,7 +5,7 @@ import { useHistory, useLocation, Link } from "react-router-dom";
 import queryString from "query-string";
 
 // themes and components
-import { linkHover, borderPrimaryColor } from "../themes";
+import { linkHover, linkHoverScale, borderPrimaryColor } from "../themes";
 import { useDarkMode } from "../components/DarkMode";
 import Footer from "../components/Footer";
 import { useWindowDimensions } from "../components/WindowDimensionsProvider";
@@ -202,7 +202,7 @@ const Home = () => {
 													to={`/word/${encodeURI(
 														result["simplified"]
 													)}?mode=${modeParam}`}
-													className={`${linkHover} block bg-white dark:bg-dark-500 transform hover:scale-105 hover:shadow dark-hover:bg-dark-800 hover:z-20 relative`}
+													className={`${linkHover} ${linkHoverScale} block bg-white dark:bg-dark-500 dark-hover:bg-dark-800`}
 													key={index}
 												>
 													<div

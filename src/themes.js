@@ -1,6 +1,9 @@
 export const linkHover =
   "transition-colors transition-transform duration-300 ease-in-out hover-red";
 
+export const linkHoverScale =
+  "md:transform hover:scale-105 hover:shadow-lg hover:z-20 relative";
+
 export const primaryColor = "black";
 export const secondaryColor = "gray-700";
 
