@@ -11,7 +11,7 @@
 }
 
 .chinese-serif {
-	font-family: "Noto Serif SC", "Noto Serif TC", serif;
+	font-family: serif, "Noto Serif SC", "Noto Serif TC";
 }
 
 .red {
