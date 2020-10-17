@@ -35,7 +35,7 @@ cedict["toneless_pinyin"] = cedict["pinyin"].apply(remove_pinyin_tone)
 def format_definition(definition):
 
     # get rid of text in parentheses
-    definition = re.sub("\(.+\)", "", definition)
+    # definition = re.sub("\(.+\)", "", definition)
 
     # space out definitions
     definition = re.sub("/", "; ", definition)
