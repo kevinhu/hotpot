@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from "react";
 
-import PinyinCharacter from "../components/PinyinCharacter.js";
-
+// location management
 import { useHistory, useLocation } from "react-router-dom";
 import queryString from "query-string";
 
+// themes and components
 import { Link, useParams } from "react-router-dom";
 import LoadingBar from "react-top-loading-bar";
-
 import Loading from "../components/Loading";
 import Footer from "../components/Footer";
-
+import PinyinCharacter from "../components/PinyinCharacter.js";
 import NotFound from "../assets/not_found.svg";
-
 import {
 	linkHover,
 	textSecondaryColor,
@@ -20,12 +18,15 @@ import {
 	borderSecondaryColor,
 } from "../themes";
 
+// other utilities
 import {
 	pinyinify,
 	removeDuplicates,
 	getCharacterLength,
 	splitFirst,
+	ordinalSuffixOf,
 } from "../utilities";
+
 const IDEOGRAPHIC_DESCRIPTIONS = [
 	"⿰",
 	"⿱",
@@ -43,36 +44,24 @@ const IDEOGRAPHIC_DESCRIPTIONS = [
 
 const MAX_OTHER_DESCRIPTION_LENGTH = 64;
 
-const ordinal_suffix_of = (i) => {
-	var j = i % 10,
-		k = i % 100;
-	if (j === 1 && k !== 11) {
-		return "st";
-	}
-	if (j === 2 && k !== 12) {
-		return "nd";
-	}
-	if (j === 3 && k !== 13) {
-		return "rd";
-	}
-	return "th";
-};
-
 const Word = () => {
-	const [progress, setProgress] = useState(0);
-	// initialize url params
+	// enable location and history
 	let history = useHistory();
 	let location = useLocation();
 	let params = useParams();
+
+	// parse search parameters and get mode and query
 	let queryParams = queryString.parse(location.search);
 	let modeParam = queryParams["mode"];
 	let wordParam = params["word"];
 
+	// resolve other modes
 	if (modeParam !== "simplified" && modeParam !== "traditional") {
 		modeParam = "simplified";
 		history.replace(`/word/${encodeURI(wordParam)}/?mode=${modeParam}`);
 	}
 
+	// keep track of other mode
 	let otherMode;
 
 	if (modeParam === "simplified") {
@@ -81,23 +70,29 @@ const Word = () => {
 		otherMode = "simplified";
 	}
 
-	const { pathname } = useLocation();
+	const { pathname } = location;
 
+	// reset scroll when location changes
 	useEffect(() => {
 		window.scrollTo(0, 0);
 	}, [pathname]);
 
-	const [word, setWord] = useState();
-	const [wordMode, setWordMode] = useState();
-	const [wordData, setWordData] = useState();
-	const [loading, setLoading] = useState(false);
+	// keep track
+	const [word, setWord] = useState(); // current word to display
+	const [wordMode, setWordMode] = useState(); // current mode
+	const [wordData, setWordData] = useState(); // word data object
+	const [loading, setLoading] = useState(false); // whether or not page is loading
+	const [progress, setProgress] = useState(0); // top progress bar percentage
 
+	// initial calls
 	useEffect(() => {
 		if (wordParam && modeParam && !loading) {
 			// if word or mode changes, and we are not currently loading
 			if (wordParam !== word || modeParam !== wordMode) {
 				setLoading(true);
 				setProgress(0);
+
+				// get word data
 				fetch(
 					`https://raw.githubusercontent.com/kevinhu/dictionary-files/master/${modeParam}/${wordParam}.json`
 				)
@@ -140,14 +135,14 @@ const Word = () => {
 		}
 	}, [wordParam, modeParam, loading, word, wordMode, history]);
 
-	const sectionHeaderStyle = `text-xl font-semibold ${textSecondaryColor}`;
-
+	// if no word data
 	if (!wordData) {
+		// if not loading, assume word not found
 		if (!loading) {
 			return (
 				<div className="text-center w-full h-full p-12">
 					<img
-						alt="No repos found."
+						alt="Word not found."
 						className="py-12 w-1/2 md:w-1/3 m-auto select-none"
 						src={NotFound}
 					></img>
@@ -156,20 +151,27 @@ const Word = () => {
 					</div>
 				</div>
 			);
-		} else {
+		}
+		// otherwise, render the loading spinner
+		else {
 			return <Loading />;
 		}
 	}
 
+	// get type of word
 	const wordType = wordData["traditional"] ? "simplified" : "traditional";
+
+	// whether word has a single pinyin
 	const singlePinyin =
 		removeDuplicates(wordData["pinyin"].map((x) => x.toLowerCase()))
 			.length === 1;
 
-	let mainSize = 0;
-
 	const wordLength = getCharacterLength(wordData["word"]);
 
+	// size of title characters
+	let mainSize = 0;
+
+	// adjust size of title characters by length
 	if (wordLength < 3) {
 		mainSize = 6;
 	} else if (wordLength < 6) {
@@ -180,14 +182,20 @@ const Word = () => {
 		mainSize = 2;
 	}
 
+	// subsection header style
+	const sectionHeaderStyle = `text-xl font-semibold ${textSecondaryColor}`;
+
 	return (
 		<div className="w-full">
+			{/* Top loading stripe */}
 			<LoadingBar
 				color="#f11946"
 				progress={progress}
 				onLoaderFinished={() => setProgress(0)}
 			/>
+			{/* Word info container */}
 			<div className="w-full text-center pt-16">
+				{/* Word text */}
 				<div className="chinese-serif w-3/4 mx-auto flex justify-center flex-wrap pb-8 dark:text-gray-400">
 					{getCharacterLength(wordData["word"]) === 1 ? (
 						<PinyinCharacter
@@ -226,6 +234,7 @@ const Word = () => {
 					)}
 				</div>
 
+				{/* Other mode characters */}
 				<div className="mx-auto pb-2" style={{ width: "max-content" }}>
 					<div
 						className={`border-b-2 ${borderSecondaryColor} english-serif ${textSecondaryColor}`}
@@ -276,12 +285,16 @@ const Word = () => {
 						)}
 				</div>
 			</div>
+
+			{/* Container for word definitions, usage, etc. */}
 			<div
 				className={`shadow-xl w-full md:w-3/4 flex flex-wrap english-serif mx-auto mb-12 bg-white border-2 dark:bg-dark-800 ${borderPrimaryColor}`}
 			>
+				{/* Word definitions, characters, and example sentences */}
 				<div
 					className={`w-full md:w-2/3 border-r-2 ${borderSecondaryColor}`}
 				>
+					{/* Word definitions */}
 					<div
 						className={`p-6 border-b-2 ${borderSecondaryColor} dark:text-gray-400`}
 					>
@@ -302,6 +315,7 @@ const Word = () => {
 							</div>
 						))}
 					</div>
+					{/* Word characters/components */}
 					<div
 						className={`p-6 pr-2 border-b-2 ${borderSecondaryColor} dark:text-gray-400`}
 					>
@@ -429,6 +443,7 @@ const Word = () => {
 									}
 							  })}
 					</div>
+					{/* Word example sentences */}
 					<div className="p-6 dark:text-gray-400">
 						<div className={sectionHeaderStyle}>
 							Example sentences
@@ -462,7 +477,9 @@ const Word = () => {
 						})}
 					</div>
 				</div>
+				{/* Word statistics, containing words, and related words */}
 				<div className="w-full md:w-1/3">
+					{/* Word statistics */}
 					<div
 						className={`p-6 border-b-2 ${borderSecondaryColor} dark:text-gray-400`}
 					>
@@ -473,7 +490,7 @@ const Word = () => {
 								<div className="font-bold inline">
 									{wordData["rank"]}
 									<sup>
-										{ordinal_suffix_of(wordData["rank"])}
+										{ordinalSuffixOf(wordData["rank"])}
 									</sup>
 								</div>{" "}
 								most frequent word
@@ -496,6 +513,7 @@ const Word = () => {
 							<div>Word fraction unavailable.</div>
 						)}
 					</div>
+					{/* Containing words */}
 					<div
 						className={`p-6 pr-2 border-b-2 ${borderSecondaryColor} dark:text-gray-400`}
 					>
@@ -563,6 +581,7 @@ const Word = () => {
 							}
 						)}
 					</div>
+					{/* Related words */}
 					<div className="p-6 pr-2">
 						<div
 							className={`${sectionHeaderStyle} dark:text-gray-400`}
