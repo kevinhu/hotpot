@@ -91,7 +91,7 @@ const Results = () => {
 											</div>
 										</div>
 										{/* Definition */}
-										<div className="text-gray-800 text-lg dark:text-gray-300 english-serif">
+										<div className="text-gray-600 text-lg dark:text-gray-300 english-serif">
 											{result["definition"]}
 										</div>
 									</div>

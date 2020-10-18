@@ -122,7 +122,7 @@ const Home = () => {
 			<div
 				onClick={toggleTheme}
 				checked={theme === "dark"}
-				className="shadow-xl chinese-serif pt-2 pb-1 text-2xl px-3 level-6 mx-auto cursor-pointer select-none border-2 border-black bg-white dark:border-2 dark:border-gray-700 dark:bg-dark-700"
+				className="shadow-xl chinese-serif pt-1 pb-2 text-2xl px-3 level-6 mx-auto cursor-pointer select-none border-2 border-black bg-white dark:border-2 dark:border-gray-700 dark:bg-dark-700"
 				style={{ width: "max-content", marginTop: "-2px" }}
 			>
 				{theme === "dark" ? "暗" : "光"}
@@ -230,7 +230,7 @@ const Home = () => {
 															</div>
 														</div>
 														{/* Definition */}
-														<div className="text-gray-700 dark:text-gray-300 english-serif font-normal leading-4">
+														<div className="text-light-500 dark:text-light-700 english-serif font-normal leading-4">
 															{
 																result[
 																	"definition"
