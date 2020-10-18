@@ -59,7 +59,7 @@ const Results = () => {
 			{/* Results container */}
 			<div className="w-full md:w-3/4 mx-auto mb-8">
 				{/* Report result count */}
-				<div className="text-2xl mt-12 mb-2 english-serif">
+				<div className="text-2xl mt-12 mb-2 ml-6 english-serif">
 					{results.length} results for "{searchParam}"
 				</div>
 				{/* Render results */}
@@ -77,7 +77,7 @@ const Results = () => {
 									className={`${linkHover} ${linkHoverScale} block bg-white dark:bg-dark-500 dark-hover:bg-dark-800`}
 									key={index}
 								>
-									<div className={`px-4 pt-5 pb-4 leading-6`}>
+									<div className={`px-4 pt-3 pb-2 leading-6`}>
 										<div className="font-semibold">
 											{/* Result character */}
 											<div className="text-2xl inline chinese-serif">

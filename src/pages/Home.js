@@ -154,7 +154,7 @@ const Home = () => {
 								{/* Simplified-traditional toggle */}
 								<div
 									onClick={toggleMode}
-									className={`select-none cursor-pointer border-solid border-2 text-xl chinese-serif pt-2 pb-1 px-2 flex-none border-black dark:border-gray-200 bg-black text-white dark:bg-gray-200 dark:text-black`}
+									className={`select-none cursor-pointer border-solid border-2 text-xl chinese-serif p-2 leading-6 flex-none border-black dark:border-gray-200 bg-black text-white dark:bg-gray-200 dark:text-black`}
 								>
 									{modeParam === "simplified"
 										? "简体"
@@ -162,7 +162,7 @@ const Home = () => {
 								</div>
 								{/* Search input box */}
 								<input
-									className={`text-lg chinese-serif py-2 px-3 outline-none w-full bg-white dark:bg-dark-900 border-solid border-2 border-black dark:border-gray-200 overflow-x-hidden`}
+									className={`text-lg chinese-serif py-2 px-3  leading-6 outline-none w-full bg-white dark:bg-dark-900 border-solid border-2 border-black dark:border-gray-200 overflow-x-hidden`}
 									type="text"
 									placeholder={`Search ${numberWithCommas(
 										118639
@@ -206,7 +206,7 @@ const Home = () => {
 													key={index}
 												>
 													<div
-														className={`pt-2 pb-1 px-3`}
+														className={`pt-1 px-3`}
 													>
 														<div className="font-semibold leading-4">
 															{/* Result character */}
@@ -230,7 +230,7 @@ const Home = () => {
 															</div>
 														</div>
 														{/* Definition */}
-														<div className="text-gray-700 dark:text-gray-300 english-serif leading-4">
+														<div className="text-gray-700 dark:text-gray-300 english-serif font-normal leading-4">
 															{
 																result[
 																	"definition"

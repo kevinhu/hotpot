@@ -127,7 +127,7 @@ const Navbar = () => {
       {/* Simplified-traditional toggle */}
       <div
         onClick={toggleMode}
-        className={`flex-none chinese-serif py-auto text-xl px-2 py-2 cursor-pointer select-none border-l-2 border-black`}
+        className={`flex-none chinese-serif py-auto text-xl px-2 py-2 cursor-pointer select-none border-l-2 border-black dark:border-gray-800`}
       >
         <div className="align-middle ">
           {modeParam === "simplified" ? "简体" : "繁体"}
@@ -163,7 +163,7 @@ const Navbar = () => {
                     className={`${linkHover} ${linkHoverScale} py-2 block bg-white dark:bg-dark-500 dark-hover:bg-dark-800`}
                     key={index}
                   >
-                    <div className={`pt-2 pb-1 px-3`}>
+                    <div className={`pt-1 px-3`}>
                       <div className="font-semibold leading-4">
                         {/* Result character */}
                         <div className="text-xl inline chinese-serif">
@@ -192,7 +192,7 @@ const Navbar = () => {
       <div
         onClick={toggleTheme}
         checked={theme === "dark"}
-        className={`chinese-serif pt-2 pb-1 text-xl px-2 cursor-pointer select-none dark:text-gray-400`}
+        className={`chinese-serif text-xl p-2 cursor-pointer select-none dark:text-gray-400`}
       >
         {theme === "dark" ? "暗" : "光"}
       </div>
