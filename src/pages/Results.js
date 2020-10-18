@@ -57,9 +57,9 @@ const Results = () => {
 	return (
 		<div>
 			{/* Results container */}
-			<div className="w-full md:w-3/4 mx-auto mb-8">
+			<div className="w-full md:w-3/4 mx-auto mb-8 english-serif">
 				{/* Report result count */}
-				<div className="text-2xl mt-12 mb-2 ml-6 english-serif">
+				<div className="text-2xl mt-12 mb-2 ml-6">
 					{results.length} results for "{searchParam}"
 				</div>
 				{/* Render results */}
@@ -86,12 +86,12 @@ const Results = () => {
 													: result["traditional"]}
 											</div>
 											{/* Pinyin */}
-											<div className="pl-2 text-xl inline english-serif">
+											<div className="pl-2 text-xl inline">
 												{pinyinify(result["pinyin"])}
 											</div>
 										</div>
 										{/* Definition */}
-										<div className="text-light-500 dark:text-light-700 text-lg leading-5 english-serif">
+										<div className="text-light-500 dark:text-light-700 text-lg leading-5">
 											{result["definition"]}
 										</div>
 									</div>

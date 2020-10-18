@@ -185,10 +185,10 @@ const Word = () => {
 	}
 
 	// subsection header style
-	const sectionHeaderStyle = `text-xl font-semibold ${textPrimaryColor}`;
+	const sectionHeaderStyle = `english-serif text-xl font-semibold ${textPrimaryColor}`;
 
 	return (
-		<div className="w-full">
+		<div className="w-full chinese-serif">
 			{/* Top loading stripe */}
 			<LoadingBar
 				color="#f11946"
@@ -239,7 +239,7 @@ const Word = () => {
 				{/* Other mode characters */}
 				<div className="mx-auto pb-2" style={{ width: "max-content" }}>
 					<div
-						className={`border-b-2 ${borderSecondaryColor} english-serif ${textSecondaryColor}`}
+						className={`border-b-2 ${borderSecondaryColor} ${textSecondaryColor}`}
 					>
 						{wordType === "simplified"
 							? "Traditional"
@@ -290,7 +290,7 @@ const Word = () => {
 
 			{/* Container for word definitions, usage, etc. */}
 			<div
-				className={`shadow-xl w-full md:w-3/4 flex flex-wrap english-serif mx-auto mb-12 bg-white border-2 dark:bg-dark-800 ${borderPrimaryColor}`}
+				className={`shadow-xl w-full md:w-3/4 flex flex-wrap mx-auto mb-12 bg-white border-2 dark:bg-dark-800 ${borderPrimaryColor}`}
 			>
 				{/* Word definitions, characters, and example sentences */}
 				<div
@@ -313,7 +313,9 @@ const Word = () => {
 								>
 									({pinyinify(wordData["pinyin"][index])}){" "}
 								</div>
-								<div className={`inline ${textSecondaryColor}`}>
+								<div
+									className={`chinese-serif inline ${textSecondaryColor}`}
+								>
 									{definition.replace(/\//g, "; ")}
 								</div>
 							</div>

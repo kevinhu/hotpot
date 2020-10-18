@@ -117,7 +117,7 @@ const Home = () => {
 	};
 
 	return (
-		<div>
+		<div className="chinese-serif">
 			{/* Dark mode toggle */}
 			<div
 				onClick={toggleTheme}
@@ -133,7 +133,7 @@ const Home = () => {
 			>
 				{/* Logo */}
 				<div
-					className="english-serif red font-semibold pb-8"
+					className="red font-semibold pb-8 english-serif"
 					style={{ fontSize: "4rem", lineHeight: "4rem" }}
 				>
 					hotpot
@@ -221,7 +221,7 @@ const Home = () => {
 																	  ]}
 															</div>
 															{/* Pinyin */}
-															<div className="pl-2 inline english-serif">
+															<div className="pl-2 inline">
 																{pinyinify(
 																	result[
 																		"pinyin"
@@ -230,7 +230,7 @@ const Home = () => {
 															</div>
 														</div>
 														{/* Definition */}
-														<div className="text-light-500 dark:text-light-700 english-serif font-normal leading-4">
+														<div className="text-light-500 dark:text-light-700  font-normal leading-4">
 															{
 																result[
 																	"definition"
