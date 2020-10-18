@@ -86,7 +86,7 @@ const Results = () => {
 													: result["traditional"]}
 											</div>
 											{/* Pinyin */}
-											<div className="pl-2 text-xl inline text-gray-800 dark:text-gray-300 english-serif">
+											<div className="pl-2 text-xl inline english-serif">
 												{pinyinify(result["pinyin"])}
 											</div>
 										</div>

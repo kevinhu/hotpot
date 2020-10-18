@@ -5,10 +5,10 @@ export const linkHoverScale =
   "md:transform hover:scale-105 hover:shadow-lg hover:z-20 relative";
 
 export const primaryColor = "black";
-export const secondaryColor = "gray-700";
+export const secondaryColor = "light-500";
 
-export const darkPrimaryColor = "gray-200";
-export const darkSecondaryColor = "gray-500";
+export const darkPrimaryColor = "light-800";
+export const darkSecondaryColor = "light-600";
 
 export const textPrimaryColor = `text-${primaryColor} dark:text-${darkPrimaryColor}`;
 export const textSecondaryColor = `text-${secondaryColor} dark:text-${darkSecondaryColor}`;

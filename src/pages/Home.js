@@ -221,7 +221,7 @@ const Home = () => {
 																	  ]}
 															</div>
 															{/* Pinyin */}
-															<div className="pl-2 inline text-gray-700 dark:text-gray-300 english-serif">
+															<div className="pl-2 inline english-serif">
 																{pinyinify(
 																	result[
 																		"pinyin"

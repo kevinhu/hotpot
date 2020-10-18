@@ -14,6 +14,7 @@ import NotFound from "../assets/not_found.svg";
 import {
 	linkHover,
 	linkHoverScale,
+	textPrimaryColor,
 	textSecondaryColor,
 	borderPrimaryColor,
 	borderSecondaryColor,
@@ -184,7 +185,7 @@ const Word = () => {
 	}
 
 	// subsection header style
-	const sectionHeaderStyle = `text-xl font-semibold ${textSecondaryColor}`;
+	const sectionHeaderStyle = `text-xl font-semibold ${textPrimaryColor}`;
 
 	return (
 		<div className="w-full">
@@ -197,7 +198,7 @@ const Word = () => {
 			{/* Word info container */}
 			<div className="w-full text-center pt-16">
 				{/* Word text */}
-				<div className="chinese-serif w-3/4 mx-auto flex justify-center flex-wrap pb-8 dark:text-gray-400">
+				<div className="chinese-serif w-3/4 mx-auto flex justify-center flex-wrap pb-8">
 					{getCharacterLength(wordData["word"]) === 1 ? (
 						<PinyinCharacter
 							character={wordData["word"]}
@@ -251,7 +252,7 @@ const Word = () => {
 									to={`/word/${encodeURI(
 										traditional
 									)}/?mode=${otherMode}`}
-									className={`dark:text-gray-400 ${linkHover} 
+									className={`${textPrimaryColor} ${linkHover} 
 											}`}
 									key={index}
 								>
@@ -271,7 +272,7 @@ const Word = () => {
 									to={`/word/${encodeURI(
 										simplified
 									)}/?mode=${otherMode}`}
-									className={`dark:text-gray-400 ${linkHover} 
+									className={`${textPrimaryColor} ${linkHover} 
 											}`}
 									key={index}
 								>
@@ -296,9 +297,7 @@ const Word = () => {
 					className={`w-full md:w-2/3 border-r-2 ${borderSecondaryColor}`}
 				>
 					{/* Word definitions */}
-					<div
-						className={`p-6 border-b-2 ${borderSecondaryColor} dark:text-gray-400`}
-					>
+					<div className={`p-6 border-b-2 ${borderSecondaryColor}`}>
 						<div className={sectionHeaderStyle}>
 							{wordData["definition"].length > 1
 								? "Definitions"
@@ -309,16 +308,20 @@ const Word = () => {
 								<div className="inline font-bold">
 									{index + 1}.{" "}
 								</div>
-								<div className="inline font-semibold">
+								<div
+									className={`inline font-semibold ${textPrimaryColor}`}
+								>
 									({pinyinify(wordData["pinyin"][index])}){" "}
 								</div>
-								{definition.replace(/\//g, "; ")}
+								<div className={`inline ${textSecondaryColor}`}>
+									{definition.replace(/\//g, "; ")}
+								</div>
 							</div>
 						))}
 					</div>
 					{/* Word characters/components */}
 					<div
-						className={`p-6 pr-2 border-b-2 ${borderSecondaryColor} dark:text-gray-400`}
+						className={`p-6 pr-2 border-b-2 ${borderSecondaryColor} ${textPrimaryColor}`}
 					>
 						<div className={sectionHeaderStyle}>
 							{getCharacterLength(wordData["word"]) > 1
@@ -445,7 +448,7 @@ const Word = () => {
 							  })}
 					</div>
 					{/* Word example sentences */}
-					<div className="p-6 dark:text-gray-400">
+					<div className={`p-6 ${textPrimaryColor}`}>
 						<div className={sectionHeaderStyle}>
 							Example sentences
 						</div>
@@ -484,7 +487,7 @@ const Word = () => {
 									<div className="chinese-serif text-xl">
 										{sentenceJoin}
 									</div>
-									<div className="text-gray-700 dark:text-gray-500">
+									<div className={textSecondaryColor}>
 										{sentence["english"]}
 									</div>
 								</div>
@@ -495,42 +498,52 @@ const Word = () => {
 				{/* Word statistics, containing words, and related words */}
 				<div className="w-full md:w-1/3">
 					{/* Word statistics */}
-					<div
-						className={`p-6 border-b-2 ${borderSecondaryColor} dark:text-gray-400`}
-					>
+					<div className={`p-6 border-b-2 ${borderSecondaryColor}`}>
 						<div className={sectionHeaderStyle}>Statistics</div>
 
 						{wordData["rank"] !== -1 ? (
 							<div>
-								<div className="font-bold inline">
+								<div
+									className={`font-bold inline ${textPrimaryColor}`}
+								>
 									{wordData["rank"]}
 									<sup>
 										{ordinalSuffixOf(wordData["rank"])}
 									</sup>
 								</div>{" "}
-								most frequent word
+								<div className={`inline ${textSecondaryColor}`}>
+									most frequent word
+								</div>
 							</div>
 						) : (
-							<div>Word rank unavailable.</div>
+							<div className={textSecondaryColor}>
+								Word rank unavailable.
+							</div>
 						)}
 
 						{wordData["fraction"] !== -1 ? (
 							<div>
-								<div className="font-bold inline">
+								<div
+									className={`font-bold inline ${textPrimaryColor}`}
+								>
 									{(wordData["fraction"] * 100).toPrecision(
 										2
 									)}
 									%
 								</div>{" "}
-								of all words
+								<div className={`inline ${textSecondaryColor}`}>
+									of all words
+								</div>
 							</div>
 						) : (
-							<div>Word fraction unavailable.</div>
+							<div className={textSecondaryColor}>
+								Word fraction unavailable.
+							</div>
 						)}
 					</div>
 					{/* Containing words */}
 					<div
-						className={`p-6 pr-2 border-b-2 ${borderSecondaryColor} dark:text-gray-400`}
+						className={`p-6 pr-2 border-b-2 ${borderSecondaryColor} ${textPrimaryColor}`}
 					>
 						<div className={sectionHeaderStyle}>
 							Containing words
@@ -575,7 +588,7 @@ const Word = () => {
 											</div>
 
 											<div
-												className={`${textSecondaryColor}  break-all leading-5`}
+												className={`${textSecondaryColor} break-all leading-5`}
 											>
 												{contain_word["definition"]
 													.length >
@@ -599,7 +612,7 @@ const Word = () => {
 					{/* Related words */}
 					<div className="p-6 pr-2">
 						<div
-							className={`${sectionHeaderStyle} dark:text-gray-400`}
+							className={`${sectionHeaderStyle} ${textPrimaryColor}`}
 						>
 							See also
 						</div>
@@ -628,7 +641,7 @@ const Word = () => {
 
 							return (
 								<div
-									className="pt-1 dark:text-gray-400"
+									className={`pt-1 ${textPrimaryColor}`}
 									key={index}
 								>
 									<Link
