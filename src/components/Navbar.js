@@ -125,7 +125,7 @@ const Navbar = () => {
       {/* Logo and link to home */}
       <Link
         to={`/?mode=${modeParam}`}
-        className={`hidden md:block font-semibold english-serif px-6 pt-2 pb-2 red text-2xl`}
+        className={`hidden md:block font-semibold english-serif px-6 py-2 red text-2xl`}
       >
         hotpot
       </Link>
