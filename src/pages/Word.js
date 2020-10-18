@@ -25,7 +25,6 @@ import {
 	pinyinify,
 	removeDuplicates,
 	getCharacterLength,
-	splitFirst,
 	ordinalSuffixOf,
 } from "../utilities";
 

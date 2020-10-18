@@ -1,6 +1,5 @@
 import React from "react";
 
-import Styles from "./Loading.module.css";
 import ScaleLoader from "react-spinners/ScaleLoader";
 
 function Loading() {

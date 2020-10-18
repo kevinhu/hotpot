@@ -5,7 +5,7 @@ import { useHistory, useLocation, Link } from "react-router-dom";
 import queryString from "query-string";
 
 // themes and components
-import { linkHover, linkHoverScale, borderPrimaryColor } from "../themes";
+import { linkHover, linkHoverScale } from "../themes";
 import { useDarkMode } from "../components/DarkMode";
 import Footer from "../components/Footer";
 import { useWindowDimensions } from "../components/WindowDimensionsProvider";
