@@ -160,11 +160,11 @@ const Navbar = () => {
                   <Link
                     to={`/word/${result[modeParam]}?mode=${modeParam}`}
                     onClick={() => setSearchFocused(false)}
-                    className={`${linkHover} ${linkHoverScale} block bg-white dark:bg-dark-500 dark-hover:bg-dark-800`}
+                    className={`${linkHover} ${linkHoverScale} py-2 block bg-white dark:bg-dark-500 dark-hover:bg-dark-800`}
                     key={index}
                   >
-                    <div className={`py-1 px-3`}>
-                      <div className="font-semibold">
+                    <div className={`pt-2 pb-1 px-3`}>
+                      <div className="font-semibold leading-4">
                         {/* Result character */}
                         <div className="text-xl inline chinese-serif">
                           {modeParam === "simplified"
@@ -177,7 +177,7 @@ const Navbar = () => {
                         </div>
                       </div>
                       {/* Definition */}
-                      <div className="text-gray-700 dark:text-gray-300 english-serif">
+                      <div className="text-gray-700 dark:text-gray-300 english-serif leading-4">
                         {result["definition"]}
                       </div>
                     </div>
