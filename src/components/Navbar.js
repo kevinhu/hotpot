@@ -112,7 +112,7 @@ const Navbar = () => {
 
   return (
     <div
-      className={`shadow-lg w-full md:w-3/4 flex mx-auto bg-white dark:bg-dark-800 border-2 ${borderPrimaryColor}`}
+      className={`shadow-lg w-full md:w-3/4 flex content-center items-center mx-auto bg-white dark:bg-dark-800 leading-8 border-2 ${borderPrimaryColor}`}
       style={{
         marginTop: "-2px",
       }}
@@ -120,26 +120,28 @@ const Navbar = () => {
       {/* Logo and link to home */}
       <Link
         to={`/?mode=${modeParam}`}
-        className={`hidden md:block font-semibold english-serif px-6 py-2 red text-2xl`}
+        className={`hidden md:block font-semibold english-serif px-6 pt-2 pb-2 red text-2xl`}
       >
         hotpot
       </Link>
       {/* Simplified-traditional toggle */}
       <div
         onClick={toggleMode}
-        className={`flex-none chinese-serif py-3 text-xl px-2 cursor-pointer select-none bg-black text-white dark:bg-gray-800 dark:text-gray-500`}
+        className={`flex-none chinese-serif py-auto text-xl px-2 py-2 cursor-pointer select-none border-l-2 border-black`}
       >
-        {modeParam === "simplified" ? "简体" : "繁体"}
+        <div className="align-middle ">
+          {modeParam === "simplified" ? "简体" : "繁体"}
+        </div>
       </div>
       {/* Search form */}
       <form
         onSubmit={handleSubmit}
-        className={`chinese-serif bg-transparent outline-none w-full`}
+        className={`chinese-serif bg-transparent outline-none w-full border-l-2 py-2 border-r-2 ${borderPrimaryColor}`}
       >
         <div className="w-full h-full relative" ref={searchContainer}>
           {/* Search input box */}
           <input
-            className={`px-4 chinese-serif bg-transparent outline-none w-full h-full border-l-2 border-r-2 ${borderPrimaryColor}`}
+            className={`px-4 chinese-serif bg-transparent outline-none w-full h-full`}
             type="text"
             placeholder={`Search ${numberWithCommas(118639)} words`}
             value={searchWord}
@@ -150,7 +152,8 @@ const Navbar = () => {
           {/* Render search results */}
           {results.length > 0 && searchWord !== "" && searchFocused && (
             <div
-              className={`shadow-lg z-10 absolute text-left bg-white dark:bg-dark-800 border-2 w-full ${borderPrimaryColor}`}
+              className={`mt-2 shadow-lg z-10 absolute text-left bg-white dark:bg-dark-800 box-content border-2 w-full ${borderPrimaryColor}`}
+              style={{ marginLeft: "-2px" }}
             >
               {results.map((result, index) => {
                 return (
@@ -189,7 +192,7 @@ const Navbar = () => {
       <div
         onClick={toggleTheme}
         checked={theme === "dark"}
-        className={`chinese-serif py-2 text-2xl px-2 cursor-pointer select-none dark:text-gray-400`}
+        className={`chinese-serif pt-2 pb-1 text-xl px-2 cursor-pointer select-none dark:text-gray-400`}
       >
         {theme === "dark" ? "暗" : "光"}
       </div>
