@@ -496,7 +496,9 @@ const Word = () => {
 					</div>
 				</div>
 				{/* Word statistics, containing words, and related words */}
-				<div className="w-full md:w-1/3">
+				<div
+					className={`w-full md:w-1/3 border-t-2 md:border-none ${borderSecondaryColor}`}
+				>
 					{/* Word statistics */}
 					<div className={`p-6 border-b-2 ${borderSecondaryColor}`}>
 						<div className={sectionHeaderStyle}>Statistics</div>
