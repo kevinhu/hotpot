@@ -177,7 +177,7 @@ const Navbar = () => {
                         </div>
                       </div>
                       {/* Definition */}
-                      <div className="text-gray-700 dark:text-gray-300 english-serif leading-4">
+                      <div className="text-light-500 dark:text-light-700 english-serif leading-4">
                         {result["definition"]}
                       </div>
                     </div>
