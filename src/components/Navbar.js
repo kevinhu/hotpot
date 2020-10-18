@@ -6,7 +6,12 @@ import queryString from "query-string";
 
 // themes and components
 import { useDarkMode } from "../components/DarkMode";
-import { linkHover, linkHoverScale, borderPrimaryColor } from "../themes";
+import {
+  linkHover,
+  textPrimaryColor,
+  linkHoverScale,
+  borderPrimaryColor,
+} from "../themes";
 
 // other utilities
 import { pinyinify, numberWithCommas } from "../utilities";
@@ -129,7 +134,7 @@ const Navbar = () => {
         onClick={toggleMode}
         className={`flex-none chinese-serif py-auto text-xl px-2 py-2 cursor-pointer select-none border-l-2 border-black dark:border-gray-800`}
       >
-        <div className="align-middle ">
+        <div className={`align-middle ${textPrimaryColor}`}>
           {modeParam === "simplified" ? "简体" : "繁体"}
         </div>
       </div>
@@ -192,7 +197,7 @@ const Navbar = () => {
       <div
         onClick={toggleTheme}
         checked={theme === "dark"}
-        className={`chinese-serif text-xl p-2 cursor-pointer select-none dark:text-gray-400`}
+        className={`chinese-serif text-xl p-2 cursor-pointer select-none ${textPrimaryColor}`}
       >
         {theme === "dark" ? "暗" : "光"}
       </div>
