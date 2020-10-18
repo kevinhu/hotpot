@@ -65,7 +65,7 @@ const Results = () => {
 				{/* Render results */}
 				{results.length > 0 && searchParam !== "" && (
 					<div
-						className={`shadow-lg z-10 text-left bg-white dark:bg-dark-500 border-2 w-full border-black dark:border-gray-200 p-4`}
+						className={`shadow-lg z-10 text-left bg-white dark:bg-dark-500 border-2 w-full border-black dark:border-gray-200 p-2`}
 						style={{ marginTop: "-2px" }}
 					>
 						{results.map((result, index) => {
@@ -77,7 +77,7 @@ const Results = () => {
 									className={`${linkHover} ${linkHoverScale} block bg-white dark:bg-dark-500 dark-hover:bg-dark-800`}
 									key={index}
 								>
-									<div className={`p-2`}>
+									<div className={`px-4 pt-5 pb-4 leading-6`}>
 										<div className="font-semibold">
 											{/* Result character */}
 											<div className="text-2xl inline chinese-serif">
@@ -86,12 +86,12 @@ const Results = () => {
 													: result["traditional"]}
 											</div>
 											{/* Pinyin */}
-											<div className="pl-2 text-xl inline text-gray-700 dark:text-gray-300 english-serif">
+											<div className="pl-2 text-xl inline text-gray-800 dark:text-gray-300 english-serif">
 												{pinyinify(result["pinyin"])}
 											</div>
 										</div>
 										{/* Definition */}
-										<div className="text-gray-700 dark:text-gray-300 english-serif">
+										<div className="text-gray-800 text-lg dark:text-gray-300 english-serif">
 											{result["definition"]}
 										</div>
 									</div>
