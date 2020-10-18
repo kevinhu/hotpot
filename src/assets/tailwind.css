@@ -44,3 +44,8 @@ html.mode-dark {
 .disabled-link {
 	pointer-events: none;
 }
+
+input::placeholder {
+	@apply text-light-500;
+	opacity: 1;
+}

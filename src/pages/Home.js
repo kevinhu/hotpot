@@ -162,7 +162,7 @@ const Home = () => {
 								</div>
 								{/* Search input box */}
 								<input
-									className={`text-lg chinese-serif py-2 px-3  leading-6 outline-none w-full bg-white dark:bg-dark-900 border-solid border-2 border-black dark:border-gray-200 overflow-x-hidden`}
+									className={`text-lg chinese-serif py-2 px-3 outline-none w-full dark:bg-dark-900 border-2 border-black dark:border-gray-200 overflow-x-hidden`}
 									type="text"
 									placeholder={`Search ${numberWithCommas(
 										118639
