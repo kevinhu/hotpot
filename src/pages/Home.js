@@ -122,7 +122,7 @@ const Home = () => {
 			<div
 				onClick={toggleTheme}
 				checked={theme === "dark"}
-				className="shadow-xl chinese-serif py-2 text-2xl px-3 level-8 mx-auto cursor-pointer select-none border-2 border-black bg-white dark:border-2 dark:border-gray-700 dark:bg-dark-700"
+				className="shadow-xl chinese-serif pt-2 pb-1 text-2xl px-3 level-6 mx-auto cursor-pointer select-none border-2 border-black bg-white dark:border-2 dark:border-gray-700 dark:bg-dark-700"
 				style={{ width: "max-content", marginTop: "-2px" }}
 			>
 				{theme === "dark" ? "暗" : "光"}
@@ -150,11 +150,11 @@ const Home = () => {
 						}`}
 					>
 						<div className="w-full relative" ref={searchContainer}>
-							<div className="shadow-lg flex">
+							<div className="shadow-lg flex level-3">
 								{/* Simplified-traditional toggle */}
 								<div
 									onClick={toggleMode}
-									className={`select-none cursor-pointer border-solid border-2 text-xl chinese-serif p-2 flex-none border-black dark:border-gray-200 bg-black text-white dark:bg-gray-200 dark:text-black`}
+									className={`select-none cursor-pointer border-solid border-2 text-xl chinese-serif pt-2 pb-1 px-2 flex-none border-black dark:border-gray-200 bg-black text-white dark:bg-gray-200 dark:text-black`}
 								>
 									{modeParam === "simplified"
 										? "简体"
@@ -202,13 +202,13 @@ const Home = () => {
 													to={`/word/${encodeURI(
 														result[modeParam]
 													)}?mode=${modeParam}`}
-													className={`${linkHover} ${linkHoverScale} block bg-white dark:bg-dark-500 dark-hover:bg-dark-800`}
+													className={`${linkHover} ${linkHoverScale} py-2 block bg-white dark:bg-dark-500 dark-hover:bg-dark-800`}
 													key={index}
 												>
 													<div
-														className={`py-1 px-3`}
+														className={`pt-2 pb-1 px-3`}
 													>
-														<div className="font-semibold">
+														<div className="font-semibold leading-4">
 															{/* Result character */}
 															<div className="text-xl inline chinese-serif">
 																{modeParam ===
@@ -230,7 +230,7 @@ const Home = () => {
 															</div>
 														</div>
 														{/* Definition */}
-														<div className="text-gray-700 dark:text-gray-300 english-serif">
+														<div className="text-gray-700 dark:text-gray-300 english-serif leading-4">
 															{
 																result[
 																	"definition"
