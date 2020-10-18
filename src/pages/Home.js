@@ -129,7 +129,7 @@ const Home = () => {
 			</div>
 			{/* Search box container */}
 			<div
-				className={`w-full md:w-2/3 xl:w-1/2 left-0 right-0 absolute mx-auto text-center mt-32 py-12 shadow-xl bg-white dark:bg-dark-900`}
+				className={`w-full md:w-3/5 lg:w-1/2 xl:w-2/5 left-0 right-0 absolute mx-auto text-center mt-32 py-16 shadow-xl bg-white dark:bg-dark-900`}
 			>
 				{/* Logo */}
 				<div
@@ -146,7 +146,7 @@ const Home = () => {
 						className={`chinese-serif outline-none w-full ${
 							searchFocused && isMobile
 								? "fixed block mt-0 top-0 px-0 left-0"
-								: "px-4 md:px-12 "
+								: "px-4 md:px-16 "
 						}`}
 					>
 						<div className="w-full relative" ref={searchContainer}>
