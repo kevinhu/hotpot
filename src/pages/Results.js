@@ -43,7 +43,7 @@ const Results = () => {
 		fetch(
 			`https://hotpot-search.kevinhu.io/.netlify/functions/search?query=${encodeURI(
 				searchWord
-			)}&mode=${modeParam}&limit=64`
+			)}&mode=${modeParam}&limit=100`
 		)
 			.then((response) => {
 				return response.json();
@@ -65,7 +65,7 @@ const Results = () => {
 			{/* Results container */}
 			<div className="w-full md:w-3/4 mx-auto mb-8">
 				{/* Report result count */}
-				<div className="text-2xl mt-12 mb-2 ml-6  english-serif">
+				<div className="text-2xl mt-12 mb-2 ml-6 font-bold english-serif">
 					{results.length} results for "{searchParam}"
 				</div>
 				{/* Render results */}

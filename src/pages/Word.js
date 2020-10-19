@@ -454,7 +454,7 @@ const Word = () => {
 					</div>
 					{/* Word example sentences */}
 					<div className={`p-6 ${textPrimaryColor}`}>
-						<div className={sectionHeaderStyle}>
+						<div className={sectionHeaderStyle} key={-1}>
 							Example sentences
 						</div>
 						{wordData["sentences"].length === 0 &&
@@ -463,22 +463,17 @@ const Word = () => {
 							let sentenceSplit = sentence["chinese"].split(
 								wordData["word"]
 							);
-
-							let wordHighlight = (
-								<div className="red inline">
-									{wordData["word"]}
-								</div>
-							);
-
 							let splitLen = sentenceSplit.length;
 
 							let sentenceJoin = sentenceSplit.map(
 								(text, index) => {
 									if (index < splitLen - 1) {
 										return (
-											<React.Fragment>
+											<React.Fragment key={index}>
 												{text}
-												{wordHighlight}
+												<div className="red inline">
+													{wordData["word"]}
+												</div>
 											</React.Fragment>
 										);
 									} else {
