@@ -122,7 +122,7 @@ const Home = () => {
 			<div
 				onClick={toggleTheme}
 				checked={theme === "dark"}
-				className="shadow-xl chinese-serif pt-1 pb-2 text-2xl px-3 level-6 mx-auto cursor-pointer select-none border-2 border-black bg-white dark:border-2 dark:border-gray-700 dark:bg-dark-700"
+				className="font-semibold shadow-xl chinese-serif pt-1 pb-2 text-2xl px-3 level-6 mx-auto cursor-pointer select-none border-2 border-black bg-white dark:border-gray-700 dark:bg-dark-700"
 				style={{ width: "max-content", marginTop: "-2px" }}
 			>
 				{theme === "dark" ? "暗" : "光"}
@@ -154,7 +154,7 @@ const Home = () => {
 								{/* Simplified-traditional toggle */}
 								<div
 									onClick={toggleMode}
-									className={`select-none cursor-pointer border-solid border-2 text-xl chinese-serif p-2 leading-6 flex-none border-black dark:border-gray-200 bg-black text-white dark:bg-gray-200 dark:text-black`}
+									className={`font-semibold select-none cursor-pointer border-2 text-xl chinese-serif p-2 leading-6 flex-none border-black dark:border-gray-200 bg-black text-white dark:bg-gray-200 dark:text-black`}
 								>
 									{modeParam === "simplified"
 										? "简体"
