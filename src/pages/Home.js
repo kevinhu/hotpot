@@ -135,7 +135,8 @@ const Home = () => {
 			</div>
 			{/* Search box container */}
 			<div
-				className={`w-full md:w-3/5 lg:w-1/2 xl:w-2/5 left-0 right-0 absolute mx-auto text-center mt-32 py-16 shadow-xl bg-white dark:bg-dark-900`}
+				className={`w-full md:w-3/5 lg:w-1/2 xl:w-2/5 left-0 right-0 absolute mx-auto text-center py-16 shadow-xl bg-white dark:bg-dark-900`}
+				style={{ marginTop: "20vh" }}
 			>
 				{/* Logo */}
 				<div
