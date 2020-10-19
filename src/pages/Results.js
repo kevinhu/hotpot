@@ -7,6 +7,8 @@ import queryString from 'query-string';
 // themes and components
 import Footer from '../components/Footer';
 import { linkHover, linkHoverScale } from '../themes';
+import Loading from '../components/Loading';
+import NotFound from '../assets/not_found.svg';
 
 // other utilities
 import { pinyinify } from '../utilities';
@@ -17,7 +19,7 @@ const Results = () => {
   let location = useLocation();
 
   let [loading, setLoading] = useState(false); // whether results are loading
-  let [results, setResults] = useState([]); // store search results
+  let [results, setResults] = useState(null); // store search results
   let [searchWord, setSearchWord] = useState(''); // search query
 
   // parse search parameters and get mode and query
@@ -53,6 +55,27 @@ const Results = () => {
         setLoading(false);
       });
   }, [searchWord, modeParam]);
+
+  // if no word data
+  if (!results) {
+    // if not loading, assume word not found
+    if (!loading) {
+      return (
+        <div className="text-center w-full h-full p-12">
+          <img
+            alt="Word not found."
+            className="py-12 w-1/2 md:w-1/3 m-auto select-none"
+            src={NotFound}
+          ></img>
+          <div className="text-lg select-none mb-6">Word not found.</div>
+        </div>
+      );
+    }
+    // otherwise, render the loading spinner
+    else {
+      return <Loading />;
+    }
+  }
 
   return (
     <div
