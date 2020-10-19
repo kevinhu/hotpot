@@ -11,7 +11,7 @@ console.timeEnd("index_import");
 const query = "huo guo";
 
 const results = index.search(query, {
-	limit: 64,
+	limit: 100,
 	sort: "rank",
 	// threshold: 5,
 	// depth: 3,
