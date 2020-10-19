@@ -585,7 +585,6 @@ const Word = () => {
 										>
 											<div
 												className={`chinese-serif flex flex-wrap text-xl`}
-												style={{ width: "max-content" }}
 											>
 												{displayWord}
 											</div>
@@ -593,18 +592,18 @@ const Word = () => {
 											<div
 												className={`${textSecondaryColor} break-all leading-5`}
 											>
-												{contain_word["definition"]
+												{contain_word["definition"][0]
 													.length >
 												MAX_OTHER_DESCRIPTION_LENGTH
 													? contain_word[
 															"definition"
-													  ].substring(
+													  ][0].substring(
 															0,
 															MAX_OTHER_DESCRIPTION_LENGTH
 													  ) + "..."
 													: contain_word[
 															"definition"
-													  ]}
+													  ][0]}
 											</div>
 										</Link>
 									</div>
@@ -655,7 +654,6 @@ const Word = () => {
 									>
 										<div
 											className={`chinese-serif flex flex-wrap text-xl`}
-											style={{ width: "max-content" }}
 										>
 											{displayWord}
 										</div>
@@ -663,15 +661,16 @@ const Word = () => {
 										<div
 											className={`${textSecondaryColor}  break-all leading-5`}
 										>
-											{related_word["definition"].length >
+											{related_word["definition"][0]
+												.length >
 											MAX_OTHER_DESCRIPTION_LENGTH
 												? related_word[
 														"definition"
-												  ].substring(
+												  ][0].substring(
 														0,
 														MAX_OTHER_DESCRIPTION_LENGTH
 												  ) + "..."
-												: related_word["definition"]}
+												: related_word["definition"][0]}
 										</div>
 									</Link>
 								</div>
