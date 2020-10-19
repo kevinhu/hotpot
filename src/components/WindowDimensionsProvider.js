@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const WindowDimensionsCtx = createContext(null);
 
@@ -14,9 +14,9 @@ const WindowDimensionsProvider = ({ children }) => {
         height: window.innerHeight,
       });
     };
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
   return (

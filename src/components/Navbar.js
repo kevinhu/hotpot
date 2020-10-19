@@ -1,25 +1,25 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from 'react';
 
 // location management
-import { useHistory, useLocation, Link } from "react-router-dom";
-import queryString from "query-string";
+import { useHistory, useLocation, Link } from 'react-router-dom';
+import queryString from 'query-string';
 
 // themes and components
-import { useDarkMode } from "../components/DarkMode";
+import { useDarkMode } from '../components/DarkMode';
 import {
   linkHover,
   textPrimaryColor,
   linkHoverScale,
   borderPrimaryColor,
-} from "../themes";
+} from '../themes';
 
 // loading animation
-import BarLoader from "react-spinners/BarLoader";
-import { css } from "@emotion/core";
+import BarLoader from 'react-spinners/BarLoader';
+import { css } from '@emotion/core';
 
 // other utilities
-import { pinyinify, numberWithCommas } from "../utilities";
-var _ = require("lodash");
+import { pinyinify, numberWithCommas } from '../utilities';
+var _ = require('lodash');
 
 const Navbar = () => {
   // dark mode functions
@@ -29,14 +29,14 @@ const Navbar = () => {
   let history = useHistory();
   let location = useLocation();
 
-  var [searchWord, setSearchWord] = useState(""); // current text in search box
+  var [searchWord, setSearchWord] = useState(''); // current text in search box
   let [results, setResults] = useState([]); // preview search results
   let [searchFocused, setSearchFocused] = useState(false); // if search box is focused
   let [loading, setLoading] = useState(false); // if search preview is loading
 
   // parse search parameters and get mode
   let queryParams = queryString.parse(location.search);
-  let modeParam = queryParams["mode"];
+  let modeParam = queryParams['mode'];
 
   const updateSearch = (event) => {
     event.persist();
@@ -50,7 +50,7 @@ const Navbar = () => {
   const executeSearch = useRef(
     _.debounce((query) => {
       // if query is just whitespace
-      if (!query.replace(/\s/g, "").length) {
+      if (!query.replace(/\s/g, '').length) {
         setResults([]);
         return;
       }
@@ -91,33 +91,33 @@ const Navbar = () => {
   // initial calls
   useEffect(() => {
     // add when mounted
-    document.addEventListener("mousedown", checkSearchFocus);
+    document.addEventListener('mousedown', checkSearchFocus);
     // return function to be called when unmounted
     return () => {
-      document.removeEventListener("mousedown", checkSearchFocus);
+      document.removeEventListener('mousedown', checkSearchFocus);
     };
   }, []);
 
   const toggleMode = () => {
-    queryParams["mode"] =
-      queryParams["mode"] === "simplified" ? "traditional" : "simplified";
+    queryParams['mode'] =
+      queryParams['mode'] === 'simplified' ? 'traditional' : 'simplified';
 
-    let location_split = location.pathname.split("/");
-    location_split = location_split.filter((x) => x !== "");
+    let location_split = location.pathname.split('/');
+    location_split = location_split.filter((x) => x !== '');
 
-    if (location_split[0] === "word") {
-      const temp = queryParams["alt"];
-      queryParams["alt"] = location_split[1];
+    if (location_split[0] === 'word') {
+      const temp = queryParams['alt'];
+      queryParams['alt'] = location_split[1];
       location_split[1] = temp;
 
       history.push(
-        `/${location_split.join("/")}/?${queryString.stringify(queryParams)}`
+        `/${location_split.join('/')}/?${queryString.stringify(queryParams)}`
       );
     }
 
-    if (location_split[0] === "results") {
+    if (location_split[0] === 'results') {
       history.push(
-        `/${location_split.join("/")}/?${queryString.stringify(queryParams)}`
+        `/${location_split.join('/')}/?${queryString.stringify(queryParams)}`
       );
     }
   };
@@ -125,10 +125,10 @@ const Navbar = () => {
   return (
     <div
       className={`shadow-lg w-full md:w-3/4 flex mx-auto bg-white dark:bg-dark-800 leading-8 border-2 ${borderPrimaryColor} ${
-        modeParam === "simplified" ? "chinese-serif-sc" : "chinese-serif-tc"
+        modeParam === 'simplified' ? 'chinese-serif-sc' : 'chinese-serif-tc'
       }`}
       style={{
-        marginTop: "-2px",
+        marginTop: '-2px',
       }}
     >
       {/* Logo and link to home */}
@@ -148,7 +148,7 @@ const Navbar = () => {
         <div
           className={`align-middle table-cell whitespace-no-wrap ${textPrimaryColor}`}
         >
-          {modeParam === "simplified" ? "简体" : "繁体"}
+          {modeParam === 'simplified' ? '简体' : '繁体'}
         </div>
       </div>
       {/* Search form */}
@@ -178,17 +178,17 @@ const Navbar = () => {
                 display: block;
                 margin-bottom: -2px;
                 z-index: 10;
-                background-color: ${theme === "dark" ? "white" : "black"};
+                background-color: ${theme === 'dark' ? 'white' : 'black'};
               `}
-              size={"100%"}
-              color={theme === "dark" ? "#c10000" : "#e84a5f"}
+              size={'100%'}
+              color={theme === 'dark' ? '#c10000' : '#e84a5f'}
               loading={loading}
             />
             {/* Render search results */}
-            {results.length > 0 && searchWord !== "" && searchFocused && (
+            {results.length > 0 && searchWord !== '' && searchFocused && (
               <div
                 className={`shadow-lg z-10 absolute text-left bg-white dark:bg-dark-800 box-content border-l-2 border-r-2 border-b-2 w-full ${borderPrimaryColor}`}
-                style={{ marginLeft: "-2px", marginTop: "2px" }}
+                style={{ marginLeft: '-2px', marginTop: '2px' }}
               >
                 {results.map((result, index) => {
                   return (
@@ -206,12 +206,12 @@ const Navbar = () => {
                           </div>
                           {/* Pinyin */}
                           <div className="pl-2 inline english-serif">
-                            {pinyinify(result["pinyin"])}
+                            {pinyinify(result['pinyin'])}
                           </div>
                         </div>
                         {/* Definition */}
                         <div className="text-light-500 dark:text-light-700 english-serif leading-4">
-                          {result["definition"]}
+                          {result['definition']}
                         </div>
                       </div>
                     </Link>
@@ -225,10 +225,10 @@ const Navbar = () => {
       {/* Dark mode toggle */}
       <div
         onClick={toggleTheme}
-        checked={theme === "dark"}
+        checked={theme === 'dark'}
         className={`font-semibold text-xl h-12 p-2 cursor-pointer select-none ${textPrimaryColor}`}
       >
-        {theme === "dark" ? "暗" : "光"}
+        {theme === 'dark' ? '暗' : '光'}
       </div>
     </div>
   );

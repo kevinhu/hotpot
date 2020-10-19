@@ -1,22 +1,22 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from 'react';
 
 // location management
-import { useHistory, useLocation, Link } from "react-router-dom";
-import queryString from "query-string";
+import { useHistory, useLocation, Link } from 'react-router-dom';
+import queryString from 'query-string';
 
 // themes and components
-import { linkHover, linkHoverScale } from "../themes";
-import { useDarkMode } from "../components/DarkMode";
-import Footer from "../components/Footer";
-import { useWindowDimensions } from "../components/WindowDimensionsProvider";
+import { linkHover, linkHoverScale } from '../themes';
+import { useDarkMode } from '../components/DarkMode';
+import Footer from '../components/Footer';
+import { useWindowDimensions } from '../components/WindowDimensionsProvider';
 
 // loading animation
-import BarLoader from "react-spinners/BarLoader";
-import { css } from "@emotion/core";
+import BarLoader from 'react-spinners/BarLoader';
+import { css } from '@emotion/core';
 
 // other utilities
-import { pinyinify, numberWithCommas } from "../utilities";
-import _ from "lodash";
+import { pinyinify, numberWithCommas } from '../utilities';
+import _ from 'lodash';
 
 const Home = () => {
   // dark mode functions
@@ -30,18 +30,18 @@ const Home = () => {
   const { width } = useWindowDimensions();
   const isMobile = width < 768;
 
-  let [searchWord, setSearchWord] = useState(""); // current text in search box
+  let [searchWord, setSearchWord] = useState(''); // current text in search box
   let [results, setResults] = useState([]); // preview search results
   let [searchFocused, setSearchFocused] = useState(false); // if search box is focused
   let [loading, setLoading] = useState(false); // if search preview is loading
 
   // parse search parameters and get mode
   let queryParams = queryString.parse(location.search);
-  let modeParam = queryParams["mode"];
+  let modeParam = queryParams['mode'];
 
   // resolve other modes
-  if (modeParam !== "simplified" && modeParam !== "traditional") {
-    modeParam = "simplified";
+  if (modeParam !== 'simplified' && modeParam !== 'traditional') {
+    modeParam = 'simplified';
     history.replace(`/?mode=${modeParam}`);
   }
 
@@ -57,7 +57,7 @@ const Home = () => {
   const executeSearch = useRef(
     _.debounce((query) => {
       // if query is just whitespace
-      if (!query.replace(/\s/g, "").length) {
+      if (!query.replace(/\s/g, '').length) {
         setResults([]);
         return;
       }
@@ -99,45 +99,45 @@ const Home = () => {
     // ping the search endpoint to warm it up
     fetch(`https://hotpot-search.kevinhu.io/.netlify/functions/search`);
     // add when mounted
-    document.addEventListener("mousedown", checkSearchFocus);
+    document.addEventListener('mousedown', checkSearchFocus);
     // return function to be called when unmounted
     return () => {
-      document.removeEventListener("mousedown", checkSearchFocus);
+      document.removeEventListener('mousedown', checkSearchFocus);
     };
   }, []);
 
   // switch between simplified-traditional
   const toggleMode = () => {
-    queryParams["mode"] =
-      queryParams["mode"] === "simplified" ? "traditional" : "simplified";
+    queryParams['mode'] =
+      queryParams['mode'] === 'simplified' ? 'traditional' : 'simplified';
 
-    history.push(`/?mode=${queryParams["mode"]}`);
+    history.push(`/?mode=${queryParams['mode']}`);
   };
 
   return (
     <div
       className={
-        modeParam === "simplified" ? "chinese-serif-sc" : "chinese-serif-tc"
+        modeParam === 'simplified' ? 'chinese-serif-sc' : 'chinese-serif-tc'
       }
     >
       {/* Dark mode toggle */}
       <div
         onClick={toggleTheme}
-        checked={theme === "dark"}
+        checked={theme === 'dark'}
         className="font-semibold shadow-xl pt-1 pb-2 text-2xl px-3 level-6 mx-auto cursor-pointer select-none border-2 border-black bg-white dark:border-gray-700 dark:bg-dark-700"
-        style={{ width: "max-content", marginTop: "-2px" }}
+        style={{ width: 'max-content', marginTop: '-2px' }}
       >
-        {theme === "dark" ? "暗" : "光"}
+        {theme === 'dark' ? '暗' : '光'}
       </div>
       {/* Search box container */}
       <div
         className={`w-full md:w-3/5 lg:w-1/2 xl:w-2/5 left-0 right-0 absolute mx-auto text-center py-16 shadow-xl bg-white dark:bg-dark-900`}
-        style={{ marginTop: "20vh" }}
+        style={{ marginTop: '20vh' }}
       >
         {/* Logo */}
         <div
           className="red font-semibold pb-8 english-serif"
-          style={{ fontSize: "4rem", lineHeight: "4rem" }}
+          style={{ fontSize: '4rem', lineHeight: '4rem' }}
         >
           hotpot
         </div>
@@ -148,8 +148,8 @@ const Home = () => {
             onSubmit={handleSubmit}
             className={`outline-none w-full ${
               searchFocused && isMobile
-                ? "fixed block mt-0 top-0 px-0 left-0"
-                : "px-4 md:px-16 "
+                ? 'fixed block mt-0 top-0 px-0 left-0'
+                : 'px-4 md:px-16 '
             }`}
           >
             <div className="w-full relative" ref={searchContainer}>
@@ -159,7 +159,7 @@ const Home = () => {
                   onClick={toggleMode}
                   className={`font-semibold select-none cursor-pointer border-2 text-xl p-2 leading-6 flex-none border-black dark:border-gray-200 bg-black text-white dark:bg-gray-200 dark:text-black`}
                 >
-                  {modeParam === "simplified" ? "简体" : "繁体"}
+                  {modeParam === 'simplified' ? '简体' : '繁体'}
                 </div>
                 {/* Search input box */}
                 <input
@@ -179,14 +179,14 @@ const Home = () => {
                   height: 2px;
                   display: block;
                   margin-top: -2px;
-                  background-color: ${theme === "dark" ? "white" : "black"};
+                  background-color: ${theme === 'dark' ? 'white' : 'black'};
                 `}
-                size={"100%"}
-                color={theme === "dark" ? "#c10000" : "#e84a5f"}
+                size={'100%'}
+                color={theme === 'dark' ? '#c10000' : '#e84a5f'}
                 loading={loading}
               />
               {/* Render search results */}
-              {results.length > 0 && searchWord !== "" && searchFocused && (
+              {results.length > 0 && searchWord !== '' && searchFocused && (
                 <div
                   className={`shadow-lg z-10 absolute text-left border-l-2 border-r-2 border-b-2 w-full border-black dark:border-gray-200`}
                 >
@@ -207,12 +207,12 @@ const Home = () => {
                             </div>
                             {/* Pinyin */}
                             <div className="pl-2 inline">
-                              {pinyinify(result["pinyin"])}
+                              {pinyinify(result['pinyin'])}
                             </div>
                           </div>
                           {/* Definition */}
                           <div className="text-light-500 dark:text-light-700  font-normal leading-4">
-                            {result["definition"]}
+                            {result['definition']}
                           </div>
                         </div>
                       </Link>
@@ -224,7 +224,7 @@ const Home = () => {
             {/* Overlay background on mobile */}
             <div
               className={`h-screen w-full bg-white dark:bg-black ${
-                searchFocused && isMobile ? "block" : "hidden"
+                searchFocused && isMobile ? 'block' : 'hidden'
               }`}
             ></div>
           </form>

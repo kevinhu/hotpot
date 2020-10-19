@@ -1,26 +1,26 @@
-import React from "react";
-import { HashRouter, Switch, Route } from "react-router-dom";
+import React from 'react';
+import { HashRouter, Switch, Route } from 'react-router-dom';
 
 // Import global components
-import Navbar from "./components/Navbar";
+import Navbar from './components/Navbar';
 
 // Import pages
-import Home from "./pages/Home";
-import NotFound from "./pages/NotFound";
-import Word from "./pages/Word";
-import Results from "./pages/Results";
+import Home from './pages/Home';
+import NotFound from './pages/NotFound';
+import Word from './pages/Word';
+import Results from './pages/Results';
 
 // Import reset scroll component
-import ScrollToTop from "./components/ScrollToTop";
+import ScrollToTop from './components/ScrollToTop';
 
 // Import dark mode
-import DarkModeProvider from "./components/DarkMode";
+import DarkModeProvider from './components/DarkMode';
 
 // Global CSS
-import "./App.css";
+import './App.css';
 
 // Window dimensions
-import WindowDimensionsProvider from "./components/WindowDimensionsProvider";
+import WindowDimensionsProvider from './components/WindowDimensionsProvider';
 
 function App() {
   return (
@@ -30,7 +30,7 @@ function App() {
         <DarkModeProvider>
           <Route
             render={({ location }) => {
-              return !["/"].includes(location.pathname) && <Navbar />;
+              return !['/'].includes(location.pathname) && <Navbar />;
             }}
           />
           <Switch>

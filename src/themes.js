@@ -1,14 +1,14 @@
 export const linkHover =
-  "transition-colors transition-transform duration-300 ease-in-out hover-red";
+  'transition-colors transition-transform duration-300 ease-in-out hover-red';
 
 export const linkHoverScale =
-  "md:transform hover:scale-105 hover:shadow-lg hover:z-20 relative";
+  'md:transform hover:scale-105 hover:shadow-lg hover:z-20 relative';
 
-export const primaryColor = "black";
-export const secondaryColor = "light-500";
+export const primaryColor = 'black';
+export const secondaryColor = 'light-500';
 
-export const darkPrimaryColor = "light-800";
-export const darkSecondaryColor = "light-600";
+export const darkPrimaryColor = 'light-800';
+export const darkSecondaryColor = 'light-600';
 
 export const textPrimaryColor = `text-${primaryColor} dark:text-${darkPrimaryColor}`;
 export const textSecondaryColor = `text-${secondaryColor} dark:text-${darkSecondaryColor}`;

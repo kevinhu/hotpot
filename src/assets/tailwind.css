@@ -4,52 +4,52 @@
 
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;600;700");
-@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Serif+TC:wght@400;600;700");
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;600;700');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Serif+TC:wght@400;600;700');
 
 .english-serif {
-	font-family: "Source Serif Pro", serif;
+  font-family: 'Source Serif Pro', serif;
 }
 
 .chinese-serif-sc {
-	font-family: "Noto Serif SC", serif;
+  font-family: 'Noto Serif SC', serif;
 }
 
 .chinese-serif-tc {
-	font-family: "Noto Serif TC", serif;
+  font-family: 'Noto Serif TC', serif;
 }
 
 .red {
-	color: #c10000 !important;
+  color: #c10000 !important;
 }
 
 .hover-red:hover {
-	color: #c10000 !important;
+  color: #c10000 !important;
 }
 
 .mode-dark .red {
-	color: #e84a5f !important;
+  color: #e84a5f !important;
 }
 
 .mode-dark .hover-red:hover {
-	color: #e84a5f !important;
+  color: #e84a5f !important;
 }
 
 html {
-	@apply min-h-screen;
-	background-color: #f6f6f6;
+  @apply min-h-screen;
+  background-color: #f6f6f6;
 }
 
 html.mode-dark {
-	@apply bg-dark-500;
-	@apply text-gray-200 !important;
+  @apply bg-dark-500;
+  @apply text-gray-200 !important;
 }
 
 .disabled-link {
-	pointer-events: none;
+  pointer-events: none;
 }
 
 input::placeholder {
-	@apply text-light-500;
-	opacity: 1;
+  @apply text-light-500;
+  opacity: 1;
 }

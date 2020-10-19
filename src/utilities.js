@@ -13,12 +13,12 @@
  * @type {Object}
  */
 var toneMarks = {
-  a: ["a", "\u0101", "\u00e1", "\u01ce", "\u00e0", "a"],
-  e: ["e", "\u0113", "\u00e9", "\u011b", "\u00e8", "e"],
-  i: ["i", "\u012b", "\u00ed", "\u01d0", "\u00ec", "i"],
-  o: ["o", "\u014d", "\u00f3", "\u01d2", "\u00f2", "o"],
-  u: ["u", "\u016b", "\u00fa", "\u01d4", "\u00f9", "u"],
-  v: ["\u00fc", "\u01d6", "\u01d8", "\u01da", "\u01dc", "\u00fc"],
+  a: ['a', '\u0101', '\u00e1', '\u01ce', '\u00e0', 'a'],
+  e: ['e', '\u0113', '\u00e9', '\u011b', '\u00e8', 'e'],
+  i: ['i', '\u012b', '\u00ed', '\u01d0', '\u00ec', 'i'],
+  o: ['o', '\u014d', '\u00f3', '\u01d2', '\u00f2', 'o'],
+  u: ['u', '\u016b', '\u00fa', '\u01d4', '\u00f9', 'u'],
+  v: ['\u00fc', '\u01d6', '\u01d8', '\u01da', '\u01dc', '\u00fc'],
 };
 
 /**
@@ -52,7 +52,7 @@ const lastIndexOfRegex = (str, regExp) => {
  * @return {String} this String, with the specified replacement
  */
 const replaceAt = (str, index, replacement) => {
-  if (index >= 0 && index < str.length && typeof replacement === "string") {
+  if (index >= 0 && index < str.length && typeof replacement === 'string') {
     return str.substring(0, index) + replacement + str.substring(index + 1);
   } else {
     return str;
@@ -82,7 +82,7 @@ const convertPinyin = (str) => {
     // this string is either too long to be pinyin, does not contain a \
     // correctly placed tone number, or has no pinyin vowels
     console.log(
-      "String.prototype.convertPinyin:" + str + " is not a valid pinyin word."
+      'String.prototype.convertPinyin:' + str + ' is not a valid pinyin word.'
     );
     return str;
   }
@@ -102,8 +102,8 @@ const convertPinyin = (str) => {
     // place the tone on the last vowel
     index = lastIndexOfRegex(str, /[aeiouv\u00fc]/);
     var vowel = str.charAt(index);
-    if (vowel === "\u00fc") {
-      vowel = "v";
+    if (vowel === '\u00fc') {
+      vowel = 'v';
     }
     str = replaceAt(str, index, toneMarks[vowel][toneNum]);
   }
@@ -117,21 +117,21 @@ const convertPinyin = (str) => {
  * @return {String} the converted string
  */
 export const pinyinify = (str) => {
-  const NOT_PINYIN = [","];
+  const NOT_PINYIN = [','];
 
   if (
-    typeof str !== "string" ||
+    typeof str !== 'string' ||
     str === undefined ||
     NOT_PINYIN.includes(str)
   ) {
     // non-breaking space, to fix spacing issues
-    return "\xa0";
+    return '\xa0';
   }
 
   str = str.toLowerCase();
-  str = str.replace("u:", "ü");
+  str = str.replace('u:', 'ü');
 
-  var res = "";
+  var res = '';
   var i = 0;
   // parse str character by character
   while (str.length > 0) {
@@ -161,7 +161,7 @@ export const pinyinify = (str) => {
       } else if (whitespaceIndex < 0) {
         // no valid tone numbers nor whitespace, add rest of string to res
         res += str.substring(0);
-        str = "";
+        str = '';
       } else {
         // whitespace found, remove everything up to and including the \
         // whitespace, and add to res
@@ -171,7 +171,7 @@ export const pinyinify = (str) => {
     } else if (i >= str.length) {
       // no more characters to parse
       res += str.substring(0);
-      str = "";
+      str = '';
     } else {
       // increment index
       i++;
@@ -182,7 +182,7 @@ export const pinyinify = (str) => {
 };
 
 export const numberWithCommas = (x) => {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
 
 export const removeDuplicates = (arr) => {
@@ -230,13 +230,13 @@ export const ordinalSuffixOf = (i) => {
   var j = i % 10,
     k = i % 100;
   if (j === 1 && k !== 11) {
-    return "st";
+    return 'st';
   }
   if (j === 2 && k !== 12) {
-    return "nd";
+    return 'nd';
   }
   if (j === 3 && k !== 13) {
-    return "rd";
+    return 'rd';
   }
-  return "th";
+  return 'th';
 };
