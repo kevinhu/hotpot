@@ -172,9 +172,7 @@ const Navbar = () => {
                       <div className="font-semibold leading-4">
                         {/* Result character */}
                         <div className="text-xl inline chinese-serif">
-                          {modeParam === "simplified"
-                            ? result["simplified"]
-                            : result["traditional"]}
+                          {result[modeParam]}
                         </div>
                         {/* Pinyin */}
                         <div className="pl-2 inline english-serif">

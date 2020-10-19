@@ -72,7 +72,7 @@ const Results = () => {
 							return (
 								<Link
 									to={`/word/${encodeURI(
-										result["simplified"]
+										result[modeParam]
 									)}?mode=${modeParam}`}
 									className={`${linkHover} ${linkHoverScale} block bg-white dark:bg-dark-500 dark-hover:bg-dark-800`}
 									key={index}
@@ -81,9 +81,7 @@ const Results = () => {
 										<div className="font-semibold">
 											{/* Result character */}
 											<div className="text-2xl inline chinese-serif">
-												{modeParam === "simplified"
-													? result["simplified"]
-													: result["traditional"]}
+												{result[modeParam]}
 											</div>
 											{/* Pinyin */}
 											<div className="pl-2 text-xl inline">
