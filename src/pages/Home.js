@@ -117,12 +117,18 @@ const Home = () => {
 	};
 
 	return (
-		<div className="chinese-serif">
+		<div
+			className={
+				modeParam === "simplified"
+					? "chinese-serif-sc"
+					: "chinese-serif-tc"
+			}
+		>
 			{/* Dark mode toggle */}
 			<div
 				onClick={toggleTheme}
 				checked={theme === "dark"}
-				className="font-semibold shadow-xl chinese-serif pt-1 pb-2 text-2xl px-3 level-6 mx-auto cursor-pointer select-none border-2 border-black bg-white dark:border-gray-700 dark:bg-dark-700"
+				className="font-semibold shadow-xl pt-1 pb-2 text-2xl px-3 level-6 mx-auto cursor-pointer select-none border-2 border-black bg-white dark:border-gray-700 dark:bg-dark-700"
 				style={{ width: "max-content", marginTop: "-2px" }}
 			>
 				{theme === "dark" ? "暗" : "光"}
@@ -143,7 +149,7 @@ const Home = () => {
 					{/* Search form */}
 					<form
 						onSubmit={handleSubmit}
-						className={`chinese-serif outline-none w-full ${
+						className={`outline-none w-full ${
 							searchFocused && isMobile
 								? "fixed block mt-0 top-0 px-0 left-0"
 								: "px-4 md:px-16 "
@@ -154,7 +160,7 @@ const Home = () => {
 								{/* Simplified-traditional toggle */}
 								<div
 									onClick={toggleMode}
-									className={`font-semibold select-none cursor-pointer border-2 text-xl chinese-serif p-2 leading-6 flex-none border-black dark:border-gray-200 bg-black text-white dark:bg-gray-200 dark:text-black`}
+									className={`font-semibold select-none cursor-pointer border-2 text-xl p-2 leading-6 flex-none border-black dark:border-gray-200 bg-black text-white dark:bg-gray-200 dark:text-black`}
 								>
 									{modeParam === "simplified"
 										? "简体"
@@ -162,7 +168,7 @@ const Home = () => {
 								</div>
 								{/* Search input box */}
 								<input
-									className={`text-lg chinese-serif py-2 px-3 outline-none w-full dark:bg-dark-900 border-2 border-black dark:border-gray-200 overflow-x-hidden`}
+									className={`text-lg py-2 px-3 outline-none w-full dark:bg-dark-900 border-2 border-black dark:border-gray-200 overflow-x-hidden`}
 									type="text"
 									placeholder={`Search ${numberWithCommas(
 										118639
@@ -209,7 +215,7 @@ const Home = () => {
 													>
 														<div className="font-semibold leading-4">
 															{/* Result character */}
-															<div className="text-xl inline chinese-serif">
+															<div className="text-xl inline">
 																{
 																	result[
 																		modeParam

@@ -20,9 +20,7 @@ const PinyinCharacter = ({
 				{pinyin}
 			</div>
 			<div
-				className={`chinese-serif ${
-					characterClass ? characterClass : ""
-				}`}
+				className={`${characterClass ? characterClass : ""}`}
 				style={{ fontSize: characterSize, lineHeight: characterSize }}
 			>
 				{character}

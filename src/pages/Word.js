@@ -187,7 +187,13 @@ const Word = () => {
 	const sectionHeaderStyle = `english-serif text-xl font-semibold ${textPrimaryColor}`;
 
 	return (
-		<div className="w-full chinese-serif">
+		<div
+			className={`w-full ${
+				modeParam === "simplified"
+					? "chinese-serif-sc"
+					: "chinese-serif-tc"
+			}`}
+		>
 			{/* Top loading stripe */}
 			<LoadingBar
 				color="#f11946"
@@ -197,7 +203,7 @@ const Word = () => {
 			{/* Word info container */}
 			<div className="w-full text-center pt-16">
 				{/* Word text */}
-				<div className="chinese-serif w-3/4 mx-auto flex justify-center flex-wrap pb-8">
+				<div className="w-3/4 mx-auto flex justify-center flex-wrap pb-8">
 					{getCharacterLength(wordData["word"]) === 1 ? (
 						<PinyinCharacter
 							character={wordData["word"]}
@@ -256,7 +262,7 @@ const Word = () => {
 									key={index}
 								>
 									<div
-										className="inline px-2 text-2xl chinese-serif"
+										className="inline px-2 text-2xl chinese-serif-tc"
 										key={index}
 									>
 										{traditional}
@@ -276,7 +282,7 @@ const Word = () => {
 									key={index}
 								>
 									<div
-										className="inline px-2 text-2xl chinese-serif"
+										className="inline px-2 text-2xl chinese-serif-sc"
 										key={index}
 									>
 										{simplified}
@@ -312,9 +318,7 @@ const Word = () => {
 								>
 									({pinyinify(wordData["pinyin"][index])}){" "}
 								</div>
-								<div
-									className={`chinese-serif inline ${textSecondaryColor}`}
-								>
+								<div className={`inline ${textSecondaryColor}`}>
 									{definition.replace(/\//g, "; ")}
 								</div>
 							</div>
@@ -345,7 +349,7 @@ const Word = () => {
 											<div
 												className={`flex items-center`}
 											>
-												<div className="chinese-serif text-4xl pr-4 leading-8">
+												<div className="text-4xl pr-4 leading-8">
 													{character["word"]}
 												</div>
 
@@ -403,7 +407,7 @@ const Word = () => {
 												<div
 													className={`flex items-center`}
 												>
-													<div className="chinese-serif text-4xl pr-4 leading-8">
+													<div className="text-4xl pr-4 leading-8">
 														{character["word"]}
 													</div>
 
@@ -485,7 +489,7 @@ const Word = () => {
 
 							return (
 								<div className="py-3" key={index}>
-									<div className="chinese-serif text-xl">
+									<div className="text-xl">
 										{sentenceJoin}
 									</div>
 									<div className={textSecondaryColor}>
@@ -584,7 +588,7 @@ const Word = () => {
 											className={`${linkHover} ${linkHoverScale} block bg-white dark:bg-dark-800 dark-hover:bg-dark-800 -ml-4 p-4 -mb-4`}
 										>
 											<div
-												className={`chinese-serif flex flex-wrap text-xl`}
+												className={`flex flex-wrap text-xl`}
 											>
 												{displayWord}
 											</div>
@@ -653,7 +657,7 @@ const Word = () => {
 										className={`${linkHover} ${linkHoverScale} block bg-white dark:bg-dark-800 dark-hover:bg-dark-800 -ml-4 p-4 -mb-4`}
 									>
 										<div
-											className={`chinese-serif flex flex-wrap text-xl`}
+											className={`flex flex-wrap text-xl`}
 										>
 											{displayWord}
 										</div>

@@ -55,11 +55,17 @@ const Results = () => {
 	}, [searchWord, modeParam]);
 
 	return (
-		<div>
+		<div
+			className={
+				modeParam === "simplified"
+					? "chinese-serif-sc"
+					: "chinese-serif-tc"
+			}
+		>
 			{/* Results container */}
-			<div className="w-full md:w-3/4 mx-auto mb-8 english-serif">
+			<div className="w-full md:w-3/4 mx-auto mb-8">
 				{/* Report result count */}
-				<div className="text-2xl mt-12 mb-2 ml-6">
+				<div className="text-2xl mt-12 mb-2 ml-6  english-serif">
 					{results.length} results for "{searchParam}"
 				</div>
 				{/* Render results */}
@@ -80,7 +86,7 @@ const Results = () => {
 									<div className={`px-4 pt-3 pb-2 leading-6`}>
 										<div className="font-semibold">
 											{/* Result character */}
-											<div className="text-2xl inline chinese-serif">
+											<div className="text-2xl inline">
 												{result[modeParam]}
 											</div>
 											{/* Pinyin */}
