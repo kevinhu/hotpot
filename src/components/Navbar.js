@@ -13,6 +13,10 @@ import {
   borderPrimaryColor,
 } from "../themes";
 
+// loading animation
+import BarLoader from "react-spinners/BarLoader";
+import { css } from "@emotion/core";
+
 // other utilities
 import { pinyinify, numberWithCommas } from "../utilities";
 var _ = require("lodash");
@@ -28,6 +32,7 @@ const Navbar = () => {
   var [searchWord, setSearchWord] = useState(""); // current text in search box
   let [results, setResults] = useState([]); // preview search results
   let [searchFocused, setSearchFocused] = useState(false); // if search box is focused
+  let [loading, setLoading] = useState(false); // if search preview is loading
 
   // parse search parameters and get mode
   let queryParams = queryString.parse(location.search);
@@ -49,6 +54,7 @@ const Navbar = () => {
         setResults([]);
         return;
       }
+      setLoading(true);
       fetch(
         `https://hotpot-search.kevinhu.io/.netlify/functions/search?query=${query}&limit=4`
       )
@@ -57,6 +63,7 @@ const Navbar = () => {
         })
         .then((body) => {
           setResults(body);
+          setLoading(false);
         });
     }, 160)
   ).current;
@@ -141,12 +148,12 @@ const Navbar = () => {
       {/* Search form */}
       <form
         onSubmit={handleSubmit}
-        className={`chinese-serif bg-transparent outline-none w-full border-l-2 py-2 border-r-2 ${borderPrimaryColor}`}
+        className={`chinese-serif bg-transparent outline-none w-full border-l-2 border-r-2 ${borderPrimaryColor}`}
       >
         <div className="w-full h-full relative" ref={searchContainer}>
           {/* Search input box */}
           <input
-            className={`px-4 chinese-serif bg-transparent outline-none w-full h-full`}
+            className={`px-4 py-2 chinese-serif bg-transparent outline-none w-full h-full`}
             type="text"
             placeholder={`Search ${numberWithCommas(118639)} words`}
             value={searchWord}
@@ -154,11 +161,25 @@ const Navbar = () => {
             onFocus={() => setSearchFocused(true)}
             onClick={() => {}}
           ></input>
+          {/* Search preview loading animation */}
+          <BarLoader
+            css={css`
+              width: 100%;
+              height: 2px;
+              display: block;
+              margin-bottom: -2px;
+              z-index: 10;
+              background-color: ${theme === "dark" ? "white" : "black"};
+            `}
+            size={"100%"}
+            color={theme === "dark" ? "#c10000" : "#e84a5f"}
+            loading={loading}
+          />
           {/* Render search results */}
           {results.length > 0 && searchWord !== "" && searchFocused && (
             <div
-              className={`mt-2 shadow-lg z-10 absolute text-left bg-white dark:bg-dark-800 box-content border-2 w-full ${borderPrimaryColor}`}
-              style={{ marginLeft: "-2px" }}
+              className={`shadow-lg z-10 absolute text-left bg-white dark:bg-dark-800 box-content border-l-2 border-r-2 border-b-2 w-full ${borderPrimaryColor}`}
+              style={{ marginLeft: "-2px", marginTop: "2px" }}
             >
               {results.map((result, index) => {
                 return (
