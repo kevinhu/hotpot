@@ -124,7 +124,7 @@ const Navbar = () => {
 
   return (
     <div
-      className={`shadow-lg w-full md:w-3/4 flex content-center items-center mx-auto bg-white dark:bg-dark-800 leading-8 border-2 ${borderPrimaryColor} ${
+      className={`shadow-lg w-full md:w-3/4 flex mx-auto bg-white dark:bg-dark-800 leading-8 border-2 ${borderPrimaryColor} ${
         modeParam === "simplified" ? "chinese-serif-sc" : "chinese-serif-tc"
       }`}
       style={{
@@ -132,93 +132,101 @@ const Navbar = () => {
       }}
     >
       {/* Logo and link to home */}
-      <Link
-        to={`/?mode=${modeParam}`}
-        className={`hidden md:block font-semibold english-serif px-6 py-2 red text-2xl`}
-      >
-        hotpot
-      </Link>
+      <div className="h-12">
+        <Link
+          to={`/?mode=${modeParam}`}
+          className={`hidden md:block inline align-middle font-semibold english-serif px-6 py-2 red text-2xl`}
+        >
+          hotpot
+        </Link>
+      </div>
       {/* Simplified-traditional toggle */}
       <div
         onClick={toggleMode}
-        className={`font-semibold flex-none py-auto text-xl px-2 py-2 cursor-pointer select-none md:border-l-2 border-black dark:border-gray-800`}
+        className={`font-semibold table text-xl h-12 px-2 cursor-pointer select-none md:border-l-2 border-black dark:border-gray-800`}
       >
-        <div className={`align-middle ${textPrimaryColor}`}>
+        <div
+          className={`align-middle table-cell whitespace-no-wrap ${textPrimaryColor}`}
+        >
           {modeParam === "simplified" ? "简体" : "繁体"}
         </div>
       </div>
       {/* Search form */}
-      <form
-        onSubmit={handleSubmit}
-        className={`bg-transparent outline-none w-full border-l-2 border-r-2 ${borderPrimaryColor}`}
+      <div
+        className={`border-l-2 border-r-2 w-full h-12 ${borderPrimaryColor}`}
       >
-        <div className="w-full h-full relative" ref={searchContainer}>
-          {/* Search input box */}
-          <input
-            className={`px-4 py-2 bg-transparent outline-none w-full h-full`}
-            type="text"
-            placeholder={`Search ${numberWithCommas(118639)} words`}
-            value={searchWord}
-            onChange={updateSearch}
-            onFocus={() => setSearchFocused(true)}
-            onClick={() => {}}
-          ></input>
-          {/* Search preview loading animation */}
-          <BarLoader
-            css={css`
-              width: 100%;
-              height: 2px;
-              display: block;
-              margin-bottom: -2px;
-              z-index: 10;
-              background-color: ${theme === "dark" ? "white" : "black"};
-            `}
-            size={"100%"}
-            color={theme === "dark" ? "#c10000" : "#e84a5f"}
-            loading={loading}
-          />
-          {/* Render search results */}
-          {results.length > 0 && searchWord !== "" && searchFocused && (
-            <div
-              className={`shadow-lg z-10 absolute text-left bg-white dark:bg-dark-800 box-content border-l-2 border-r-2 border-b-2 w-full ${borderPrimaryColor}`}
-              style={{ marginLeft: "-2px", marginTop: "2px" }}
-            >
-              {results.map((result, index) => {
-                return (
-                  <Link
-                    to={`/word/${result[modeParam]}?mode=${modeParam}`}
-                    onClick={() => setSearchFocused(false)}
-                    className={`${linkHover} ${linkHoverScale} py-2 block bg-white dark:bg-dark-500 dark-hover:bg-dark-800`}
-                    key={index}
-                  >
-                    <div className={`pt-1 px-3`}>
-                      <div className="font-semibold leading-4">
-                        {/* Result character */}
-                        <div className="text-xl inline">
-                          {result[modeParam]}
+        <form
+          onSubmit={handleSubmit}
+          className={`bg-transparent outline-none w-full h-12`}
+        >
+          <div className="w-full h-full relative" ref={searchContainer}>
+            {/* Search input box */}
+            <input
+              className={`px-4 py-2 bg-transparent outline-none w-full h-full`}
+              type="text"
+              placeholder={`Search ${numberWithCommas(118639)} words`}
+              value={searchWord}
+              onChange={updateSearch}
+              onFocus={() => setSearchFocused(true)}
+              onClick={() => {}}
+            ></input>
+            {/* Search preview loading animation */}
+            <BarLoader
+              css={css`
+                width: 100%;
+                height: 2px;
+                display: block;
+                margin-bottom: -2px;
+                z-index: 10;
+                background-color: ${theme === "dark" ? "white" : "black"};
+              `}
+              size={"100%"}
+              color={theme === "dark" ? "#c10000" : "#e84a5f"}
+              loading={loading}
+            />
+            {/* Render search results */}
+            {results.length > 0 && searchWord !== "" && searchFocused && (
+              <div
+                className={`shadow-lg z-10 absolute text-left bg-white dark:bg-dark-800 box-content border-l-2 border-r-2 border-b-2 w-full ${borderPrimaryColor}`}
+                style={{ marginLeft: "-2px", marginTop: "2px" }}
+              >
+                {results.map((result, index) => {
+                  return (
+                    <Link
+                      to={`/word/${result[modeParam]}?mode=${modeParam}`}
+                      onClick={() => setSearchFocused(false)}
+                      className={`${linkHover} ${linkHoverScale} py-2 block bg-white dark:bg-dark-500 dark-hover:bg-dark-800`}
+                      key={index}
+                    >
+                      <div className={`pt-1 px-3`}>
+                        <div className="font-semibold leading-4">
+                          {/* Result character */}
+                          <div className="text-xl inline">
+                            {result[modeParam]}
+                          </div>
+                          {/* Pinyin */}
+                          <div className="pl-2 inline english-serif">
+                            {pinyinify(result["pinyin"])}
+                          </div>
                         </div>
-                        {/* Pinyin */}
-                        <div className="pl-2 inline english-serif">
-                          {pinyinify(result["pinyin"])}
+                        {/* Definition */}
+                        <div className="text-light-500 dark:text-light-700 english-serif leading-4">
+                          {result["definition"]}
                         </div>
                       </div>
-                      {/* Definition */}
-                      <div className="text-light-500 dark:text-light-700 english-serif leading-4">
-                        {result["definition"]}
-                      </div>
-                    </div>
-                  </Link>
-                );
-              })}
-            </div>
-          )}
-        </div>
-      </form>
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </form>
+      </div>
       {/* Dark mode toggle */}
       <div
         onClick={toggleTheme}
         checked={theme === "dark"}
-        className={`font-semibold text-xl p-2 cursor-pointer select-none ${textPrimaryColor}`}
+        className={`font-semibold text-xl h-12 p-2 cursor-pointer select-none ${textPrimaryColor}`}
       >
         {theme === "dark" ? "暗" : "光"}
       </div>
