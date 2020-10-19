@@ -193,8 +193,7 @@ const Home = () => {
 								searchWord !== "" &&
 								searchFocused && (
 									<div
-										className={`shadow-lg z-10 absolute text-left border-2 w-full border-black dark:border-gray-200`}
-										style={{ marginTop: "-2px" }}
+										className={`shadow-lg z-10 absolute text-left border-l-2 border-r-2 border-b-2 w-full border-black dark:border-gray-200`}
 									>
 										{results.map((result, index) => {
 											return (
