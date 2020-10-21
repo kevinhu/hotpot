@@ -9,9 +9,11 @@ Chinese-English dictionaries are essential tools for learning the language. This
 1. Word frequency statistics
 2. Word/character decomposition and etymology
 3. Recommendations for related words
-4. Examples of word usage in sentences along with translations
+4. Examples of word usage in translated sentences
 
 ## How it works
+
+### Dictionary construction
 
 1. Retrieval of source data; performed by [`/dictionary/1_retrieve.py`](https://github.com/kevinhu/hotpot/blob/master/dictionary/1_retrieve.py):
    - Word definitions from [CEDICT](https://www.mdbg.net/chinese/dictionary?page=cedict)
@@ -27,14 +29,23 @@ Chinese-English dictionaries are essential tools for learning the language. This
 6. Computation of words-containing-words through Aho-Corasick on CEDICT; [`/dictionary/6_containing_words.py`](https://github.com/kevinhu/hotpot/blob/master/dictionary/6_containing_words.py)
 7. Computation of related words by using nearest-neighbor search (via [annoy](https://github.com/spotify/annoy)) on FastText vectors; [`/dictionary/7_word2vec_similars.py`](https://github.com/kevinhu/hotpot/blob/master/dictionary/7_fasttext_similars.py)
 8. Unification of previous outputs into single JSON files for each word ready for the frontend, split by simplified and traditional; [`/dictionary/8_unify.py`](https://github.com/kevinhu/hotpot/blob/master/dictionary/8_unify.py)
-9. Construction of an index for client-side search; [`/dictionary/9_client_search.py`](https://github.com/kevinhu/hotpot/blob/master/dictionary/9_client_search.py)
-
-The web client (a standard create-react-app) then takes the JSON files hosted on GitHub to render the entries
+9. Construction of an index for search; [`/dictionary/9_client_search.py`](https://github.com/kevinhu/hotpot/blob/master/dictionary/9_client_search.py)
 
 Considerations:
 
 - Due to the size of the output of step 8, the outputs are hosted in a submodule ([kevinhu/dictionary-files](https://github.com/kevinhu/dictionary-files)) rather than in hotpot itself.
 - The Chinese-English translated sentences are not included in [`/dictionary/1_retrieve.py`](https://github.com/kevinhu/hotpot/blob/master/dictionary/1_retrieve.py) because a Kaggle login is required for download.
+
+### API
+
+The API consists of a single serverless function hosted on Netlify that implements full-text search with [FlexSearch](https://github.com/nextapps-de/flexsearch).
+
+1. We first prepare a FlexSearch index in [`/api/prepare_index.js`](https://github.com/kevinhu/hotpot/blob/master/api/prepare_index.js). This cuts down cold-start times to about a few seconds.
+2. The actual serverless endpoint is then described in [`/api/search.js`](https://github.com/kevinhu/hotpot/blob/master/api/search.js).
+
+### Client
+
+The web client (a standard create-react-app) then takes the JSON files hosted on GitHub to render the entries. It also makes calls to the API for searching.
 
 ## Getting started
 
@@ -43,7 +54,12 @@ Considerations:
 1. Install Python dependencies with `poetry install`
 2. Activate virtual environment with `poetry shell`
 
-### Frontend
+### API
+
+1. Link the repository to your Netlify account and enable continuous deployments.
+2. Change the search paths in the frontend to correct URL.
+
+### Client
 
 1. Install JavaScript dependencies with `yarn install`
 2. Start the client with `yarn start`
