@@ -1,4 +1,6 @@
 # [hotpot](https://hotpot.kevinhu.io)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fkevinhu%2Fhotpot.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fkevinhu%2Fhotpot?ref=badge_shield)
+
 
 A static Chinese-English dictionary entirely hosted on GitHub Pages and Netlify. See it live at [https://hotpot.kevinhu.io](https://hotpot.kevinhu.io/).
 
@@ -67,3 +69,7 @@ The web client (a standard create-react-app) then takes the JSON files hosted on
 
 Note that the scraper and frontend are more or less independent with the exception of the final `.json` output.
 
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fkevinhu%2Fhotpot.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fkevinhu%2Fhotpot?ref=badge_large)
