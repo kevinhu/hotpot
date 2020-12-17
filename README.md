@@ -57,7 +57,7 @@ The web client (a standard create-react-app) then takes the JSON files hosted on
 ### API
 
 1. Link the repository to your Netlify account and enable continuous deployments.
-2. Change the search paths in the frontend to correct URL.
+2. Change the search paths in the frontend to the correct URL.
 
 ### Client
 
