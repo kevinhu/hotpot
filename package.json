@@ -5,7 +5,7 @@
   "homepage": "https://hotpot.kevin.io",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.9",
-    "@testing-library/react": "^11.2.3",
+    "@testing-library/react": "^11.2.4",
     "@testing-library/user-event": "^12.6.2",
     "flexsearch": "^0.6.32",
     "lodash": "^4.17.20",
