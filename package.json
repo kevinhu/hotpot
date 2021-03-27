@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://hotpot.kevin.io",
   "dependencies": {
-    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^13.0.16",
     "flexsearch": "^0.6.32",
