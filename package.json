@@ -7,7 +7,7 @@
     "@testing-library/jest-dom": "^5.13.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^13.1.9",
-    "flexsearch": "^0.6.32",
+    "flexsearch": "^0.7.0",
     "lodash": "^4.17.21",
     "pinyinize": "^3.3.1",
     "query-string": "^7.0.0",
