@@ -51,7 +51,7 @@
     "lint-staged": ">=11",
     "postcss": "^8.3.5",
     "postcss-cli": "^8.3.1",
-    "prettier": "^2.3.1",
+    "prettier": "^2.3.2",
     "tailwindcss": "^2.2.4",
     "tailwindcss-dark-mode": "^1.1.7"
   },
